@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+    <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Teamstand</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <button ion-item *ngFor="let line of teamstand">
+      {{line.Positie}} {{line.Participant.Name}} {{line.TotalTeamScore}}
+    </button>
+  </ion-list>
+</ion-content>
+

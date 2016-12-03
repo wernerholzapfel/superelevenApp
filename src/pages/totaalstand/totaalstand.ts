@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
-import {Totaalstand, deelnemers} from "../../models/totaalstand";
+import {Totaalstand} from "../../models/totaalstand";
 import {TotaalstandProvider} from "../../providers/totaalstandProvider";
 import {TotaalstandDetailsPage} from "../totaalstand-details/totaalstand-details";
 
@@ -9,13 +9,11 @@ import {TotaalstandDetailsPage} from "../totaalstand-details/totaalstand-details
   templateUrl: 'totaalstand.html'
 })
 export class TotaalstandPage {
-  totaalstand: Totaalstand[];
-  deelnemers: deelnemers[];
+  totaalstand: Totaalstand;
   constructor(public navCtrl: NavController, private totaalstandProvider: TotaalstandProvider) {
     totaalstandProvider.load().subscribe(response => {
       console.log(response);
       this.totaalstand = response;
-      // this.deelnemers = this.totaalstand.deelnemers;
     })
   }
 

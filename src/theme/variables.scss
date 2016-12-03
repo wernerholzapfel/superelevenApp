@@ -21,14 +21,18 @@ $colors: (
   primary: #32c5d2,
   secondary: #ffde13,
   danger: #f53d3d,
-  light: #f4f4f4,
-  dark: #222
+  light: #9eacb4,
+  dark: #222,
+  up: limegreen,
+  down: red,
 );
 
 
 .content-md {
   background-color: #f4f4f4 !important;
 }
+
+$content-ios-outer-background : #f4f4f4;
 
 // App iOS Variables
 // --------------------------------------------------

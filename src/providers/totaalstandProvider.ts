@@ -13,8 +13,8 @@ export class TotaalstandProvider {
 
 
   // Load all github totaalstand
-  load(): Observable<Totaalstand[]> {
+  load(): Observable<Totaalstand> {
     return this.http.get(`${this.superElevenApi}/totaalstand`)
-      .map(res => <Totaalstand[]>res.json());
+      .map(res => <Totaalstand>res.json());
   }
 }

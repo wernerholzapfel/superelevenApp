@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {Teamstand} from "../../models/teamstand";
 import {TeamstandProvider} from "../../providers/teamstandprovider";
+import {TeamstandDetailsPage} from "../teamstand-details/teamstand-details";
 
 @Component({
   selector: 'page-organizations',
@@ -15,6 +16,11 @@ export class TeamstandPage {
       this.teamstand = response;
     })
   }
+
+  goToDetails(teamstandregel: any){
+    this.navCtrl.push(TeamstandDetailsPage, {teamstandregel})
+  }
+
   ionViewDidLoad() {
     console.log('Hello teamstand Page');
   }

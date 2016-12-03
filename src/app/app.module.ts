@@ -10,6 +10,7 @@ import { TotaalstandPage } from '../pages/totaalstand/totaalstand';
 import {TotaalstandProvider} from '../providers/totaalstandProvider';
 import {TeamstandProvider} from "../providers/teamstandprovider";
 import {TotaalstandDetailsPage} from "../pages/totaalstand-details/totaalstand-details";
+import {TeamstandDetailsPage} from "../pages/teamstand-details/teamstand-details";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -21,6 +22,7 @@ const cloudSettings: CloudSettings = {
   declarations: [
     MyApp,
     TeamstandPage,
+    TeamstandDetailsPage,
     TotaalstandPage,
     TotaalstandDetailsPage
   ],
@@ -32,6 +34,7 @@ const cloudSettings: CloudSettings = {
   entryComponents: [
     MyApp,
     TeamstandPage,
+    TeamstandDetailsPage,
     TotaalstandPage,
     TotaalstandDetailsPage
   ],

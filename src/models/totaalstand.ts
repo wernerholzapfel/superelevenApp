@@ -1,11 +1,11 @@
 
 export interface Totaalstand {
-  "deelnemers": deelnemers[]
+  "deelnemers": deelnemers[];
 }
 
 export interface deelnemers {
-  // "Name": string;
-  // "RoundId": number;
-  // "Positie": number;
-  // "TotalScore": number;
+  "Name": string;
+  "RoundId": number;
+  "Positie": number;
+  "TotalScore": number;
 }

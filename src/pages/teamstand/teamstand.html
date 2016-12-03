@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="primary">
     <button ion-button icon-only menuToggle>
-    <ion-icon name="menu"></ion-icon>
+      <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Teamstand</ion-title>
   </ion-navbar>
@@ -10,9 +10,25 @@
 
 <ion-content padding>
   <ion-list>
-    <button ion-item *ngFor="let line of teamstand">
-      {{line.Positie}} {{line.Participant.Name}} {{line.TotalTeamScore}}
-    </button>
+    <ion-item color="primary">
+      <ion-row>
+        <ion-col width-10>Pos.</ion-col>
+        <ion-col width-70>Naam</ion-col>
+        <ion-col width-20>Punten</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item text-wrap *ngFor="let line of teamstand; let positie = index" (click)="goToDetails(line)">
+      <ion-row>
+        <ion-col width-10 *ngIf="line?.TotalTeamScore !== teamstand[positie-1]?.TotalTeamScore">
+          {{positie + 1}}
+        </ion-col>
+        <ion-col width-10 *ngIf="line?.TotalTeamScore === teamstand[positie-1]?.TotalTeamScore">
+
+        </ion-col>
+        <ion-col width-70>{{line?.Participant.Name}}</ion-col>
+        <ion-col width-20> {{line?.TotalTeamScore}}</ion-col>
+      </ion-row>
+    </ion-item>
   </ion-list>
 </ion-content>
 

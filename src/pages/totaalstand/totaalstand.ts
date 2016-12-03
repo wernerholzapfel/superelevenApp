@@ -3,6 +3,8 @@ import {NavController} from "ionic-angular";
 import {Totaalstand} from "../../models/totaalstand";
 import {TotaalstandProvider} from "../../providers/totaalstandProvider";
 import {TotaalstandDetailsPage} from "../totaalstand-details/totaalstand-details";
+import {Laatsteupdate} from "../../models/laatsteupdate";
+import {LaatsteupdateProvider} from "../../providers/laatsteupdateprovider";
 
 @Component({
   selector: 'page-totaalstand',
@@ -10,11 +12,18 @@ import {TotaalstandDetailsPage} from "../totaalstand-details/totaalstand-details
 })
 export class TotaalstandPage {
   totaalstand: Totaalstand;
-  constructor(public navCtrl: NavController, private totaalstandProvider: TotaalstandProvider) {
+  laatsteupdate :Laatsteupdate;
+
+  constructor(public navCtrl: NavController, private totaalstandProvider: TotaalstandProvider, private laatsteupdateProvider: LaatsteupdateProvider) {
     totaalstandProvider.load().subscribe(response => {
       console.log(response);
       this.totaalstand = response;
-    })
+    });
+
+    laatsteupdateProvider.load().subscribe(response => {
+      console.log(response);
+      this.laatsteupdate = response;
+    });
   }
 
   goToDetails(totaalstandregel: any){

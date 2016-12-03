@@ -3,7 +3,9 @@
     <button ion-button icon-only menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Teamstand</ion-title>
+    <ion-title>Teamstand
+      {{laatsteupdate?.updatedAt | date:'dd/MM HH:mm'}}
+    </ion-title>
   </ion-navbar>
 </ion-header>
 

@@ -11,6 +11,7 @@ import {TotaalstandProvider} from '../providers/totaalstandProvider';
 import {TeamstandProvider} from "../providers/teamstandprovider";
 import {TotaalstandDetailsPage} from "../pages/totaalstand-details/totaalstand-details";
 import {TeamstandDetailsPage} from "../pages/teamstand-details/teamstand-details";
+import {LaatsteupdateProvider} from "../providers/laatsteupdateprovider";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -38,6 +39,6 @@ const cloudSettings: CloudSettings = {
     TotaalstandPage,
     TotaalstandDetailsPage
   ],
-  providers: [TotaalstandProvider,TeamstandProvider]
+  providers: [TotaalstandProvider,TeamstandProvider,LaatsteupdateProvider]
 })
 export class AppModule {}

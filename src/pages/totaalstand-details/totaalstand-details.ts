@@ -6,10 +6,10 @@ import {NavController, NavParams} from 'ionic-angular';
   templateUrl: 'totaalstand-details.html'
 })
 export class TotaalstandDetailsPage {
-  login: string;
+  totaalstandregel: any;
 
   constructor(public navCtrl: NavController, private navParams: NavParams) {
-    this.login = navParams.get('login');
+    this.totaalstandregel = navParams.get('totaalstandregel');
   }
 
   ionViewDidLoad() {

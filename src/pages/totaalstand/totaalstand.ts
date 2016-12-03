@@ -19,8 +19,8 @@ export class TotaalstandPage {
     })
   }
 
-  goToDetails(login: string){
-    this.navCtrl.push(TotaalstandDetailsPage, {login})
+  goToDetails(totaalstandregel: any){
+    this.navCtrl.push(TotaalstandDetailsPage, {totaalstandregel})
   }
   ionViewDidLoad() {
     console.log('Hello totaalstandPage Page');

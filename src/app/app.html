@@ -1,14 +1,14 @@
 <ion-menu [content]="content">
 
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="primary">
       <ion-title>Super Eleven</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-list>
-      <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button ion-item *ngFor="let p of pages" (click)="openPage(p)" color="light">
         {{p.title}}
       </button>
     </ion-list>

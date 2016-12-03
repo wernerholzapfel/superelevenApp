@@ -6,13 +6,40 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>{{login}} totaalstand-details</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>{{totaalstandregel.Name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-<h3> user details view</h3>
+<ion-content padding color="light">
+  <ion-card color="primary">
+
+    <ion-card-content>
+      {{totaalstandregel.Name}} staat {{totaalstandregel.Positie}}e met {{totaalstandregel.TotalScore}} punten <br>
+      <h5>Team: {{totaalstandregel.TotalTeamScore}} -
+        Wedstrijden: {{totaalstandregel.TotalMatchesScore}} -
+        Vragen: {{totaalstandregel.TotalQuestionsScore}}
+      </h5>
+    </ion-card-content>
+
+  </ion-card>
+
+  <ion-card>
+
+    <ion-card-content>
+      <ion-row>
+        <ion-col width-50>Naam</ion-col>
+        <ion-col width-50>Totaal</ion-col>
+      </ion-row>
+      <ion-row *ngFor="let line of totaalstandregel.TeamScores">
+        <ion-col width-50>{{line.Name}}</ion-col>
+        <ion-col width-50>{{line.TotalScore}}</ion-col>
+      </ion-row>
+    </ion-card-content>
+
+  </ion-card>
+
 </ion-content>
+

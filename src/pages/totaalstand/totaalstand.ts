@@ -12,7 +12,7 @@ import {LaatsteupdateProvider} from "../../providers/laatsteupdateprovider";
 })
 export class TotaalstandPage {
   totaalstand: Totaalstand;
-  laatsteupdate :Laatsteupdate;
+  laatsteupdate: Laatsteupdate;
 
   constructor(public navCtrl: NavController, private totaalstandProvider: TotaalstandProvider, private laatsteupdateProvider: LaatsteupdateProvider) {
     totaalstandProvider.load().subscribe(response => {
@@ -26,9 +26,22 @@ export class TotaalstandPage {
     });
   }
 
-  goToDetails(totaalstandregel: any){
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+    this.totaalstandProvider.load().subscribe(response => {
+      this.totaalstand = response;
+    });
+    this.laatsteupdateProvider.load().subscribe(response => {
+      console.log(response);
+      this.laatsteupdate = response;
+    });
+    refresher.complete();
+  }
+
+  goToDetails(totaalstandregel: any) {
     this.navCtrl.push(TotaalstandDetailsPage, {totaalstandregel})
   }
+
   ionViewDidLoad() {
     console.log('Hello totaalstandPage Page');
   }

@@ -6,14 +6,14 @@
 -->
 <ion-header>
 
-  <ion-navbar color="primary">
+  <ion-navbar ion-text color="primary">
     <ion-title>{{totaalstandregel.Name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding color="light">
+<ion-content ion-text padding color="light">
   <ion-list>
     <ion-item color="primary">
       {{totaalstandregel.Name}} staat {{totaalstandregel.Positie}}e met {{totaalstandregel.TotalScore}} punten <br>
@@ -40,7 +40,7 @@
         </ion-col>
         <ion-col width-60>
           {{line.Name}}
-        <span color="light">({{line.Position}})</span></ion-col>
+        <span ion-text color="light">({{line.Position}})</span></ion-col>
         <ion-col width-20>{{line.TotalScore}}</ion-col>
       </ion-row>
     </ion-item>

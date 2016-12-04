@@ -1,33 +1,34 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <button ion-button icon-only menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
+  <ion-navbar ion-text color="primary">
     <ion-title>Teamstand
-      {{laatsteupdate?.updatedAt | date:'dd/MM HH:mm'}}
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="Laatste update {{laatsteupdate?.updatedAt | date:'dd/MM HH:mm'}}">
+
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-list>
     <ion-item color="primary">
       <ion-row>
-        <ion-col width-10>Pos.</ion-col>
-        <ion-col width-70>Naam</ion-col>
+        <ion-col width-20>Pos.</ion-col>
+        <ion-col width-60>Naam</ion-col>
         <ion-col width-20>Punten</ion-col>
       </ion-row>
     </ion-item>
     <ion-item text-wrap *ngFor="let line of teamstand; let positie = index" (click)="goToDetails(line)">
       <ion-row>
-        <ion-col width-10 *ngIf="line?.TotalTeamScore !== teamstand[positie-1]?.TotalTeamScore">
+        <ion-col width-20 *ngIf="line?.TotalTeamScore !== teamstand[positie-1]?.TotalTeamScore">
           {{positie + 1}}
         </ion-col>
-        <ion-col width-10 *ngIf="line?.TotalTeamScore === teamstand[positie-1]?.TotalTeamScore">
+        <ion-col width-20 *ngIf="line?.TotalTeamScore === teamstand[positie-1]?.TotalTeamScore">
 
         </ion-col>
-        <ion-col width-70>{{line?.Participant.Name}}</ion-col>
+        <ion-col width-60>{{line?.Participant.Name}}</ion-col>
         <ion-col width-20> {{line?.TotalTeamScore}}</ion-col>
       </ion-row>
     </ion-item>

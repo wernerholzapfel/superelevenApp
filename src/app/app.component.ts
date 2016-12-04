@@ -14,7 +14,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make UsersPage the root (or first) page
-  rootPage: any = TotaalstandPage;
+  rootPage: any = TeamstandPage;
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform,  public menu: MenuController) {

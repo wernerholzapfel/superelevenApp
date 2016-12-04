@@ -16,10 +16,14 @@ export class TeamstandPage {
   constructor(public navCtrl: NavController,
               private teamstandProvider: TeamstandProvider,
               private laatsteupdateProvider : LaatsteupdateProvider) {
-    teamstandProvider.load().subscribe(response => {
-      console.log(response);
-      this.teamstand = response;
+    teamstandProvider.getLatestRound().subscribe(speelRondes => {
+
+      teamstandProvider.getTeamstand(speelRondes[speelRondes.length-1].RoundId).subscribe(response => {
+        console.log(response);
+        this.teamstand = response;
+      });
     });
+
     laatsteupdateProvider.load().subscribe(response => {
       console.log(response);
       this.laatsteupdate = response;

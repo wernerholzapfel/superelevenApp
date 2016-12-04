@@ -13,6 +13,8 @@ import {TotaalstandDetailsPage} from "../pages/totaalstand-details/totaalstand-d
 import {TeamstandDetailsPage} from "../pages/teamstand-details/teamstand-details";
 import {LaatsteupdateProvider} from "../providers/laatsteupdateprovider";
 import {TabsPage} from "../pages/tabs/tabs";
+import {Homepageprovider} from "../providers/homepageprovider";
+import {HomePage} from "../pages/home/home";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -27,7 +29,8 @@ const cloudSettings: CloudSettings = {
     TeamstandDetailsPage,
     TotaalstandPage,
     TotaalstandDetailsPage,
-    TabsPage
+    TabsPage,
+    HomePage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -40,8 +43,9 @@ const cloudSettings: CloudSettings = {
     TeamstandDetailsPage,
     TotaalstandPage,
     TotaalstandDetailsPage,
-    TabsPage
+    TabsPage,
+    HomePage
   ],
-  providers: [TotaalstandProvider,TeamstandProvider,LaatsteupdateProvider]
+  providers: [TotaalstandProvider,TeamstandProvider,LaatsteupdateProvider,Homepageprovider]
 })
 export class AppModule {}

@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar ion-text color="primary">
+    <ion-title>
+      Super Eleven
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card color="secondary">
+    <ion-card-content>
+      <h1>
+        Voor het laatst geupdate
+        {{laatsteupdate?.updatedAt | date:'dd MMMM HH:mm'}}
+      </h1>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card color="secondary">
+    <ion-card-content>
+      <h1>Nummer 1 totaalstand met {{nummereentotaalstand?.TotalScore}} punten
+        {{nummereentotaalstand?.Name}}
+      </h1>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card color="secondary">
+    <ion-card-content>
+      <h1> Beste team in ronde {{nummereenteamstandlaatsteronde?.RoundId}} met
+        {{nummereenteamstandlaatsteronde?.TotalTeamScore}} punten
+        {{nummereenteamstandlaatsteronde?.Participant.Name}}</h1>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+

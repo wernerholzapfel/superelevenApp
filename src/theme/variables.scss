@@ -18,8 +18,8 @@
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary: #32c5d2,
-  secondary: #ffde13,
+  primary: #fff,
+  secondary: #32c5d2,
   danger: #f53d3d,
   light: #9eacb4,
   dark: #222,
@@ -28,8 +28,9 @@ $colors: (
 );
 
 
-.content-md {
+.fixed-content{
   background-color: #f4f4f4 !important;
+
 }
 
 $content-ios-outer-background : #f4f4f4;

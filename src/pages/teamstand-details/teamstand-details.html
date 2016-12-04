@@ -6,21 +6,21 @@
 -->
 <ion-header>
 
-  <ion-navbar  ion-text color="primary">
+  <ion-navbar  ion-text color="secondary">
     <ion-title>{{teamstandregel.Participant.Name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-<ion-content padding ion-text color="light">
+<ion-content>
   <ion-list>
-  <ion-item text-nowrap color="primary">
+  <ion-item text-nowrap>
       {{teamstandregel.Participant.Name}} heeft {{teamstandregel.TotalTeamScore}} punten gehaald.
   </ion-item>
   </ion-list>
 
   <ion-list>
-    <ion-item>
+    <ion-item color="secondary">
       <ion-row>
         <ion-col width-20>Club</ion-col>
         <ion-col width-60 class="item-text-wrap">Naam</ion-col>

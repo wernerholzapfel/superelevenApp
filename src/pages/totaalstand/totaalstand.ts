@@ -35,7 +35,11 @@ export class TotaalstandPage {
       console.log(response);
       this.laatsteupdate = response;
     });
-    refresher.complete();
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 1500);
   }
 
   goToDetails(totaalstandregel: any) {

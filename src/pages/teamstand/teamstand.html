@@ -8,8 +8,11 @@
 
 <ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingText="Laatste update {{laatsteupdate?.updatedAt | date:'dd/MM HH:mm'}}">
-
+    <ion-refresher-content
+      pullingText="Laatste update {{laatsteupdate?.updatedAt | date:'dd/MM HH:mm'}}"
+      pullingIcon="arrow-dropdown"
+      refreshingSpinner="circles"
+      refreshingText="Gegevens aan het ophalen">
     </ion-refresher-content>
   </ion-refresher>
   <ion-card>

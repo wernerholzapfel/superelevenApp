@@ -8,7 +8,7 @@
 
 <ion-content>
   <ion-card>
-    <ion-card-content>
+    <ion-card-content ion-text color="secondary" >
       <h1>
         Voor het laatst geupdate
         {{laatsteupdate?.updatedAt | date:'dd MMMM HH:mm'}}
@@ -18,7 +18,7 @@
 
 
   <ion-card>
-    <ion-card-content>
+    <ion-card-content ion-text color="secondary" >
       <h1>Nummer 1 totaalstand met {{nummereentotaalstand?.TotalScore}} punten
         {{nummereentotaalstand?.Name}}
       </h1>
@@ -26,7 +26,7 @@
   </ion-card>
 
   <ion-card>
-    <ion-card-content>
+    <ion-card-content ion-text color="secondary" >
       <h1> Beste team in ronde {{nummereenteamstandlaatsteronde?.RoundId}} met
         {{nummereenteamstandlaatsteronde?.TotalTeamScore}} punten
         {{nummereenteamstandlaatsteronde?.Participant.Name}}</h1>

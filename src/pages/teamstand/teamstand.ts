@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {Component} from "@angular/core";
+import {NavController} from "ionic-angular";
 import {Teamstand} from "../../models/teamstand";
 import {TeamstandProvider} from "../../providers/teamstandprovider";
 import {TeamstandDetailsPage} from "../teamstand-details/teamstand-details";
@@ -13,12 +13,13 @@ import {Laatsteupdate} from "../../models/laatsteupdate";
 export class TeamstandPage {
   teamstand: Teamstand[];
   laatsteupdate: Laatsteupdate;
+
   constructor(public navCtrl: NavController,
               private teamstandProvider: TeamstandProvider,
-              private laatsteupdateProvider : LaatsteupdateProvider) {
+              private laatsteupdateProvider: LaatsteupdateProvider) {
     teamstandProvider.getLatestRound().subscribe(speelRondes => {
 
-      teamstandProvider.getTeamstand(speelRondes[speelRondes.length-1].RoundId).subscribe(response => {
+      teamstandProvider.getTeamstand(speelRondes[speelRondes.length - 1].RoundId).subscribe(response => {
         console.log(response);
         this.teamstand = response;
       });
@@ -35,7 +36,7 @@ export class TeamstandPage {
 
     this.teamstandProvider.getLatestRound().subscribe(speelRondes => {
 
-      this.teamstandProvider.getTeamstand(speelRondes[speelRondes.length-1].RoundId).subscribe(response => {
+      this.teamstandProvider.getTeamstand(speelRondes[speelRondes.length - 1].RoundId).subscribe(response => {
         console.log(response);
         this.teamstand = response;
       });
@@ -45,10 +46,14 @@ export class TeamstandPage {
       console.log(response);
       this.laatsteupdate = response;
     });
-    refresher.complete();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 1500);
+
   }
 
-  goToDetails(teamstandregel: any){
+  goToDetails(teamstandregel: any) {
     this.navCtrl.push(TeamstandDetailsPage, {teamstandregel})
   }
 

@@ -1,9 +1,3 @@
-<!--
-  Generated template for the TotaalstandDetails page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar ion-text color="primary">
@@ -12,10 +6,9 @@
 
 </ion-header>
 
-
 <ion-content>
   <ion-card>
-    <ion-item>
+    <ion-item text-wrap>
       {{totaalstandregel.Name}} staat {{totaalstandregel.Positie}}e met {{totaalstandregel.TotalScore}} punten <br>
       <h5>Team: {{totaalstandregel.TotalTeamScore}} -
         Wedstrijden: {{totaalstandregel.TotalMatchesScore}} -
@@ -28,23 +21,73 @@
     <ion-item color="secondary">
       <ion-row>
         <ion-col width-20>Club</ion-col>
-        <ion-col width-60>Naam
+        <ion-col width-50>Naam
         </ion-col>
-        <ion-col width-20>Totaal</ion-col>
+        <ion-col width-30>Totaal</ion-col>
       </ion-row>
     </ion-item>
-    <ion-item text-wrap *ngFor="let line of totaalstandregel.TeamScores">
+    <ion-item text-wrap *ngFor="let line of totaalstandregel.TeamScores" (click)="toggleDetails(line)">
+      <ion-icon *ngIf="!line.showDetails" color="primary" item-right name="ios-add-circle-outline"></ion-icon>
+      <ion-icon *ngIf="line.showDetails" color="primary" item-right name="ios-remove-circle-outline"></ion-icon>
       <ion-row>
         <ion-col width-20>
           <img class="clubicon" [src]="'assets/clubicons/'+ line.Team + '.png'">
         </ion-col>
-        <ion-col width-60>
-          {{line.Name}}
-        <span ion-text color="light">({{line.Position}})</span></ion-col>
-        <ion-col width-20>{{line.TotalScore}}</ion-col>
+        <ion-col width-60>{{line.Name}}
+          <span ion-text color="secondary">({{line.Position}})</span>
+          <span ion-text color="secondary" *ngIf="line.Captain">(C)</span>
+
+        </ion-col>
+        <ion-col width-20>{{line.TotalScore}}
+
+        </ion-col>
+
+      </ion-row>
+      <ion-row *ngIf="line.showDetails">
+        <ion-col width-20></ion-col>
+        <ion-col>Gespeeld</ion-col>
+        <ion-col width-20> {{line.Played}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="line.showDetails">
+        <ion-col width-20></ion-col>
+        <ion-col>Gewonnen</ion-col>
+        <ion-col width-20> {{line.Won}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="line.showDetails">
+        <ion-col width-20></ion-col>
+        <ion-col>Gelijk</ion-col>
+        <ion-col width-20> {{line.Draw}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="line.showDetails">
+        <ion-col width-20></ion-col>
+        <ion-col>De nul</ion-col>
+        <ion-col width-20> {{line.CleanSheetScore}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="line.showDetails">
+        <ion-col width-20></ion-col>
+        <ion-col>Assist</ion-col>
+        <ion-col width-20> {{line.Assist}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="line.showDetails">
+        <ion-col width-20></ion-col>
+        <ion-col>Doelpunten</ion-col>
+        <ion-col width-20> {{line.Goals}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="line.showDetails">
+        <ion-col width-20></ion-col>
+        <ion-col>Eigen goal</ion-col>
+        <ion-col width-20> {{line.OwnGoals}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="line.showDetails">
+        <ion-col width-20></ion-col>
+        <ion-col>Geel</ion-col>
+        <ion-col width-20> {{line.YellowCard}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="line.showDetails">
+        <ion-col width-20></ion-col>
+        <ion-col>Rood</ion-col>
+        <ion-col width-20> {{line.RedCard}}</ion-col>
       </ion-row>
     </ion-item>
   </ion-card>
-
-
 </ion-content>

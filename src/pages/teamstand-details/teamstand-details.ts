@@ -11,6 +11,16 @@ export class TeamstandDetailsPage {
     this.teamstandregel = navParams.get('teamstandregel');
   }
 
+  toggleDetails(line) {
+    if (line.showDetails) {
+      line.showDetails = false;
+      // data.icon = 'ios-add-circle-outline';
+    } else {
+      line.showDetails = true;
+      // data.icon = 'ios-remove-circle-outline';
+    }
+  }
+
   ionViewDidLoad() {
     console.log('Hello TeamstandDetailsPage Page');
   }

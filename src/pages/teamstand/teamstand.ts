@@ -32,6 +32,7 @@ export class TeamstandPage {
 
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
+
     this.teamstandProvider.getLatestRound().subscribe(speelRondes => {
 
       this.teamstandProvider.getTeamstand(speelRondes[speelRondes.length-1].RoundId).subscribe(response => {

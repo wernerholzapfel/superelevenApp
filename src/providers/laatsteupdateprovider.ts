@@ -11,7 +11,6 @@ export class LaatsteupdateProvider {
   constructor(public http: Http) {
   }
 
-//todo get latest roundId
   load(): Observable<Laatsteupdate> {
     return this.http.get(`${this.superElevenApi}/laatsteupdate`)
       .map(res => <Laatsteupdate>res.json());

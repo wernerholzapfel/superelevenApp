@@ -14,7 +14,7 @@
 
 
 <ion-content>
-  <ion-list>
+  <ion-card>
     <ion-item>
       {{totaalstandregel.Name}} staat {{totaalstandregel.Positie}}e met {{totaalstandregel.TotalScore}} punten <br>
       <h5>Team: {{totaalstandregel.TotalTeamScore}} -
@@ -22,9 +22,9 @@
         Vragen: {{totaalstandregel.TotalQuestionsScore}}
       </h5>
     </ion-item>
-  </ion-list>
+  </ion-card>
 
-  <ion-list>
+  <ion-card>
     <ion-item color="secondary">
       <ion-row>
         <ion-col width-20>Club</ion-col>
@@ -44,7 +44,7 @@
         <ion-col width-20>{{line.TotalScore}}</ion-col>
       </ion-row>
     </ion-item>
-  </ion-list>
+  </ion-card>
 
 
 </ion-content>

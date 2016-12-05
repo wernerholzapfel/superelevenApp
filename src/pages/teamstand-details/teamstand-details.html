@@ -6,20 +6,20 @@
 -->
 <ion-header>
 
-  <ion-navbar  ion-text color="secondary">
+  <ion-navbar  ion-text color="primary">
     <ion-title>{{teamstandregel.Participant.Name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
-  <ion-list>
-  <ion-item text-nowrap>
+  <ion-card>
+  <ion-item>
       {{teamstandregel.Participant.Name}} heeft {{teamstandregel.TotalTeamScore}} punten gehaald.
   </ion-item>
-  </ion-list>
+  </ion-card>
 
-  <ion-list>
+  <ion-card>
     <ion-item color="secondary">
       <ion-row>
         <ion-col width-20>Club</ion-col>
@@ -38,5 +38,5 @@
       <ion-col width-20>{{line.TotalScore}}</ion-col>
     </ion-row>
   </ion-item>
-  </ion-list>
+  </ion-card>
 </ion-content>

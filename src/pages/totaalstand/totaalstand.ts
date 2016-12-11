@@ -10,6 +10,7 @@ import {LaatsteupdateProvider} from "../../providers/laatsteupdateprovider";
   selector: 'page-totaalstand',
   templateUrl: 'totaalstand.html'
 })
+
 export class TotaalstandPage {
   totaalstand: Totaalstand;
   laatsteupdate: Laatsteupdate;

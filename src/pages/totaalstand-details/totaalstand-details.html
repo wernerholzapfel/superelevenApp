@@ -26,7 +26,8 @@
         <ion-col width-30>Totaal</ion-col>
       </ion-row>
     </ion-item>
-    <ion-item text-wrap *ngFor="let line of totaalstandregel.TeamScores" (click)="toggleDetails(line)">
+    <ion-item text-wrap *ngFor="let line of totaalstandregel.TeamScores | orderBy :['Id']"
+              (click)="toggleDetails(line)">
       <ion-icon *ngIf="!line.showDetails" color="primary" item-right name="ios-add-circle-outline"></ion-icon>
       <ion-icon *ngIf="line.showDetails" color="primary" item-right name="ios-remove-circle-outline"></ion-icon>
       <ion-row>
@@ -35,8 +36,7 @@
         </ion-col>
         <ion-col width-60>{{line.Name}}
           <span ion-text color="secondary">({{line.Position}})</span>
-          <span ion-text color="secondary" *ngIf="line.Captain">(C)</span>
-
+          <ion-icon *ngIf="line.Captain" color="primary" name="md-star"></ion-icon>
         </ion-col>
         <ion-col width-20>{{line.TotalScore}}
 

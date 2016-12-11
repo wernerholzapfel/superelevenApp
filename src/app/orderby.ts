@@ -5,7 +5,7 @@
  *		Multidimensional Array Sort on multiple columns: *ngFor="#todo of todoService.todos | orderBy : ['status', '-title']"
  */
 
-import {Pipe} from 'angular2/core';
+import {Pipe} from '@angular/core';
 import {PipeTransform} from "@angular/core";
 
 @Pipe({name: 'orderBy', pure: false})

@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import {Nummereentotaalstand} from "../../models/nummereentotaalstand";
 import {Homepageprovider} from "../../providers/homepageprovider";
 import {LaatsteupdateProvider} from "../../providers/laatsteupdateprovider";
-import {Laatsteupdate} from "../../../.tmp/models/laatsteupdate";
+import {Laatsteupdate} from "../../models/laatsteupdate";
 import {Nummereenteamstandlaatsteronde} from "../../models/Nummereenteamstandlaatsteronde";
 
 /*

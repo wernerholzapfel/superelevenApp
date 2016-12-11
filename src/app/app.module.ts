@@ -15,6 +15,7 @@ import {LaatsteupdateProvider} from "../providers/laatsteupdateprovider";
 import {TabsPage} from "../pages/tabs/tabs";
 import {Homepageprovider} from "../providers/homepageprovider";
 import {HomePage} from "../pages/home/home";
+import {OrderBy} from "./orderby";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -30,7 +31,8 @@ const cloudSettings: CloudSettings = {
     TotaalstandPage,
     TotaalstandDetailsPage,
     TabsPage,
-    HomePage
+    HomePage,
+    OrderBy
   ],
   imports: [
     IonicModule.forRoot(MyApp),

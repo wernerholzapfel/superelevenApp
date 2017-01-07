@@ -3,39 +3,50 @@
     <img height="74px" [src]="'assets/icon/logo_white.png'">
     <ion-buttons end>
       <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
-        <ion-icon name="menu" ></ion-icon>
+        <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-
-
-  <ion-card>
-    <ion-card-content ion-text color="primary">
-      <h1>
-        Voor het laatst geüpdated
+  <ion-card color="secondary" *ngIf="laatsteupdate?.updatedAt">
+    <ion-card-content ion-text>
+      <h2>
+        Voor het laatst geüpdated op
         {{laatsteupdate?.updatedAt | date:'dd MMMM HH:mm'}}
-      </h1>
+      </h2>
     </ion-card-content>
   </ion-card>
 
 
-  <ion-card>
-    <ion-card-content ion-text color="primary">
-      <h1>Nummer 1 totaalstand met {{nummereentotaalstand?.TotalScore}} punten
+  <ion-card color="secondary" *ngIf="nummereentotaalstand?.TotalScore">
+    <ion-card-content ion-text>
+      <h2>Nummer 1 totaalstand met {{nummereentotaalstand?.TotalScore}} punten:
+      </h2>
+      <h1>
         {{nummereentotaalstand?.Name}}
       </h1>
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
-    <ion-card-content ion-text color="primary">
-      <h1> Beste team in ronde {{nummereenteamstandlaatsteronde?.RoundId}} met
-        {{nummereenteamstandlaatsteronde?.TotalTeamScore}} punten
+  <ion-card color="secondary" *ngIf="nummereenteamstandlaatsteronde?.RoundId">
+    <ion-card-content ion-text>
+      <h2> Beste team in ronde {{nummereenteamstandlaatsteronde?.RoundId}} met
+        {{nummereenteamstandlaatsteronde?.TotalTeamScore}} punten: </h2>
+      <h1>
         {{nummereenteamstandlaatsteronde?.Participant.Name}}</h1>
     </ion-card-content>
   </ion-card>
+
+  <ion-card *ngIf="headline?.content">
+    <ion-card-header color="primary">
+      {{headline?.createdAt | date:'dd MMMM HH:mm' }}
+    </ion-card-header>
+    <ion-card-content ion-text color="primary">
+      {{headline?.content}}
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
 

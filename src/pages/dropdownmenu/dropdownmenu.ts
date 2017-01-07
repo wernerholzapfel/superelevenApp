@@ -29,7 +29,6 @@ export class DropdownmenuPage {
 
   openTeamstand() {
     this.navCtrl.push(TeamstandPage)
-
   }
 
   openTotaalstand() {

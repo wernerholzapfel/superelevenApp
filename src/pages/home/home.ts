@@ -7,7 +7,7 @@ import {Laatsteupdate} from "../../models/laatsteupdate";
 import {Nummereenteamstandlaatsteronde} from "../../models/Nummereenteamstandlaatsteronde";
 import {Subscription} from "rxjs";
 import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
-
+import {Headlines} from "../../models/headlines"
 /*
  Generated class for the Home page.
 
@@ -24,7 +24,9 @@ export class HomePage {
   nummereenteamstandlaatsteronde: Nummereenteamstandlaatsteronde;
   nummereentotaalstandSub: Subscription;
   nummereenteamstandlaatsterondeSub: Subscription;
+  headline : Headlines;
   LaatsteupdateSub: Subscription;
+  headlinesSub: Subscription;
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
@@ -51,13 +53,18 @@ export class HomePage {
       this.laatsteupdate = response;
     });
 
+    this.headlinesSub = this.homepageProvider.getheadlines().subscribe(response => {
+      console.log(response);
+      this.headline = response[0]
+    })
 
   }
 
   ionViewWillLeave() {
-    this.nummereentotaalstandSub.unsubscribe;
-    this.nummereenteamstandlaatsterondeSub.unsubscribe;
-    this.LaatsteupdateSub.unsubscribe;
+    this.nummereentotaalstandSub.unsubscribe();
+    this.nummereenteamstandlaatsterondeSub.unsubscribe();
+    this.LaatsteupdateSub.unsubscribe();
+    this.headlinesSub.unsubscribe()
   }
 
   ionViewDidLoad() {

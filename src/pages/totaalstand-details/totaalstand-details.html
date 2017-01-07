@@ -91,7 +91,7 @@
         <ion-col width-20> {{line.RedCard}}</ion-col>
       </ion-row>
     </ion-item>
-    <ion-item text-wrap *ngFor="let line of totaalstandregel.TeamScores | orderBy : ['RoundId','Id'] | take : totaalstandregel.TeamScores.length - 11" (click)="toggleDetails(line)">
+     <ion-item  text-wrap *ngFor="let line of totaalstandregel.TeamScores | orderBy : ['RoundId','Id'] | take : totaalstandregel.TeamScores.length - 11" (click)="toggleDetails(line)">
       <ion-icon *ngIf="!line.showDetails" color="light" item-right name="ios-add-circle-outline"></ion-icon>
       <ion-icon *ngIf="line.showDetails" color="light" item-right name="ios-remove-circle-outline"></ion-icon>
       <ion-row>
@@ -152,5 +152,6 @@
         <ion-col width-20> {{line.RedCard}}</ion-col>
       </ion-row>
     </ion-item>
+
   </ion-card>
 </ion-content>

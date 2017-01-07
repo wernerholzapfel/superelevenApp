@@ -13,9 +13,10 @@
   <ion-card color="secondary" *ngIf="laatsteupdate?.updatedAt">
     <ion-card-content ion-text>
       <h2>
-        Voor het laatst geüpdated op
+        Voor het laatst geüpdated op: </h2>
+      <h1>
         {{laatsteupdate?.updatedAt | date:'dd MMMM HH:mm'}}
-      </h2>
+      </h1>
     </ion-card-content>
   </ion-card>
 

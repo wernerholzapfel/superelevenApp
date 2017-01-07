@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController} from "ionic-angular";
+import {NavController, ViewController} from "ionic-angular";
 import {HomePage} from "../home/home";
 import {TeamstandPage} from "../teamstand/teamstand";
 import {TotaalstandPage} from "../totaalstand/totaalstand";
@@ -16,7 +16,8 @@ import {TotaalstandPage} from "../totaalstand/totaalstand";
 })
 export class DropdownmenuPage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,
+  public viewCtrl : ViewController) {
   }
 
   ionViewDidLoad() {
@@ -24,14 +25,17 @@ export class DropdownmenuPage {
   }
 
   openHome() {
+    this.viewCtrl.dismiss()
     this.navCtrl.push(HomePage)
   }
 
   openTeamstand() {
+    this.viewCtrl.dismiss()
     this.navCtrl.push(TeamstandPage)
   }
 
   openTotaalstand() {
+    this.viewCtrl.dismiss()
     this.navCtrl.push(TotaalstandPage)
   }
 }

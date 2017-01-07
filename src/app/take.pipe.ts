@@ -12,6 +12,6 @@ export class TakePipe implements PipeTransform {
       return input;
     }
 
-    return input.slice(0, quantity || 1);
+    return input.slice(0, quantity || 0);
   }
 }

@@ -1,24 +1,27 @@
 <ion-header>
-
-  <ion-navbar ion-text color="primary">
-    <ion-title>{{totaalstandregel.Name}}</ion-title>
+  <ion-navbar class="mynavbar" ion-text color="white">
+    <img height="74px" [src]="'assets/icon/logo_white.png'">
+    <!--<ion-buttons end>-->
+      <!--<button color="secondary" ion-button icon-only>-->
+        <!--<ion-icon name="menu"></ion-icon>-->
+      <!--</button>-->
+    <!--</ion-buttons>-->
   </ion-navbar>
+  <ion-row>
+
+  <ion-item text-wrap color="secondary">
+    {{totaalstandregel.Name}} staat {{totaalstandregel.Positie}}e met {{totaalstandregel.TotalScore}} punten <br>
+    <h5>Team: {{totaalstandregel.TotalTeamScore}} -
+      Wedstrijden: {{totaalstandregel.TotalMatchesScore}} -
+      Vragen: {{totaalstandregel.TotalQuestionsScore}}
+    </h5>
+  </ion-item>  </ion-row>
 
 </ion-header>
 
 <ion-content>
   <ion-card>
-    <ion-item text-wrap>
-      {{totaalstandregel.Name}} staat {{totaalstandregel.Positie}}e met {{totaalstandregel.TotalScore}} punten <br>
-      <h5>Team: {{totaalstandregel.TotalTeamScore}} -
-        Wedstrijden: {{totaalstandregel.TotalMatchesScore}} -
-        Vragen: {{totaalstandregel.TotalQuestionsScore}}
-      </h5>
-    </ion-item>
-  </ion-card>
-
-  <ion-card>
-    <ion-item color="secondary">
+    <ion-item color="primary">
       <ion-row>
         <ion-col width-20>Club</ion-col>
         <ion-col width-50>Naam
@@ -26,64 +29,124 @@
         <ion-col width-30>Totaal</ion-col>
       </ion-row>
     </ion-item>
-    <ion-item text-wrap *ngFor="let line of totaalstandregel.TeamScores | orderBy :['Id']"
-              (click)="toggleDetails(line)">
-      <ion-icon *ngIf="!line.showDetails" color="primary" item-right name="ios-add-circle-outline"></ion-icon>
-      <ion-icon *ngIf="line.showDetails" color="primary" item-right name="ios-remove-circle-outline"></ion-icon>
+    <ion-item text-wrap *ngFor="let line of totaalstandregel.TeamScores | orderBy : ['-RoundId','Id'] | take : 11" (click)="toggleDetails(line)">
+      <ion-icon *ngIf="!line.showDetails" color="secondary" item-right name="ios-add-circle-outline"></ion-icon>
+      <ion-icon *ngIf="line.showDetails" color="secondary" item-right name="ios-remove-circle-outline"></ion-icon>
       <ion-row>
         <ion-col width-20>
           <img class="clubicon" [src]="'assets/clubicons/'+ line.Team + '.png'">
         </ion-col>
         <ion-col width-60>{{line.Name}}
-          <span ion-text color="secondary">({{line.Position}})</span>
-          <ion-icon *ngIf="line.Captain" color="primary" name="md-star"></ion-icon>
+          <span ion-text color="light">({{line.Position}})</span>
+          <ion-icon *ngIf="line.Captain" color="secondary" name="md-star"></ion-icon>
         </ion-col>
         <ion-col width-20>{{line.TotalScore}}
 
         </ion-col>
 
       </ion-row>
-      <ion-row ion-text color="secondary" *ngIf="line.showDetails && line.Played != 0">
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.Played != 0">
         <ion-col width-20></ion-col>
         <ion-col>Gespeeld</ion-col>
         <ion-col width-20> {{line.Played}}</ion-col>
       </ion-row>
-      <ion-row ion-text color="secondary" *ngIf="line.showDetails && line.Won != 0">
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.Won != 0">
         <ion-col width-20></ion-col>
         <ion-col>Gewonnen</ion-col>
         <ion-col width-20> {{line.Won}}</ion-col>
       </ion-row>
-      <ion-row ion-text color="secondary" *ngIf="line.showDetails && line.Draw != 0">
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.Draw != 0">
         <ion-col width-20></ion-col>
         <ion-col>Gelijk</ion-col>
         <ion-col width-20> {{line.Draw}}</ion-col>
       </ion-row>
-      <ion-row ion-text color="secondary" *ngIf="line.showDetails && line.CleanSheetScore != 0">
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.CleanSheetScore != 0">
         <ion-col width-20></ion-col>
         <ion-col>De nul</ion-col>
         <ion-col width-20> {{line.CleanSheetScore}}</ion-col>
       </ion-row>
-      <ion-row ion-text color="secondary" *ngIf="line.showDetails && line.Assist != 0">
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.Assist != 0">
         <ion-col width-20></ion-col>
         <ion-col>Assist</ion-col>
         <ion-col width-20> {{line.Assist}}</ion-col>
       </ion-row>
-      <ion-row ion-text color="secondary" *ngIf="line.showDetails && line.Goals != 0">
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.Goals != 0">
         <ion-col width-20></ion-col>
         <ion-col>Doelpunten</ion-col>
         <ion-col width-20> {{line.Goals}}</ion-col>
       </ion-row>
-      <ion-row ion-text color="secondary" *ngIf="line.showDetails && line.OwnGoals != 0">
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.OwnGoals != 0">
         <ion-col width-20></ion-col>
         <ion-col>Eigen goal</ion-col>
         <ion-col width-20> {{line.OwnGoals}}</ion-col>
       </ion-row>
-      <ion-row ion-text color="secondary" *ngIf="line.showDetails && line.YellowCard != 0">
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.YellowCard != 0">
         <ion-col width-20></ion-col>
         <ion-col>Geel</ion-col>
         <ion-col width-20> {{line.YellowCard}}</ion-col>
       </ion-row>
-      <ion-row ion-text color="secondary" *ngIf="line.showDetails && line.RedCard != 0">
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.RedCard != 0">
+        <ion-col width-20></ion-col>
+        <ion-col>Rood</ion-col>
+        <ion-col width-20> {{line.RedCard}}</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item text-wrap *ngFor="let line of totaalstandregel.TeamScores | orderBy : ['RoundId','Id'] | take : totaalstandregel.TeamScores.length - 11" (click)="toggleDetails(line)">
+      <ion-icon *ngIf="!line.showDetails" color="light" item-right name="ios-add-circle-outline"></ion-icon>
+      <ion-icon *ngIf="line.showDetails" color="light" item-right name="ios-remove-circle-outline"></ion-icon>
+      <ion-row>
+        <ion-col width-20>
+          <img class="clubicon wisselspelersIcon" [src]="'assets/clubicons/'+ line.Team + '.png'">
+        </ion-col>
+        <ion-col width-60><span ion-text color="light">{{line.Name}}</span>
+          <span ion-text color="light">({{line.Position}})</span>
+        </ion-col>
+        <ion-col width-20 color="light"><span ion-text color="light">{{line.TotalScore}}</span>
+
+        </ion-col>
+
+      </ion-row>
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.Played != 0">
+        <ion-col width-20></ion-col>
+        <ion-col>Gespeeld</ion-col>
+        <ion-col width-20> {{line.Played}}</ion-col>
+      </ion-row>
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.Won != 0">
+        <ion-col width-20></ion-col>
+        <ion-col>Gewonnen</ion-col>
+        <ion-col width-20> {{line.Won}}</ion-col>
+      </ion-row>
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.Draw != 0">
+        <ion-col width-20></ion-col>
+        <ion-col>Gelijk</ion-col>
+        <ion-col width-20> {{line.Draw}}</ion-col>
+      </ion-row>
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.CleanSheetScore != 0">
+        <ion-col width-20></ion-col>
+        <ion-col>De nul</ion-col>
+        <ion-col width-20> {{line.CleanSheetScore}}</ion-col>
+      </ion-row>
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.Assist != 0">
+        <ion-col width-20></ion-col>
+        <ion-col>Assist</ion-col>
+        <ion-col width-20> {{line.Assist}}</ion-col>
+      </ion-row>
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.Goals != 0">
+        <ion-col width-20></ion-col>
+        <ion-col>Doelpunten</ion-col>
+        <ion-col width-20> {{line.Goals}}</ion-col>
+      </ion-row>
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.OwnGoals != 0">
+        <ion-col width-20></ion-col>
+        <ion-col>Eigen goal</ion-col>
+        <ion-col width-20> {{line.OwnGoals}}</ion-col>
+      </ion-row>
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.YellowCard != 0">
+        <ion-col width-20></ion-col>
+        <ion-col>Geel</ion-col>
+        <ion-col width-20> {{line.YellowCard}}</ion-col>
+      </ion-row>
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.RedCard != 0">
         <ion-col width-20></ion-col>
         <ion-col>Rood</ion-col>
         <ion-col width-20> {{line.RedCard}}</ion-col>

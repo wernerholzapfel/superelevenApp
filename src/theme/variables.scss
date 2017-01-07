@@ -18,15 +18,17 @@
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary: #FF6255,
-  secondary: #a4b8c1,
+  primary: #162459,
+  secondary: #97bf12,
   danger: #f53d3d,
-  light: #f4f4f4,
+  light: #a4b8c1,
   dark: #222,
-
-  up: limegreen,
-  down: red,
+  white: #fff,
+  up: #97bf12,
+  down: #eb4c42,
 );
+
+$popover-ios-border-radius: 0;
 
 .fixed-content {
   background-color: #e1e7ea !important;

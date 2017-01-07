@@ -12,6 +12,7 @@ export class TeamstandDetailsPage {
   }
 
   toggleDetails(line) {
+    console.log("toggle details" + line);
     if (line.showDetails) {
       line.showDetails = false;
       // data.icon = 'ios-add-circle-outline';

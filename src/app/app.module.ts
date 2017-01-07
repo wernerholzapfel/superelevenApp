@@ -15,7 +15,9 @@ import {LaatsteupdateProvider} from "../providers/laatsteupdateprovider";
 import {TabsPage} from "../pages/tabs/tabs";
 import {Homepageprovider} from "../providers/homepageprovider";
 import {HomePage} from "../pages/home/home";
-import {OrderBy} from "./orderby";
+import {OrderByPipe} from "./orderby";
+import {TakePipe} from "./take.pipe";
+import {DropdownmenuPage} from "../pages/dropdownmenu/dropdownmenu";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -32,7 +34,9 @@ const cloudSettings: CloudSettings = {
     TotaalstandDetailsPage,
     TabsPage,
     HomePage,
-    OrderBy
+    DropdownmenuPage,
+    OrderByPipe,
+    TakePipe
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -44,7 +48,9 @@ const cloudSettings: CloudSettings = {
       modalEnter: 'modal-slide-in',
       modalLeave: 'modal-slide-out',
       tabsPlacement: 'bottom',
-      pageTransition: 'ios'
+      pageTransition: 'ios',
+      popoverEnter: 'popover-md-pop-in',
+      popoverLeave: 'popover-md-pop-out'
     })
   ],
   bootstrap: [IonicApp],
@@ -55,7 +61,8 @@ const cloudSettings: CloudSettings = {
     TotaalstandPage,
     TotaalstandDetailsPage,
     TabsPage,
-    HomePage
+    HomePage,
+    DropdownmenuPage
   ],
   providers: [TotaalstandProvider,TeamstandProvider,LaatsteupdateProvider,Homepageprovider]
 })

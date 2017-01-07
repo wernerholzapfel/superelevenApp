@@ -7,7 +7,8 @@ import { Totaalstand } from '../models/totaalstand';
 
 @Injectable()
 export class TotaalstandProvider {
-  superElevenApi = 'http://www.supereleven.nl/api';
+  superElevenApi = "http://supereleventest.herokuapp.com/api";
+  // 'http://www.supereleven.nl/api';
 
   constructor(public http: Http) { }
 

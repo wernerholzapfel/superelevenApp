@@ -1,10 +1,12 @@
 import {Component} from "@angular/core";
-import {NavController} from "ionic-angular";
+import {NavController, ViewController, PopoverController} from "ionic-angular";
 import {Totaalstand} from "../../models/totaalstand";
 import {TotaalstandProvider} from "../../providers/totaalstandProvider";
 import {TotaalstandDetailsPage} from "../totaalstand-details/totaalstand-details";
 import {Laatsteupdate} from "../../models/laatsteupdate";
 import {LaatsteupdateProvider} from "../../providers/laatsteupdateprovider";
+import {Subscription} from "rxjs";
+import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
 
 @Component({
   selector: 'page-totaalstand',
@@ -14,18 +16,29 @@ import {LaatsteupdateProvider} from "../../providers/laatsteupdateprovider";
 export class TotaalstandPage {
   totaalstand: Totaalstand;
   laatsteupdate: Laatsteupdate;
+  totaalstandSub: Subscription;
+  laatsteupdateSub: Subscription;
 
-  constructor(public navCtrl: NavController, private totaalstandProvider: TotaalstandProvider, private laatsteupdateProvider: LaatsteupdateProvider) {
-    totaalstandProvider.load().subscribe(response => {
+  constructor(public navCtrl: NavController,
+              public viewCtrl: ViewController,
+              private totaalstandProvider: TotaalstandProvider,
+              private laatsteupdateProvider: LaatsteupdateProvider,
+              public popoverCtrl: PopoverController) {
+  }
+
+  ionViewWillEnter() {
+    this.viewCtrl.showBackButton(false);
+
+    this.totaalstandSub = this.totaalstandProvider.load().subscribe(response => {
       console.log(response);
       this.totaalstand = response;
     });
 
-    laatsteupdateProvider.load().subscribe(response => {
+    this.laatsteupdateSub = this.laatsteupdateProvider.load().subscribe(response => {
       console.log(response);
       this.laatsteupdate = response;
     });
-  }
+  };
 
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
@@ -49,5 +62,16 @@ export class TotaalstandPage {
 
   ionViewDidLoad() {
     console.log('Hello totaalstandPage Page');
+  }
+
+  ionViewWillLeave() {
+    this.totaalstandSub.unsubscribe();
+    this.laatsteupdateSub.unsubscribe();
+  }
+
+  presentPopover(event) {
+    let popover = this.popoverCtrl.create(DropdownmenuPage);
+    // popover._cssClass = 'menu';
+    popover.present();
   }
 }

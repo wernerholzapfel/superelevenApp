@@ -7,7 +7,8 @@ import {Speelronde} from "../models/speelronde";
 
 @Injectable()
 export class TeamstandProvider {
-  superElevenApi = 'http://www.supereleven.nl/api';
+  superElevenApi = "http://supereleventest.herokuapp.com/api";
+  // 'http://www.supereleven.nl/api';
 
   constructor(public http: Http) {
   }

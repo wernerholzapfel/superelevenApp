@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
-import {OrderBy} from "../../app/orderby";
+import {OrderByPipe} from "../../app/orderby";
 
 @Component({
   selector: 'page-totaalstand-details',
-  templateUrl: 'totaalstand-details.html'
+  templateUrl: 'totaalstand-details.html',
 })
 export class TotaalstandDetailsPage {
   totaalstandregel: any;

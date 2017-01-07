@@ -1,16 +1,21 @@
 <ion-header>
-  <ion-navbar ion-text color="primary">
-    <ion-title>
-      Super Eleven
-    </ion-title>
+  <ion-navbar class="mynavbar" ion-text color="white">
+    <img height="74px" [src]="'assets/icon/logo_white.png'">
+    <ion-buttons end>
+      <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="menu" ></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+
+
   <ion-card>
-    <ion-card-content ion-text color="secondary" >
+    <ion-card-content ion-text color="primary">
       <h1>
-        Voor het laatst geupdate
+        Voor het laatst geüpdated
         {{laatsteupdate?.updatedAt | date:'dd MMMM HH:mm'}}
       </h1>
     </ion-card-content>
@@ -18,7 +23,7 @@
 
 
   <ion-card>
-    <ion-card-content ion-text color="secondary" >
+    <ion-card-content ion-text color="primary">
       <h1>Nummer 1 totaalstand met {{nummereentotaalstand?.TotalScore}} punten
         {{nummereentotaalstand?.Name}}
       </h1>
@@ -26,7 +31,7 @@
   </ion-card>
 
   <ion-card>
-    <ion-card-content ion-text color="secondary" >
+    <ion-card-content ion-text color="primary">
       <h1> Beste team in ronde {{nummereenteamstandlaatsteronde?.RoundId}} met
         {{nummereenteamstandlaatsteronde?.TotalTeamScore}} punten
         {{nummereenteamstandlaatsteronde?.Participant.Name}}</h1>

@@ -1,13 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-
 import { Platform, MenuController, Nav } from 'ionic-angular';
-
 import { StatusBar } from 'ionic-native';
-
-// import { TeamstandPage } from '../pages/teamstand/teamstand';
-// import { TotaalstandPage } from '../pages/totaalstand/totaalstand';
-
-import {TabsPage} from "../pages/tabs/tabs";
+import {HomePage} from "../pages/home/home";
 @Component({
   templateUrl: 'app.html'
 })
@@ -16,7 +10,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make UsersPage the root (or first) page
-  rootPage: any = TabsPage;
+  rootPage: any = HomePage;
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform,  public menu: MenuController) {

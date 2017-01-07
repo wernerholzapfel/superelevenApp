@@ -1,10 +1,14 @@
 <ion-header>
-  <ion-navbar ion-text color="primary">
-    <ion-title>
-      Totaalstand
-    </ion-title>
+  <ion-navbar class="mynavbar" ion-text color="white">
+    <img height="74px" [src]="'assets/icon/logo_white.png'">
+    <ion-buttons end>
+      <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="menu" ></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
+
 
 <ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
@@ -25,7 +29,7 @@
           </ion-row>
         </ion-item>
         <ion-item text-wrap *ngFor="let line of totaalstand?.deelnemers" (click)="goToDetails(line)">
-          <ion-icon color="primary" item-right name="ios-arrow-dropright-outline"></ion-icon>
+          <ion-icon color="secondary" item-right name="ios-arrow-dropright-outline"></ion-icon>
           <ion-row>
             <ion-col width-20>
               <ion-icon color="up" *ngIf="line.Positie < line.previousPositie" ios="md-arrow-up"

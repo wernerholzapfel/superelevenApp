@@ -18,3 +18,21 @@
   height: 30px;
   width: 30px;
 }
+
+ion-buttons.bar-buttons.bar-buttons-ios {
+  padding-right: 10px;
+}
+
+.popover-ios .popover-content{
+  top: 84px !important;
+  left: 0 !important;
+  width: 100% !important;
+}
+.popover-md .popover-content {
+  top: 84px !important;
+  left: 0 !important;
+  width: 100% !important;
+}
+.mynavbar{
+  height: 85px !important;
+}

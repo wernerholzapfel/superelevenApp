@@ -1,3 +1,12 @@
 page-totaalstand-details {
 
+  .wisselspelersIcon {
+    opacity: 0.4;
+    /*filter: alpha(opacity=40c); !* msie *!*/
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    filter: grayscale(100%);
+  }
 }

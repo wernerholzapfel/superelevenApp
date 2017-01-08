@@ -8,17 +8,8 @@ import {OrderByPipe} from "../../app/orderby";
 })
 export class TotaalstandDetailsPage {
   totaalstandregel: any;
-  showMenu = false;
   constructor(public navCtrl: NavController, private navParams: NavParams) {
     this.totaalstandregel = navParams.get('totaalstandregel');
-  }
-
-  toggleMenu(){
-    if (this.showMenu == false)
-    {
-      this.showMenu = true;
-    }
-    else( this.showMenu = false);
   }
 
   toggleDetails(line) {
@@ -28,6 +19,7 @@ export class TotaalstandDetailsPage {
       line.showDetails = true;
     }
   }
+
   ionViewDidLoad() {
     console.log('Hello TotaalstandDetailsPage Page');
   }

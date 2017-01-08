@@ -19,7 +19,8 @@
       refreshingText="Gegevens aan het ophalen">
     </ion-refresher-content>
   </ion-refresher>
-  <ion-card>
+
+  <ion-card *ngIf="teamstand">
     <ion-item color="secondary">
       <ion-row>
         <ion-col width-20>Pos.</ion-col>

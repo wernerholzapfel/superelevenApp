@@ -7,6 +7,8 @@ import {LaatsteupdateProvider} from "../../providers/laatsteupdateprovider";
 import {Laatsteupdate} from "../../models/laatsteupdate";
 import {Subscription} from "rxjs";
 import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
+import { SpinnerDialog } from 'ionic-native';
+
 
 @Component({
   selector: 'page-organizations',
@@ -19,6 +21,7 @@ export class TeamstandPage {
   teamstandSub2: Subscription;
   laatstestandSub: Subscription;
 
+
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
               private teamstandProvider: TeamstandProvider,
@@ -27,18 +30,25 @@ export class TeamstandPage {
   }
 
   ionViewWillEnter() {
-    this.viewCtrl.showBackButton(false);
+    if(!this.teamstand)SpinnerDialog.show(null,null,null,{
+      overlayOpacity: 50,
+      textColorRed: 151,
+      textColorGreen: 191,
+      textColorBlue: 18
+    });
 
+    this.viewCtrl.showBackButton(false);
     this.teamstandSub = this.teamstandProvider.getLatestRound().subscribe(speelRondes => {
 
       this.teamstandSub2 = this.teamstandProvider.getTeamstand(speelRondes[speelRondes.length - 1].RoundId).subscribe(response => {
-        console.log(response);
+        console.log("teamstand geladen");
         this.teamstand = response;
+        SpinnerDialog.hide();
       });
     });
 
     this.laatstestandSub = this.laatsteupdateProvider.load().subscribe(response => {
-      console.log(response);
+      console.log("laatste stand geladen");
       this.laatsteupdate = response;
     });
   }
@@ -55,13 +65,13 @@ export class TeamstandPage {
     this.teamstandProvider.getLatestRound().subscribe(speelRondes => {
 
       this.teamstandProvider.getTeamstand(speelRondes[speelRondes.length - 1].RoundId).subscribe(response => {
-        console.log(response);
+        console.log("teamstand gerefreshed");
         this.teamstand = response;
       });
     });
 
     this.laatsteupdateProvider.load().subscribe(response => {
-      console.log(response);
+      console.log("laatste update gerefreshed");
       this.laatsteupdate = response;
     });
     setTimeout(() => {

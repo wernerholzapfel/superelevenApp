@@ -9,8 +9,8 @@ import {Headlines} from "../models/headlines";
 
 @Injectable()
 export class Homepageprovider {
-  superElevenApi = "http://supereleventest.herokuapp.com/api";
-    // 'http://www.supereleven.nl/api';
+  superElevenApi = 'http://www.supereleven.nl/api';
+    // "http://supereleventest.herokuapp.com/api";
 
   constructor(public http: Http) {
   }

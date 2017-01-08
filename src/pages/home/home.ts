@@ -8,6 +8,9 @@ import {Nummereenteamstandlaatsteronde} from "../../models/Nummereenteamstandlaa
 import {Subscription} from "rxjs";
 import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
 import {Headlines} from "../../models/headlines"
+import { SpinnerDialog } from 'ionic-native';
+
+
 /*
  Generated class for the Home page.
 
@@ -36,28 +39,29 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
+    if(!this.nummereentotaalstand) SpinnerDialog.show();
     this.viewCtrl.showBackButton(false);
 
     this.nummereentotaalstandSub = this.homepageProvider.getnummereentotaalstand().subscribe(response => {
-      console.log(response);
-      this.nummereentotaalstand = response
+      // console.log(response);
+      this.nummereentotaalstand = response;
+      SpinnerDialog.hide();
     });
 
     this.nummereenteamstandlaatsterondeSub = this.homepageProvider.getnummereenweekstand().subscribe(response => {
-      console.log(response);
+      // console.log(response);
       this.nummereenteamstandlaatsteronde = response
     });
 
     this.LaatsteupdateSub = this.laatsteupdateProvider.load().subscribe(response => {
-      console.log(response);
+      // console.log(response);
       this.laatsteupdate = response;
     });
 
     this.headlinesSub = this.homepageProvider.getheadlines().subscribe(response => {
-      console.log(response);
+      // console.log(response);
       this.headline = response[0]
     })
-
   }
 
   ionViewWillLeave() {

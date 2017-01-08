@@ -7,9 +7,10 @@ import {Laatsteupdate} from "../../models/laatsteupdate";
 import {LaatsteupdateProvider} from "../../providers/laatsteupdateprovider";
 import {Subscription} from "rxjs";
 import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
+import { SpinnerDialog } from 'ionic-native';
 
 @Component({
-  selector: 'page-totaalstand',
+  selector: 'page-organizations',
   templateUrl: 'totaalstand.html'
 })
 
@@ -27,15 +28,24 @@ export class TotaalstandPage {
   }
 
   ionViewWillEnter() {
+    if(!this.totaalstand)SpinnerDialog.show(null,null,null,{
+      overlayOpacity: 50,
+      textColorRed: 151,
+      textColorGreen: 191,
+      textColorBlue: 18
+    });
+
+
     this.viewCtrl.showBackButton(false);
 
     this.totaalstandSub = this.totaalstandProvider.load().subscribe(response => {
-      console.log(response);
+      console.log("totaalstand geladen");
       this.totaalstand = response;
+      SpinnerDialog.hide();
     });
 
     this.laatsteupdateSub = this.laatsteupdateProvider.load().subscribe(response => {
-      console.log(response);
+      console.log("laatste update geladen");
       this.laatsteupdate = response;
     });
   };
@@ -57,6 +67,7 @@ export class TotaalstandPage {
   }
 
   goToDetails(totaalstandregel: any) {
+    console.log("go to details fired");
     this.navCtrl.push(TotaalstandDetailsPage, {totaalstandregel})
   }
 

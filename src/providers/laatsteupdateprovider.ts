@@ -6,7 +6,8 @@ import {Laatsteupdate} from "../models/laatsteupdate";
 
 @Injectable()
 export class LaatsteupdateProvider {
-  superElevenApi = "http://supereleventest.herokuapp.com/api";
+  superElevenApi = 'http://www.supereleven.nl/api';
+
   // 'http://www.supereleven.nl/api';
 
   constructor(public http: Http) {

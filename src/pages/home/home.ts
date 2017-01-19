@@ -67,16 +67,7 @@ export class HomePage {
     });
   }
 
-  // showInterstitial() {
-  //   this.platform.ready().then(() => {
-  //     if(AdMob) {
-  //       AdMob.prepareInterstitial({
-  //         adId: this.admobId.interstitial,
-  //         autoShow: true
-  //       });
-  //     }
-  //   });
-  // }
+
   //
   // showBanner(position) {
   //   this.platform.ready().then(() => {

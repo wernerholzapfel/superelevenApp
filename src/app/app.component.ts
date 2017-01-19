@@ -2,6 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 import {HomePage} from "../pages/home/home";
+import {
+  Push,
+  PushToken
+} from '@ionic/cloud-angular';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -13,8 +18,19 @@ export class MyApp {
   rootPage: any = HomePage;
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform,  public menu: MenuController) {
+  constructor(public platform: Platform,  public menu: MenuController,
+  public push: Push) {
     this.initializeApp();
+    this.push.register().then((t: PushToken) => {
+      return this.push.saveToken(t);
+    }).then((t: PushToken) => {
+      console.log('Token saved:', t.token);
+    });
+
+    this.push.rx.notification()
+      .subscribe((msg) => {
+        alert(msg.title + ': ' + msg.text);
+      });
 
   //   // set our app's pages
   //   this.pages = [

@@ -22,6 +22,15 @@ import {DropdownmenuPage} from "../pages/dropdownmenu/dropdownmenu";
 const cloudSettings: CloudSettings = {
   'core': {
     'app_id': '800f2066'
+  },  'push': {
+    'pluginConfig': {
+      'ios': {
+        'badge': true,
+        'sound': true,
+        'clearBadge' : true,
+        'alert': true
+      }
+    }
   }
 };
 

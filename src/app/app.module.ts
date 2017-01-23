@@ -18,6 +18,20 @@ import {HomePage} from "../pages/home/home";
 import {OrderByPipe} from "./orderby";
 import {TakePipe} from "./take.pipe";
 import {DropdownmenuPage} from "../pages/dropdownmenu/dropdownmenu";
+import { Storage } from '@ionic/storage';
+import {AuthConfig, AuthHttp} from "angular2-jwt";
+import {AuthService} from "../services/auth/auth";
+import {Http} from "@angular/http";
+import {ProfilePage} from "../pages/profile/profile";
+
+let storage: Storage = new Storage();
+
+export function getAuthHttp(http) {
+  return new AuthHttp(new AuthConfig({
+    globalHeaders: [{'Accept': 'application/json'}],
+    tokenGetter: (() => storage.get('id_token'))
+  }), http);
+}
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -43,6 +57,7 @@ const cloudSettings: CloudSettings = {
     TotaalstandDetailsPage,
     TabsPage,
     HomePage,
+    ProfilePage,
     DropdownmenuPage,
     OrderByPipe,
     TakePipe
@@ -71,8 +86,15 @@ const cloudSettings: CloudSettings = {
     TotaalstandDetailsPage,
     TabsPage,
     HomePage,
+    ProfilePage,
     DropdownmenuPage
   ],
-  providers: [TotaalstandProvider,TeamstandProvider,LaatsteupdateProvider,Homepageprovider]
+  providers: [ AuthService,
+    {
+      provide: AuthHttp,
+      useFactory: getAuthHttp,
+      deps: [Http]
+    },
+    TotaalstandProvider,TeamstandProvider,LaatsteupdateProvider,Homepageprovider]
 })
 export class AppModule {}

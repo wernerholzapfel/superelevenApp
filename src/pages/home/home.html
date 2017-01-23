@@ -10,6 +10,14 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-card color="primary" *ngIf="auth.authenticated() && personalScore">
+    <ion-card-content ion-text>
+      <h2>  {{personalScore}} </h2>
+    </ion-card-content>
+  </ion-card>
+
+
   <ion-card color="secondary" *ngIf="laatsteupdate?.updatedAt">
     <ion-card-content ion-text>
       <h2>

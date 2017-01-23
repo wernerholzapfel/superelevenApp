@@ -3,6 +3,8 @@ import {NavController, ViewController, Platform} from "ionic-angular";
 import {HomePage} from "../home/home";
 import {TeamstandPage} from "../teamstand/teamstand";
 import {TotaalstandPage} from "../totaalstand/totaalstand";
+import {AuthService} from "../../services/auth/auth";
+import {ProfilePage} from "../profile/profile";
 
 declare var AdMob: any;
 
@@ -20,7 +22,7 @@ export class DropdownmenuPage {
   private admobId: any;
 
   constructor(public navCtrl: NavController,
-  public viewCtrl : ViewController,private platform: Platform) {
+  public viewCtrl : ViewController,private platform: Platform,public auth: AuthService) {
 
     this.platform = platform;
     if(/(android)/i.test(navigator.userAgent)) {
@@ -64,6 +66,11 @@ export class DropdownmenuPage {
     this.navCtrl.push(TeamstandPage);
   }
 
+  openProfile(){
+    this.viewCtrl.dismiss();
+    this.navCtrl.push(ProfilePage);
+
+  }
   openTotaalstand() {
     this.viewCtrl.dismiss();
     // this.showInterstitial();

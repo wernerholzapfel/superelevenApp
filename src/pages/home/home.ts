@@ -9,6 +9,7 @@ import {Subscription} from "rxjs";
 import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
 import {Headlines} from "../../models/headlines"
 import { SpinnerDialog} from 'ionic-native';
+import {AuthService} from "../../services/auth/auth";
 
 declare var AdMob: any;
 
@@ -29,65 +30,18 @@ export class HomePage {
   nummereentotaalstandSub: Subscription;
   nummereenteamstandlaatsterondeSub: Subscription;
   headline : Headlines;
+  personalScore : string;
   LaatsteupdateSub: Subscription;
   headlinesSub: Subscription;
-  private admobId: any;
+  personalScoreSub: Subscription;
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
               private homepageProvider: Homepageprovider,
               private laatsteupdateProvider: LaatsteupdateProvider,
               public popoverCtrl: PopoverController,
-              private platform: Platform) {
-
-    this.platform = platform;
-    if(/(android)/i.test(navigator.userAgent)) {
-      this.admobId = {
-        banner: 'ca-app-pub-4938627038388421/4360126395',
-        interstitial: 'ca-app-pub-4938627038388421/5557657998'
-      };
-    } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
-      this.admobId = {
-        banner: 'ca-app-pub-4938627038388421/4360126395',
-        interstitial: 'ca-app-pub-4938627038388421/5557657998'
-      };
-    }
+              public auth: AuthService) {
   }
-
-  createBanner() {
-    this.platform.ready().then(() => {
-      if(AdMob) {
-        AdMob.createBanner({
-          adId: this.admobId.banner,
-          position: AdMob.AD_POSITION.BOTTOM_CENTER,
-          isTesting: true,
-          autoShow: true
-        });
-      }
-    });
-  }
-
-
-  //
-  // showBanner(position) {
-  //   this.platform.ready().then(() => {
-  //     if(AdMob) {
-  //       let positionMap = {
-  //         "bottom": AdMob.AD_POSITION.BOTTOM_CENTER,
-  //         "top": AdMob.AD_POSITION.TOP_CENTER
-  //       };
-  //       AdMob.showBanner(positionMap[position.toLowerCase()]);
-  //     }
-  //   });
-  // }
-  //
-  // hideBanner(position) {
-  //   this.platform.ready().then(() => {
-  //     if(AdMob) {
-  //       AdMob.hideBanner();
-  //     }
-  //   });
-  // }
 
   ionViewWillEnter() {
     if(!this.nummereentotaalstand) SpinnerDialog.show();
@@ -114,20 +68,23 @@ export class HomePage {
       this.headline = response[0]
     });
 
-    this.createBanner();
+    this.personalScoreSub = this.homepageProvider.getPersonalScore().subscribe(response => {
+      console.log(response);
+      this.personalScore = response
+    });
   }
 
   ionViewWillLeave() {
     this.nummereentotaalstandSub.unsubscribe();
     this.nummereenteamstandlaatsterondeSub.unsubscribe();
     this.LaatsteupdateSub.unsubscribe();
-    this.headlinesSub.unsubscribe()
+    this.headlinesSub.unsubscribe();
+    this.personalScoreSub.unsubscribe();
   }
 
   ionViewDidLoad() {
     console.log('Hello HomePage Page');
-    AdMob.onAdDismiss()
-      .subscribe(() => { console.log('User dismissed ad'); });
+
   }
 
   presentPopover(event) {

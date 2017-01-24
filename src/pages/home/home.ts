@@ -11,14 +11,7 @@ import {Headlines} from "../../models/headlines"
 import { SpinnerDialog} from 'ionic-native';
 import {AuthService} from "../../services/auth/auth";
 
-declare var AdMob: any;
 
-/*
- Generated class for the Home page.
-
- See http://ionicframework.com/docs/v2/components/#navigation for more info on
- Ionic pages and navigation.
- */
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'

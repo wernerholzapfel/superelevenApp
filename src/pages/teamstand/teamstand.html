@@ -3,10 +3,17 @@
     <img height="74px" [src]="'assets/icon/logo_white.png'">
     <ion-buttons end>
       <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
-        <ion-icon name="menu" ></ion-icon>
+        <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
+  <ion-item text-wrap color="primary">
+    <ion-label color="white">Speelronde</ion-label>
+    <ion-select [(ngModel)]="activeSpeelronde"  (ngModelChange)="getStand($event)">
+      <ion-option *ngFor="let speelronde of speelrondeList" [value]="speelronde.RoundId">{{speelronde.RoundId}}
+      </ion-option>
+    </ion-select>
+  </ion-item>
 </ion-header>
 
 

@@ -7,7 +7,7 @@ import {LaatsteupdateProvider} from "../../providers/laatsteupdateprovider";
 import {Laatsteupdate} from "../../models/laatsteupdate";
 import {Subscription} from "rxjs";
 import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
-import { SpinnerDialog } from 'ionic-native';
+import {SpinnerDialog} from "ionic-native";
 
 
 @Component({
@@ -20,7 +20,8 @@ export class TeamstandPage {
   teamstandSub: Subscription;
   teamstandSub2: Subscription;
   laatstestandSub: Subscription;
-
+  speelrondeList: any[];
+  activeSpeelronde: number;
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
@@ -30,7 +31,8 @@ export class TeamstandPage {
   }
 
   ionViewWillEnter() {
-    if(!this.teamstand)SpinnerDialog.show(null,null,null,{
+    this.teamstand = [];
+    if (!this.teamstand) SpinnerDialog.show(null, null, null, {
       overlayOpacity: 50,
       textColorRed: 151,
       textColorGreen: 191,
@@ -39,8 +41,11 @@ export class TeamstandPage {
 
     this.viewCtrl.showBackButton(false);
     this.teamstandSub = this.teamstandProvider.getLatestRound().subscribe(speelRondes => {
-
-      this.teamstandSub2 = this.teamstandProvider.getTeamstand(speelRondes[speelRondes.length - 1].RoundId).subscribe(response => {
+      this.speelrondeList = speelRondes;
+      if (!this.activeSpeelronde) {
+        this.activeSpeelronde = this.speelrondeList.length;
+      }
+      this.teamstandSub2 = this.teamstandProvider.getTeamstand(this.activeSpeelronde).subscribe(response => {
         console.log("teamstand geladen");
         this.teamstand = response;
         SpinnerDialog.hide();
@@ -63,8 +68,10 @@ export class TeamstandPage {
     console.log('Begin async operation', refresher);
 
     this.teamstandProvider.getLatestRound().subscribe(speelRondes => {
-
-      this.teamstandProvider.getTeamstand(speelRondes[speelRondes.length - 1].RoundId).subscribe(response => {
+      this.speelrondeList = speelRondes;
+      this.activeSpeelronde = this.speelrondeList.length;
+      console.log("dit is de activespeelronde " + this.activeSpeelronde);
+      this.teamstandProvider.getTeamstand(this.activeSpeelronde).subscribe(response => {
         console.log("teamstand gerefreshed");
         this.teamstand = response;
       });
@@ -81,6 +88,20 @@ export class TeamstandPage {
 
   }
 
+  getStand(event) {
+    SpinnerDialog.show(null, null, null, {
+      overlayOpacity: 50,
+      textColorRed: 151,
+      textColorGreen: 191,
+      textColorBlue: 18
+    });
+    this.teamstandProvider.getTeamstand(this.activeSpeelronde).subscribe(response => {
+      console.log("get teamstand call");
+      this.teamstand = response;
+      SpinnerDialog.hide();
+    });
+  }
+
   goToDetails(teamstandregel: any) {
     this.navCtrl.push(TeamstandDetailsPage, {teamstandregel})
   }
@@ -91,7 +112,6 @@ export class TeamstandPage {
 
   presentPopover(event) {
     let popover = this.popoverCtrl.create(DropdownmenuPage);
-    // popover._cssClass = 'menu';
     popover.present();
   }
 

@@ -1,17 +1,15 @@
-import { NgModule } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
-import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
-
-import { MyApp } from './app.component';
-
-import { TeamstandPage } from '../pages/teamstand/teamstand';
-import { TotaalstandPage } from '../pages/totaalstand/totaalstand';
-
-import {TotaalstandProvider} from '../providers/totaalstandProvider';
+import {NgModule} from "@angular/core";
+import {IonicApp, IonicModule} from "ionic-angular";
+import {CloudSettings, CloudModule} from "@ionic/cloud-angular";
+import {MyApp} from "./app.component";
+import {TeamstandPage} from "../pages/teamstand/teamstand";
+import {TotaalstandPage} from "../pages/totaalstand/totaalstand";
+import {TotaalstandProvider} from "../providers/totaalstandProvider";
 import {TeamstandProvider} from "../providers/teamstandprovider";
 import {TotaalstandDetailsPage} from "../pages/totaalstand-details/totaalstand-details";
 import {TeamstandDetailsPage} from "../pages/teamstand-details/teamstand-details";
 import {LaatsteupdateProvider} from "../providers/laatsteupdateprovider";
+import {WedstrijdenstandProvider} from "../providers/wedstrijdenstandprovider";
 import {TabsPage} from "../pages/tabs/tabs";
 import {Homepageprovider} from "../providers/homepageprovider";
 import {HomePage} from "../pages/home/home";
@@ -23,6 +21,8 @@ import {AuthConfig, AuthHttp} from "angular2-jwt";
 import {AuthService} from "../services/auth/auth";
 import {Http} from "@angular/http";
 import {ProfilePage} from "../pages/profile/profile";
+import {WedstrijdenstandPage} from "../pages/wedstrijdenstand/wedstrijdenstand";
+import {WedstrijdenstandDetailsPage} from "../pages/wedstrijdenstand-details/wedstrijdenstand-details";
 
 let storage: Storage = new Storage();
 
@@ -36,12 +36,12 @@ export function getAuthHttp(http) {
 const cloudSettings: CloudSettings = {
   'core': {
     'app_id': '800f2066'
-  },  'push': {
+  }, 'push': {
     'pluginConfig': {
       'ios': {
         'badge': true,
         'sound': true,
-        'clearBadge' : true,
+        'clearBadge': true,
         'alert': true
       }
     }
@@ -59,6 +59,8 @@ const cloudSettings: CloudSettings = {
     HomePage,
     ProfilePage,
     DropdownmenuPage,
+    WedstrijdenstandPage,
+    WedstrijdenstandDetailsPage,
     OrderByPipe,
     TakePipe
   ],
@@ -87,7 +89,9 @@ const cloudSettings: CloudSettings = {
     TabsPage,
     HomePage,
     ProfilePage,
-    DropdownmenuPage
+    DropdownmenuPage,
+    WedstrijdenstandPage,
+    WedstrijdenstandDetailsPage
   ],
   providers: [ AuthService,
     {
@@ -95,6 +99,7 @@ const cloudSettings: CloudSettings = {
       useFactory: getAuthHttp,
       deps: [Http]
     },
-    TotaalstandProvider,TeamstandProvider,LaatsteupdateProvider,Homepageprovider]
+    TotaalstandProvider,TeamstandProvider,LaatsteupdateProvider,Homepageprovider,WedstrijdenstandProvider]
 })
-export class AppModule {}
+export class AppModule {
+}

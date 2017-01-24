@@ -31,6 +31,7 @@ export class TeamstandPage {
   }
 
   ionViewWillEnter() {
+    this.teamstand = [];
     if (!this.teamstand) SpinnerDialog.show(null, null, null, {
       overlayOpacity: 50,
       textColorRed: 151,
@@ -87,10 +88,17 @@ export class TeamstandPage {
 
   }
 
-  getStand() {
+  getStand(event) {
+    SpinnerDialog.show(null, null, null, {
+      overlayOpacity: 50,
+      textColorRed: 151,
+      textColorGreen: 191,
+      textColorBlue: 18
+    });
     this.teamstandProvider.getTeamstand(this.activeSpeelronde).subscribe(response => {
       console.log("get teamstand call");
       this.teamstand = response;
+      SpinnerDialog.hide();
     });
   }
 
@@ -104,7 +112,6 @@ export class TeamstandPage {
 
   presentPopover(event) {
     let popover = this.popoverCtrl.create(DropdownmenuPage);
-    // popover._cssClass = 'menu';
     popover.present();
   }
 

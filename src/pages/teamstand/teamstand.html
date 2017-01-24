@@ -7,7 +7,7 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  <ion-item text-wrap color="secondary">
+  <ion-item text-wrap color="primary">
     <ion-label color="white">Speelronde</ion-label>
     <ion-select [(ngModel)]="activeSpeelronde"  (ngModelChange)="getStand($event)">
       <ion-option *ngFor="let speelronde of speelrondeList" [value]="speelronde.RoundId">{{speelronde.RoundId}}

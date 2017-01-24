@@ -1,10 +1,9 @@
 import {Component} from "@angular/core";
-import {NavController, ViewController, Platform} from "ionic-angular";
+import {NavController, ViewController} from "ionic-angular";
 import {HomePage} from "../home/home";
 import {TeamstandPage} from "../teamstand/teamstand";
 import {TotaalstandPage} from "../totaalstand/totaalstand";
-
-declare var AdMob: any;
+import {WedstrijdenstandPage} from "../wedstrijdenstand/wedstrijdenstand";
 
 /*
  Generated class for the Dropdownmenu page.
@@ -20,36 +19,13 @@ export class DropdownmenuPage {
   private admobId: any;
 
   constructor(public navCtrl: NavController,
-  public viewCtrl : ViewController,private platform: Platform) {
+              public viewCtrl: ViewController) {
 
-    this.platform = platform;
-    if(/(android)/i.test(navigator.userAgent)) {
-      this.admobId = {
-        banner: 'ca-app-pub-4938627038388421/4360126395',
-        interstitial: 'ca-app-pub-4938627038388421/5557657998'
-      };
-    } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
-      this.admobId = {
-        banner: 'ca-app-pub-4938627038388421/4360126395',
-        interstitial: 'ca-app-pub-4938627038388421/5557657998'
-      };
-    }
+
   }
 
   ionViewDidLoad() {
     console.log('Hello DropdownmenuPage Page');
-  }
-
-  showInterstitial() {
-    this.platform.ready().then(() => {
-      if(AdMob) {
-        AdMob.prepareInterstitial({
-          adId: this.admobId.interstitial,
-          autoShow: true
-          ,isTesting: true
-        });
-      }
-    });
   }
 
   openHome() {
@@ -60,13 +36,16 @@ export class DropdownmenuPage {
 
   openTeamstand() {
     this.viewCtrl.dismiss();
-    // this.showInterstitial();
     this.navCtrl.push(TeamstandPage);
+  }
+
+  openWedstrijdenstand() {
+    this.viewCtrl.dismiss();
+    this.navCtrl.push(WedstrijdenstandPage);
   }
 
   openTotaalstand() {
     this.viewCtrl.dismiss();
-    // this.showInterstitial();
     this.navCtrl.push(TotaalstandPage);
   }
 }

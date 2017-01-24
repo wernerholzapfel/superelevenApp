@@ -41,3 +41,14 @@ ion-buttons.bar-buttons.bar-buttons-ios {
 .popover-arrow {
   display: none !important;
 }
+
+.item-ios{
+  padding-left: 8px;
+}
+
+.item-ios.item-block .item-inner {
+  padding-right: 0;
+}
+.label-ios {
+   margin: 0px 0px 0px 0;
+}

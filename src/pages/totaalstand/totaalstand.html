@@ -32,14 +32,16 @@
           <ion-icon color="secondary" item-right name="ios-arrow-dropright-outline"></ion-icon>
           <ion-row>
             <ion-col width-25>
-              <ion-icon color="up" *ngIf="line.Positie < line.previousPositie" ios="md-arrow-up"
-                        md="md-arrow-up"></ion-icon>
-              <ion-icon color="down" *ngIf="line.Positie > line.previousPositie" ios="md-arrow-down"
-                        md="md-arrow-down"></ion-icon>
-              <ion-icon color="light" *ngIf="line.Positie === line.previousPositie" ios="md-remove"
-                        md="md-remove"></ion-icon>
+              <!--<ion-icon color="up" *ngIf="line.Positie < line.previousPositie" ios="md-arrow-up"-->
+                        <!--md="md-arrow-up"></ion-icon>-->
+              <!--<ion-icon color="down" *ngIf="line.Positie > line.previousPositie" ios="md-arrow-down"-->
+                        <!--md="md-arrow-down"></ion-icon>-->
+              <!--<ion-icon color="light" *ngIf="line.Positie === line.previousPositie" ios="md-remove"-->
+                        <!--md="md-remove"></ion-icon>-->
               {{line.Positie}}
-              <span color="light">({{line.deltaPositie > 0 ? '+' : ''}}{{line.deltaPositie}})</span>
+              <span *ngIf="line.deltaPositie > 0" color="up">(+{{line.deltaPositie}})</span>
+              <span *ngIf="line.deltaPositie < 0" color="down">({{line.deltaPositie}})</span>
+              <span *ngIf="line.deltaPositie === 0" color="light">(0)</span>
             </ion-col>
 
             <ion-col width-55>{{line.Name}}</ion-col>

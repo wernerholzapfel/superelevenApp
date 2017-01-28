@@ -18,6 +18,9 @@ import {TakePipe} from "./take.pipe";
 import {DropdownmenuPage} from "../pages/dropdownmenu/dropdownmenu";
 import {WedstrijdenstandPage} from "../pages/wedstrijdenstand/wedstrijdenstand";
 import {WedstrijdenstandDetailsPage} from "../pages/wedstrijdenstand-details/wedstrijdenstand-details";
+import {VragenstandPage} from "../pages/vragenstand/vragenstand";
+import {VragenstandProvider} from "../providers/vragenstandprovider";
+import {VragenstandDetailsPage} from "../pages/vragenstand-details/vragenstand-details";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -46,6 +49,8 @@ const cloudSettings: CloudSettings = {
     DropdownmenuPage,
     WedstrijdenstandPage,
     WedstrijdenstandDetailsPage,
+    VragenstandPage,
+    VragenstandDetailsPage,
     OrderByPipe,
     TakePipe
   ],
@@ -75,14 +80,17 @@ const cloudSettings: CloudSettings = {
     HomePage,
     DropdownmenuPage,
     WedstrijdenstandPage,
-    WedstrijdenstandDetailsPage
+    WedstrijdenstandDetailsPage,
+    VragenstandPage,
+    VragenstandDetailsPage
   ],
   providers: [
     TotaalstandProvider,
     TeamstandProvider,
     LaatsteupdateProvider,
     Homepageprovider,
-    WedstrijdenstandProvider]
+    WedstrijdenstandProvider,
+    VragenstandProvider]
 })
 export class AppModule {
 }

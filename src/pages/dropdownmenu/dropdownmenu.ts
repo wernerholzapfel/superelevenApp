@@ -4,6 +4,7 @@ import {HomePage} from "../home/home";
 import {TeamstandPage} from "../teamstand/teamstand";
 import {TotaalstandPage} from "../totaalstand/totaalstand";
 import {WedstrijdenstandPage} from "../wedstrijdenstand/wedstrijdenstand";
+import {VragenstandPage} from "../vragenstand/vragenstand";
 
 /*
  Generated class for the Dropdownmenu page.
@@ -47,5 +48,9 @@ export class DropdownmenuPage {
   openTotaalstand() {
     this.viewCtrl.dismiss();
     this.navCtrl.push(TotaalstandPage);
+  }
+  openVragenstand(){
+    this.viewCtrl.dismiss();
+    this.navCtrl.push(VragenstandPage)
   }
 }

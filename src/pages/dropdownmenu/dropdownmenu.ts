@@ -22,8 +22,8 @@ import {VragenstandPage} from "../vragenstand/vragenstand";
 export class DropdownmenuPage {
 
   constructor(public navCtrl: NavController,
-  public viewCtrl : ViewController,private platform: Platform,public auth: AuthService) {
-              public viewCtrl: ViewController) {
+  public viewCtrl : ViewController,public auth: AuthService
+              ) {
   }
 
   ionViewDidLoad() {

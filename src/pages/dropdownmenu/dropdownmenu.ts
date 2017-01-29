@@ -7,6 +7,7 @@ import {AuthService} from "../../services/auth/auth";
 import {ProfilePage} from "../profile/profile";
 
 import {WedstrijdenstandPage} from "../wedstrijdenstand/wedstrijdenstand";
+import {VragenstandPage} from "../vragenstand/vragenstand";
 
 /*
  Generated class for the Dropdownmenu page.
@@ -19,13 +20,10 @@ import {WedstrijdenstandPage} from "../wedstrijdenstand/wedstrijdenstand";
   templateUrl: 'dropdownmenu.html'
 })
 export class DropdownmenuPage {
-  private admobId: any;
 
   constructor(public navCtrl: NavController,
   public viewCtrl : ViewController,private platform: Platform,public auth: AuthService) {
               public viewCtrl: ViewController) {
-
-
   }
 
   ionViewDidLoad() {
@@ -56,5 +54,9 @@ export class DropdownmenuPage {
   openTotaalstand() {
     this.viewCtrl.dismiss();
     this.navCtrl.push(TotaalstandPage);
+  }
+  openVragenstand(){
+    this.viewCtrl.dismiss();
+    this.navCtrl.push(VragenstandPage)
   }
 }

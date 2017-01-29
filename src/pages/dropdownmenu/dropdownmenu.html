@@ -4,20 +4,29 @@
     <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
     Home
   </ion-item>
-  <ion-item  (click)="openTeamstand()">
+  <ion-item (click)="openTotaalstand()">
     <ion-icon color="secondary" name="podium" item-left></ion-icon>
     <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
-    Teamstand
-  </ion-item>
-  <ion-item (click)="openTotaalstand()">
-    <ion-icon color="secondary" name="stats" item-left></ion-icon>
-    <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
+
     Totaalstand
   </ion-item>
-  <ion-item (click)="openWedstrijdenstand()">
+  <ion-item  (click)="openTeamstand()">
     <ion-icon color="secondary" name="stats" item-left></ion-icon>
     <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
+
+    Teamstand
+  </ion-item>
+
+  <ion-item (click)="openWedstrijdenstand()">
+    <ion-icon color="secondary" name="podium" item-left></ion-icon>
+    <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
     Wedstrijdenstand
+  </ion-item>
+  <ion-item (click)="openVragenstand()">
+    <ion-icon color="secondary" name="stats" item-left></ion-icon>
+    <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
+
+    Vragenstand
   </ion-item>
   <ion-item *ngIf="auth.authenticated()" (click)="auth.logout()">
     <ion-icon color="secondary" name="ios-log-out" item-left></ion-icon>

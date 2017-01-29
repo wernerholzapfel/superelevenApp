@@ -15,22 +15,27 @@
   <ion-card>
     <ion-item no-border color="primary">
       <ion-row>
-        <ion-col width-40 class="item-text-wrap">Wedstrijd</ion-col>
-        <ion-col width-20>V</ion-col>
-        <ion-col width-20>U</ion-col>
-        <ion-col width-20>P</ion-col>
+        <ion-col width-80 class="item-text-wrap">Wedstrijd</ion-col>
+        <ion-col width-20>Punten</ion-col>
       </ion-row>
     </ion-item>
     <ion-item text-wrap *ngFor="let line of wedstrijdenstandRegel.MatchesScore">
       <ion-row>
-        <ion-col width-40>
+        <ion-col width-80>
           {{line.Match}}
+        </ion-col>
+        <ion-col width-20>{{line.Score}}
+        </ion-col>
+      </ion-row>
+      <ion-row ion-text color="light" >
+        <ion-col width-80>Voorspelling:
         </ion-col>
         <ion-col width-20>{{line.Home}}-{{line.Away}}
         </ion-col>
-        <ion-col width-20>{{line.Uitslag}}
+      </ion-row> <ion-row ion-text color="light">
+        <ion-col width-80>Uitslag:
         </ion-col>
-        <ion-col width-20>{{line.Score}}
+        <ion-col width-20>{{line.Uitslag}}
         </ion-col>
       </ion-row>
     </ion-item>

@@ -1,0 +1,47 @@
+<ion-header>
+
+  <ion-navbar class="mynavbar" ion-text color="white">
+    <img height="74px" [src]="'assets/icon/logo_white.png'">
+  </ion-navbar>
+
+  <ion-item text-wrap color="secondary">
+    {{vragenstandRegel.Participant.Name}} heeft {{vragenstandRegel.TotalQuestionsScore}} punten gehaald.
+  </ion-item>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-item no-border color="primary">
+      <ion-row>
+        <ion-col width-80 class="item-text-wrap">Vraag</ion-col>
+        <ion-col width-20>Punten</ion-col>
+      </ion-row>
+    </ion-item>
+    <div *ngFor="let line of vragenstandRegel.QuestionsScore">
+      <ion-item text-wrap *ngIf="line.Uitslag">
+        <ion-row>
+          <ion-col width-80>
+            {{line.Question}}
+          </ion-col>
+          <ion-col width-20>{{line.Score}}
+          </ion-col>
+        </ion-row>
+        <ion-row ion-text color="light">
+          <ion-col width-30>Antwoord:
+          </ion-col>
+          <ion-col width-70>{{line.Answer}}
+          </ion-col>
+        </ion-row>
+        <ion-row ion-text color="light">
+          <ion-col width-30>Uitslag:
+          </ion-col>
+          <ion-col width-70>{{line.Uitslag}}
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </div>
+
+  </ion-card>
+</ion-content>

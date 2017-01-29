@@ -23,6 +23,9 @@ import {Http} from "@angular/http";
 import {ProfilePage} from "../pages/profile/profile";
 import {WedstrijdenstandPage} from "../pages/wedstrijdenstand/wedstrijdenstand";
 import {WedstrijdenstandDetailsPage} from "../pages/wedstrijdenstand-details/wedstrijdenstand-details";
+import {VragenstandPage} from "../pages/vragenstand/vragenstand";
+import {VragenstandProvider} from "../providers/vragenstandprovider";
+import {VragenstandDetailsPage} from "../pages/vragenstand-details/vragenstand-details";
 
 let storage: Storage = new Storage();
 
@@ -61,6 +64,8 @@ const cloudSettings: CloudSettings = {
     DropdownmenuPage,
     WedstrijdenstandPage,
     WedstrijdenstandDetailsPage,
+    VragenstandPage,
+    VragenstandDetailsPage,
     OrderByPipe,
     TakePipe
   ],
@@ -91,7 +96,9 @@ const cloudSettings: CloudSettings = {
     ProfilePage,
     DropdownmenuPage,
     WedstrijdenstandPage,
-    WedstrijdenstandDetailsPage
+    WedstrijdenstandDetailsPage,
+    VragenstandPage,
+    VragenstandDetailsPage
   ],
   providers: [ AuthService,
     {
@@ -99,7 +106,7 @@ const cloudSettings: CloudSettings = {
       useFactory: getAuthHttp,
       deps: [Http]
     },
-    TotaalstandProvider,TeamstandProvider,LaatsteupdateProvider,Homepageprovider,WedstrijdenstandProvider]
+    TotaalstandProvider,TeamstandProvider,LaatsteupdateProvider,Homepageprovider,WedstrijdenstandProvider,VragenstandProvider]
 })
 export class AppModule {
 }

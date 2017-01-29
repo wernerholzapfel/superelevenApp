@@ -17,12 +17,9 @@ import {VragenstandPage} from "../vragenstand/vragenstand";
   templateUrl: 'dropdownmenu.html'
 })
 export class DropdownmenuPage {
-  private admobId: any;
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController) {
-
-
   }
 
   ionViewDidLoad() {

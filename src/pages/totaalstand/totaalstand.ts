@@ -10,7 +10,7 @@ import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
 import { SpinnerDialog } from 'ionic-native';
 
 @Component({
-  selector: 'page-organizations',
+  selector: 'page-totaalstand',
   templateUrl: 'totaalstand.html'
 })
 

@@ -11,7 +11,7 @@ import {SpinnerDialog} from "ionic-native";
 
 
 @Component({
-  selector: 'page-organizations',
+  selector: 'page-teamstand',
   templateUrl: 'teamstand.html'
 })
 export class TeamstandPage {

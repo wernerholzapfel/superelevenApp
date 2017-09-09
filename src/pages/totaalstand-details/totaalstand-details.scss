@@ -9,4 +9,21 @@ page-totaalstand-details {
     -ms-filter: grayscale(100%);
     filter: grayscale(100%);
   }
+
+
+  ion-row.header.row{
+    padding-right: 30.75px;
+  }
+
+  ion-col.club.col {
+    max-width: 65px;
+  }
+
+  ion-col.naam.col {
+    width: 100%;
+  }
+
+  ion-col.punten.col {
+    max-width: 45px;
+  }
 }

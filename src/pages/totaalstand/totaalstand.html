@@ -22,32 +22,25 @@
 
   <ion-card *ngIf="totaalstand">
         <ion-item color="secondary">
-          <ion-row>
-            <ion-col width-25>Pos.</ion-col>
-            <ion-col width-45>Naam</ion-col>
-            <ion-col width-30>Punten</ion-col>
+          <ion-row class="header">
+            <ion-col class="positie">Pos.</ion-col>
+            <ion-col class="naam">Naam</ion-col>
+            <ion-col class="punten">Punten</ion-col>
           </ion-row>
         </ion-item>
         <ion-item text-wrap *ngFor="let line of totaalstand?.deelnemers" (click)="goToDetails(line)">
-          <ion-icon color="secondary" item-right name="ios-arrow-dropright-outline"></ion-icon>
-          <ion-row>
-            <ion-col width-25>
-              <!--<ion-icon color="up" *ngIf="line.Positie < line.previousPositie" ios="md-arrow-up"-->
-                        <!--md="md-arrow-up"></ion-icon>-->
-              <!--<ion-icon color="down" *ngIf="line.Positie > line.previousPositie" ios="md-arrow-down"-->
-                        <!--md="md-arrow-down"></ion-icon>-->
-              <!--<ion-icon color="light" *ngIf="line.Positie === line.previousPositie" ios="md-remove"-->
-                        <!--md="md-remove"></ion-icon>-->
+          <ion-row >
+            <ion-col class="positie">
               {{line.Positie}}
               <span *ngIf="line.deltaPositie > 0" color="up">(+{{line.deltaPositie}})</span>
               <span *ngIf="line.deltaPositie < 0" color="down">({{line.deltaPositie}})</span>
               <span *ngIf="line.deltaPositie === 0" color="light">(0)</span>
             </ion-col>
-
-            <ion-col width-55>{{line.Name}}</ion-col>
-            <ion-col width-20> {{line.TotalScore}}</ion-col>
+            <ion-col class="naam">{{line.Name}}</ion-col>
+            <ion-col class="punten"> {{line.TotalScore}}</ion-col>
           </ion-row>
+          <ion-icon color="secondary" item-right name="ios-arrow-dropright-outline"></ion-icon>
         </ion-item>
-      </ion-card>
+  </ion-card>
 </ion-content>
 

@@ -9,7 +9,7 @@ import {Speelronde} from "../models/speelronde";
 export class TeamstandProvider {
   superElevenApi = 'http://www.supereleven.nl/api';
 
-  // 'http://www.supereleven.nl/api';
+  // 'http://2017.supereleven.nl/api';
 
   constructor(public http: Http) {
   }

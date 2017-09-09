@@ -14,23 +14,23 @@
 
   <ion-card *ngIf="vragenstand">
     <ion-item color="secondary">
-      <ion-row>
-        <ion-col width-20>Pos.</ion-col>
-        <ion-col width-50>Naam</ion-col>
-        <ion-col width-30>Punten</ion-col>
+      <ion-row class="header">
+        <ion-col class="positie">Pos.</ion-col>
+        <ion-col >Naam</ion-col>
+        <ion-col class="punten">Punten</ion-col>
       </ion-row>
     </ion-item>
     <ion-item color="white" text-wrap *ngFor="let line of vragenstand; let positie = index" (click)="goToDetails(line)">
       <ion-icon color="secondary" item-right name="ios-arrow-dropright-outline"></ion-icon>
       <ion-row>
-        <ion-col width-20 *ngIf="line?.TotalQuestionsScore !== vragenstand[positie-1]?.TotalQuestionsScore">
+        <ion-col class="positie" *ngIf="line?.TotalQuestionsScore !== vragenstand[positie-1]?.TotalQuestionsScore">
           {{positie + 1}}
         </ion-col>
-        <ion-col width-20 *ngIf="line?.TotalQuestionsScore === vragenstand[positie-1]?.TotalQuestionsScore">
+        <ion-col class="positie" *ngIf="line?.TotalQuestionsScore === vragenstand[positie-1]?.TotalQuestionsScore">
 
         </ion-col>
-        <ion-col width-60>{{line.Participant.Name}}</ion-col>
-        <ion-col width-20> {{line.TotalQuestionsScore}}</ion-col>
+        <ion-col>{{line.Participant.Name}}</ion-col>
+        <ion-col class="punten"> {{line.TotalQuestionsScore}}</ion-col>
       </ion-row>
     </ion-item>
   </ion-card>

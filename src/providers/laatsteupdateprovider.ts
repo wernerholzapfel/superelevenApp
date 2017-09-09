@@ -8,7 +8,7 @@ import {Laatsteupdate} from "../models/laatsteupdate";
 export class LaatsteupdateProvider {
   superElevenApi = 'http://www.supereleven.nl/api';
 
-  // 'http://www.supereleven.nl/api';
+  // 'http://2017.supereleven.nl/api';
 
   constructor(public http: Http) {
   }

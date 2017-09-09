@@ -1,3 +1,21 @@
-page-organisations {
+page-teamstand {
+  .item-ios.item-block .item-inner {
+    border-bottom: 0;
+  }
 
+  ion-row.header.row{
+    padding-right: 30.75px;
+  }
+
+  ion-col.positie.col {
+    max-width: 40px;
+  }
+
+  ion-col.naam.col {
+    width: 100%;
+  }
+
+  ion-col.punten.col {
+    max-width: 45px;
+  }
 }

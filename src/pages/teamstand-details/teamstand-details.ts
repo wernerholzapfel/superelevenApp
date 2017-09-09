@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
+import {OrderByPipe} from "../../app/orderby";
+
 
 @Component({
   selector: 'page-teamstand-details',

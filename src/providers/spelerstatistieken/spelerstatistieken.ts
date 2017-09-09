@@ -4,21 +4,21 @@ import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
 
 /*
-  Generated class for the PredictionProvider provider.
+  Generated class for the SpelerstatistiekenProvider provider.
 
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
 @Injectable()
-export class PredictionProvider {
-
+export class SpelerstatistiekenProvider {
   superElevenApi = 'http://www.supereleven.nl/api';
-  constructor(public http: Http) {}
 
-  getVoorspelling(participant): Observable<any> {
-    return this.http.get(`${this.superElevenApi}/predictions/${participant}`)
-      .map(res => <any> res.json())
+  constructor(public http: Http) {
+    console.log('Hello SpelerstatistiekenProvider Provider');
   }
 
-
+  getSpelerslijst(): Observable<any[]> {
+    return this.http.get(`${this.superElevenApi}/teamstatistieken`)
+      .map(res => <any[]> res.json())
+  }
 }

@@ -39,4 +39,8 @@ export class PredictionPage {
       }
     );
   }
+
+  ionViewWillLeave() {
+    this.voorspellingSub.unsubscribe();
+  }
 }

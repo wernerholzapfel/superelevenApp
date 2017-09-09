@@ -27,6 +27,10 @@ import {DeelnemersPage} from "../pages/deelnemers/deelnemers";
 import { DeelnemerProvider } from '../providers/deelnemersprovider';
 import {PredictionPage} from "../pages/prediction/prediction";
 import { PredictionProvider } from '../providers/predictionProvider';
+import { SpelerstatistiekenProvider } from '../providers/spelerstatistieken/spelerstatistieken';
+import {SpelerstatistiekenPage} from "../pages/spelerstatistieken/spelerstatistieken";
+import {DeelnemersPerSpelerPage} from "../pages/deelnemers-per-speler/deelnemers-per-speler";
+import { DeelnemersPerSpelerProvider } from '../providers/deelnemers-per-speler/deelnemers-per-speler';
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -60,7 +64,9 @@ const cloudSettings: CloudSettings = {
     OrderByPipe,
     TakePipe,
     DeelnemersPage,
-    PredictionPage
+    PredictionPage,
+    SpelerstatistiekenPage,
+    DeelnemersPerSpelerPage
   ],
   imports: [
     HttpModule,
@@ -93,7 +99,9 @@ const cloudSettings: CloudSettings = {
     VragenstandPage,
     VragenstandDetailsPage,
     DeelnemersPage,
-    PredictionPage
+    PredictionPage,
+    SpelerstatistiekenPage,
+    DeelnemersPerSpelerPage
   ],
   providers: [
     TotaalstandProvider,
@@ -101,7 +109,7 @@ const cloudSettings: CloudSettings = {
     LaatsteupdateProvider,
     Homepageprovider,
     WedstrijdenstandProvider,
-    VragenstandProvider, DeelnemerProvider, PredictionProvider]
+    VragenstandProvider, DeelnemerProvider, PredictionProvider, SpelerstatistiekenProvider, DeelnemersPerSpelerProvider]
 })
 export class AppModule {
 }

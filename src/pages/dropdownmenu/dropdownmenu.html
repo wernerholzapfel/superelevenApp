@@ -4,35 +4,40 @@
     <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
     Home
   </ion-item>
-  <ion-item (click)="openTotaalstand()">
-    <ion-icon color="secondary" name="podium" item-left></ion-icon>
-    <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
 
+  <ion-item (click)="openTotaalstand()">
+    <ion-icon color="secondary" name="trophy" item-left></ion-icon>
+    <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
     Totaalstand
   </ion-item>
-  <ion-item  (click)="openTeamstand()">
+
+  <ion-item (click)="openTeamstand()">
     <ion-icon color="secondary" name="stats" item-left></ion-icon>
     <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
-
     Teamstand
   </ion-item>
 
-  <ion-item (click)="openWedstrijdenstand()">
+  <ion-item *ngIf='false' (click)="openWedstrijdenstand()">
     <ion-icon color="secondary" name="podium" item-left></ion-icon>
     <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
-
     Wedstrijdenstand
   </ion-item>
-  <ion-item (click)="openVragenstand()">
+
+  <ion-item *ngIf='false' (click)="openVragenstand()">
     <ion-icon color="secondary" name="stats" item-left></ion-icon>
     <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
-
     Vragenstand
   </ion-item>
+
   <ion-item (click)="openDeelnemers()">
     <ion-icon color="secondary" name="people" item-left></ion-icon>
     <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
-
     Deelnemers
+  </ion-item>
+
+  <ion-item (click)="openSpelerstatistieken()">
+    <ion-icon color="secondary" name="pie" item-left></ion-icon>
+    <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
+    Gekozen spelers
   </ion-item>
 </ion-list>

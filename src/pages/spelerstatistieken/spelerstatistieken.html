@@ -1,0 +1,44 @@
+<ion-header>
+
+  <ion-navbar class="mynavbar" ion-text color="white">
+    <img height="74px" [src]="'assets/icon/logo_white.png'">
+    <ion-buttons end>
+      <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+  <!--<ion-item text-wrap color="secondary">-->
+  <!--headertekst-->
+  <!--</ion-item>-->
+
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-item color="secondary">
+      <ion-row class="header">
+        <ion-col class="club">Club</ion-col>
+        <ion-col class="item-text-wrap">Naam</ion-col>
+        <ion-col class="count">Aantal</ion-col>
+      </ion-row>
+    </ion-item>
+    <div *ngFor="let line of spelerlijst | orderBy : ['-Count']">
+      <ion-item text-wrap
+                (click)="goToDetails(line)" *ngIf="line.PlayerName">
+        <ion-icon color="secondary" item-right name="ios-arrow-dropright-outline"></ion-icon>
+        <ion-row>
+          <ion-col class="club">
+            <img class="clubicon" [src]="'assets/clubicons/'+ line.Team + '.png'">
+          </ion-col>
+          <ion-col>{{line.PlayerName}}
+          </ion-col>
+          <ion-col class="count">{{line.Count}}
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </div>
+  </ion-card>
+</ion-content>

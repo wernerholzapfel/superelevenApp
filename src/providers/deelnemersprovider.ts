@@ -13,7 +13,7 @@ import {Deelnemer} from "../models/deelnemers";
 @Injectable()
 export class DeelnemerProvider {
 
-  superElevenApi = 'http://www.supereleven/api';
+  superElevenApi = 'http://www.supereleven.nl/api';
   constructor(public http: Http) {}
 
   getDeelnemers(): Observable<Deelnemer[]> {

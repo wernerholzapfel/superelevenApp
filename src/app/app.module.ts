@@ -23,6 +23,10 @@ import {VragenstandProvider} from "../providers/vragenstandprovider";
 import {VragenstandDetailsPage} from "../pages/vragenstand-details/vragenstand-details";
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
+import {DeelnemersPage} from "../pages/deelnemers/deelnemers";
+import { DeelnemerProvider } from '../providers/deelnemersprovider';
+import {PredictionPage} from "../pages/prediction/prediction";
+import { PredictionProvider } from '../providers/predictionProvider';
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -54,7 +58,9 @@ const cloudSettings: CloudSettings = {
     VragenstandPage,
     VragenstandDetailsPage,
     OrderByPipe,
-    TakePipe
+    TakePipe,
+    DeelnemersPage,
+    PredictionPage
   ],
   imports: [
     HttpModule,
@@ -85,7 +91,9 @@ const cloudSettings: CloudSettings = {
     WedstrijdenstandPage,
     WedstrijdenstandDetailsPage,
     VragenstandPage,
-    VragenstandDetailsPage
+    VragenstandDetailsPage,
+    DeelnemersPage,
+    PredictionPage
   ],
   providers: [
     TotaalstandProvider,
@@ -93,7 +101,7 @@ const cloudSettings: CloudSettings = {
     LaatsteupdateProvider,
     Homepageprovider,
     WedstrijdenstandProvider,
-    VragenstandProvider]
+    VragenstandProvider, DeelnemerProvider, PredictionProvider]
 })
 export class AppModule {
 }

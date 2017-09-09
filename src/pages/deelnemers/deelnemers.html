@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar class="mynavbar" ion-text color="white">
+    <img height="74px" [src]="'assets/icon/logo_white.png'">
+    <ion-buttons end>
+      <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <!--<ion-refresher (ionRefresh)="doRefresh($event)">-->
+    <!--<ion-refresher-content-->
+      <!--pullingText="Laatste update {{laatsteupdate?.updatedAt | date:'dd/MM HH:mm'}}"-->
+      <!--pullingIcon="arrow-dropdown"-->
+      <!--refreshingSpinner="circles"-->
+      <!--refreshingText="Gegevens aan het ophalen">-->
+    <!--</ion-refresher-content>-->
+  <!--</ion-refresher>-->
+
+  <ion-card *ngIf="deelnemers">
+    <ion-item color="secondary">
+      <ion-row class="header">
+        <ion-col class="positie">#</ion-col>
+        <ion-col>Naam</ion-col>
+        <ion-col>Plaats</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item color="white" text-wrap *ngFor="let line of deelnemers; let positie = index" (click)="goToDetails(line)">
+      <ion-icon color="secondary" item-right name="ios-arrow-dropright-outline"></ion-icon>
+      <ion-row>
+        <ion-col class="positie">
+          {{positie + 1}}
+        </ion-col>
+        <ion-col>{{line.Participant.Name}}</ion-col>
+        <ion-col>{{line.Participant.Location}}</ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-card>
+</ion-content>
+

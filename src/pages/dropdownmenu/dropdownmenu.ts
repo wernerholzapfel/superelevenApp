@@ -5,6 +5,7 @@ import {TeamstandPage} from "../teamstand/teamstand";
 import {TotaalstandPage} from "../totaalstand/totaalstand";
 import {WedstrijdenstandPage} from "../wedstrijdenstand/wedstrijdenstand";
 import {VragenstandPage} from "../vragenstand/vragenstand";
+import {DeelnemersPage} from "../deelnemers/deelnemers";
 
 /*
  Generated class for the Dropdownmenu page.
@@ -49,5 +50,10 @@ export class DropdownmenuPage {
   openVragenstand(){
     this.viewCtrl.dismiss();
     this.navCtrl.push(VragenstandPage)
+  }
+
+  openDeelnemers(){
+    this.viewCtrl.dismiss();
+    this.navCtrl.push(DeelnemersPage)
   }
 }

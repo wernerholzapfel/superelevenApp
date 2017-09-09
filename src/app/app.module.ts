@@ -21,6 +21,8 @@ import {WedstrijdenstandDetailsPage} from "../pages/wedstrijdenstand-details/wed
 import {VragenstandPage} from "../pages/vragenstand/vragenstand";
 import {VragenstandProvider} from "../providers/vragenstandprovider";
 import {VragenstandDetailsPage} from "../pages/vragenstand-details/vragenstand-details";
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -55,7 +57,8 @@ const cloudSettings: CloudSettings = {
     TakePipe
   ],
   imports: [
-    IonicModule.forRoot(MyApp),
+    HttpModule,
+    BrowserModule,
     CloudModule.forRoot(cloudSettings),
     IonicModule.forRoot(MyApp, {
       backButtonText: '',

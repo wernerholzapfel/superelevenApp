@@ -32,12 +32,6 @@ import {SpelerstatistiekenPage} from "../pages/spelerstatistieken/spelerstatisti
 import {DeelnemersPerSpelerPage} from "../pages/deelnemers-per-speler/deelnemers-per-speler";
 import { DeelnemersPerSpelerProvider } from '../providers/deelnemers-per-speler/deelnemers-per-speler';
 import {SuperelevenNavbarPage} from "../pages/supereleven-navbar/supereleven-navbar";
-import {DeelnemersPageModule} from "../pages/deelnemers/deelnemers.module";
-import {PredictionPageModule} from "../pages/prediction/prediction.module";
-import {SpelerstatistiekenPageModule} from "../pages/spelerstatistieken/spelerstatistieken.module";
-import {DeelnemersPerSpelerPageModule} from "../pages/deelnemers-per-speler/deelnemers-per-speler.module";
-import {SuperelevenNavbarPageModule} from "../pages/supereleven-navbar/supereleven-navbar.module";
-
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -69,7 +63,12 @@ const cloudSettings: CloudSettings = {
     VragenstandPage,
     VragenstandDetailsPage,
     OrderByPipe,
-    TakePipe
+    TakePipe,
+    DeelnemersPage,
+    PredictionPage,
+    SpelerstatistiekenPage,
+    DeelnemersPerSpelerPage,
+    SuperelevenNavbarPage
   ],
   imports: [
     HttpModule,

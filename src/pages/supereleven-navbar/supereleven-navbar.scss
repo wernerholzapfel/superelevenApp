@@ -2,9 +2,20 @@ supereleven-navbar {
   .toolbar-md-white .toolbar-background-md,
   .toolbar-ios-white .toolbar-background-ios {
     background: #fff;
-    background-image: url('../../assets/icon/logo_white.png');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
+    //background-image: url('/assets/icon/logo_white.png');
+    //background-position: center;
+    //background-repeat: no-repeat;
+    //background-size: auto 80px;
+    //-webkit-background-size: auto 80px;
+    //-moz-background-size: auto 80px;
+  }
+  img {
+    //position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    padding-left: 21px;
   }
 }

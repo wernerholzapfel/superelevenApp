@@ -7,6 +7,7 @@ import {WedstrijdenstandPage} from "../wedstrijdenstand/wedstrijdenstand";
 import {VragenstandPage} from "../vragenstand/vragenstand";
 import {DeelnemersPage} from "../deelnemers/deelnemers";
 import {SpelerstatistiekenPage} from "../spelerstatistieken/spelerstatistieken";
+import {SpelersScorePage} from "../spelers-score/spelers-score";
 
 /*
  Generated class for the Dropdownmenu page.
@@ -61,5 +62,10 @@ export class DropdownmenuPage {
   openSpelerstatistieken(){
     this.viewCtrl.dismiss();
     this.navCtrl.push(SpelerstatistiekenPage)
+  }
+
+  openSpelerscore(){
+    this.viewCtrl.dismiss();
+    this.navCtrl.push(SpelersScorePage)
   }
 }

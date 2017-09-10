@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController, ViewController, PopoverController} from "ionic-angular";
+import {NavController, PopoverController, ViewController} from "ionic-angular";
 import {Teamstand} from "../../models/teamstand";
 import {TeamstandProvider} from "../../providers/teamstandprovider";
 import {TeamstandDetailsPage} from "../teamstand-details/teamstand-details";
@@ -8,14 +8,20 @@ import {Laatsteupdate} from "../../models/laatsteupdate";
 import {Subscription} from "rxjs";
 import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
 import {SpinnerDialog} from "ionic-native";
+import {FormControl} from "@angular/forms";
 
-
+//search implementation https://www.joshmorony.com/high-performance-list-filtering-in-ionic-2/
 @Component({
   selector: 'page-teamstand',
   templateUrl: 'teamstand.html'
 })
 export class TeamstandPage {
+  searchTerm: string = '';
+  searchControl: FormControl;
+
+  unmutatedTeamstand: Teamstand[];
   teamstand: Teamstand[];
+
   laatsteupdate: Laatsteupdate;
   teamstandSub: Subscription;
   teamstandSub2: Subscription;
@@ -28,11 +34,12 @@ export class TeamstandPage {
               private teamstandProvider: TeamstandProvider,
               private laatsteupdateProvider: LaatsteupdateProvider,
               public popoverCtrl: PopoverController) {
+    this.searchControl = new FormControl();
   }
 
   ionViewWillEnter() {
-    this.teamstand = [];
-    if (!this.teamstand) SpinnerDialog.show(null, null, null, {
+    this.unmutatedTeamstand = [];
+    if (!this.unmutatedTeamstand) SpinnerDialog.show(null, null, null, {
       overlayOpacity: 50,
       textColorRed: 151,
       textColorGreen: 191,
@@ -47,7 +54,14 @@ export class TeamstandPage {
       }
       this.teamstandSub2 = this.teamstandProvider.getTeamstand(this.activeSpeelronde).subscribe(response => {
         console.log("teamstand geladen");
+        this.unmutatedTeamstand = response;
         this.teamstand = response;
+
+        this.setFilteredItems();
+        this.searchControl.valueChanges.debounceTime(500).subscribe(search => {
+          this.setFilteredItems();
+        });
+
         SpinnerDialog.hide();
       });
     });
@@ -115,5 +129,18 @@ export class TeamstandPage {
     popover.present();
   }
 
+  setFilteredItems() {
+    this.teamstand = this.filterItems(this.searchTerm);
+  }
+
+  filterItems(searchTerm) {
+    return this.unmutatedTeamstand.filter((item) => {
+      return item.Participant.Name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    });
+  }
+
+  onSearchInput() {
+    SpinnerDialog.show();
+  }
 }
 

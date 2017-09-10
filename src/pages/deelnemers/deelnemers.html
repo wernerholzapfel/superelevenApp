@@ -1,7 +1,7 @@
 <ion-header>
   <supereleven-navbar></supereleven-navbar>
   <ion-item text-wrap color="primary">
-    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
   </ion-item>
 </ion-header>
 

@@ -1,7 +1,7 @@
 <ion-header>
   <supereleven-navbar></supereleven-navbar>
   <ion-item text-wrap color="primary">
-    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
   </ion-item>
 
 </ion-header>
@@ -25,7 +25,7 @@
             <ion-col class="punten">Punten</ion-col>
           </ion-row>
         </ion-item>
-        <button ion-item text-wrap *ngFor="let line of totaalstand?.deelnemers" (click)="goToDetails(line)">
+        <button ion-item text-wrap *ngFor="let line of totaalstand" (click)="goToDetails(line)">
           <ion-row >
             <ion-col class="positie">
               {{line.Positie}}

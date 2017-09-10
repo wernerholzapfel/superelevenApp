@@ -1,11 +1,10 @@
 
 export interface Teamstand {
-  "deelnemers": deelnemers[]
+  "Participant": participant
 }
 
-export interface deelnemers {
-  // "Name": string;
-  // "RoundId": number;
-  // "Positie": number;
-  // "TotalScore": number;
+export interface participant {
+  "Gender": string,
+  "Location": string,
+  "Name": string,
 }

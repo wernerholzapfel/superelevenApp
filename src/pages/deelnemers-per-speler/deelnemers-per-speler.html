@@ -27,7 +27,7 @@
         <ion-col class="punten">Punten</ion-col>
       </ion-row>
     </ion-item>
-    <button ion-item color="white" text-wrap
+    <ion-item color="white" text-wrap
               *ngFor="let line of deelnemersPerSpeler |orderBy : ['Positie']; let positie = index">
       <ion-row>
         <ion-col class="positie">
@@ -36,7 +36,7 @@
         <ion-col>{{line.Name}}</ion-col>
         <ion-col class="punten"> {{line.TotalScore}}</ion-col>
       </ion-row>
-    </button>
+    </ion-item>
   </ion-card>
 </ion-content>
 

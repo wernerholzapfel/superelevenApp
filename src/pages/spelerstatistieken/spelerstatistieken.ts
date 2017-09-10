@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
 import {SpinnerDialog} from "ionic-native";
 import {SpelerstatistiekenProvider} from "../../providers/spelerstatistieken/spelerstatistieken";
 import {Subscription} from "rxjs/Subscription";
 import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
 import {DeelnemersPerSpelerPage} from "../deelnemers-per-speler/deelnemers-per-speler";
+import {FormControl} from "@angular/forms";
 
 /**
  * Generated class for the SpelerstatistiekenPage page.
@@ -19,6 +20,8 @@ import {DeelnemersPerSpelerPage} from "../deelnemers-per-speler/deelnemers-per-s
 })
 export class SpelerstatistiekenPage {
 
+  searchTerm: string = '';
+  searchControl: FormControl;
   unmutatedSpelerlijst: any[];
   spelerlijst: any[];
   spelerlijstSub: Subscription;
@@ -27,10 +30,25 @@ export class SpelerstatistiekenPage {
               public navParams: NavParams,
               public viewCtrl: ViewController,
               private spelerstatistiekenProvider: SpelerstatistiekenProvider,
-              public popoverCtrl: PopoverController) {
+              public popoverCtrl: PopoverController,) {
+    this.searchControl = new FormControl();
   }
 
   ionViewWillEnter() {
+
+  }
+
+  goToDetails(deelnemersPerSpeler: any) {
+
+    this.navCtrl.push(DeelnemersPerSpelerPage, deelnemersPerSpeler)
+  }
+
+  presentPopover(event) {
+    let popover = this.popoverCtrl.create(DropdownmenuPage);
+    popover.present();
+  }
+
+  ionViewDidLoad() {
     this.spelerlijst = [];
     if (!this.spelerlijst) SpinnerDialog.show(null, null, null, {
       overlayOpacity: 50,
@@ -45,21 +63,14 @@ export class SpelerstatistiekenPage {
       response => {
         this.spelerlijst = response;
         this.unmutatedSpelerlijst = response;
+        this.setFilteredItems();
+        this.searchControl.valueChanges.debounceTime(500).subscribe(search => {
+          this.setFilteredItems();
+
+        });
         SpinnerDialog.hide();
       });
-  }
 
-  goToDetails(deelnemersPerSpeler: any) {
-
-    this.navCtrl.push(DeelnemersPerSpelerPage, deelnemersPerSpeler)
-  }
-
-  presentPopover(event) {
-    let popover = this.popoverCtrl.create(DropdownmenuPage);
-    popover.present();
-  }
-
-  ionViewDidLoad() {
     console.log('ionViewDidLoad DeelnemersPage');
   }
 
@@ -67,17 +78,18 @@ export class SpelerstatistiekenPage {
     this.spelerlijstSub.unsubscribe();
   }
 
-  getItems(ev: any) {
+  setFilteredItems() {
+    this.spelerlijst = this.filterItems(this.searchTerm);
+  }
 
-    // set val to the value of the searchbar
-    let val = ev.target.value;
+  filterItems(searchTerm) {
+    return this.unmutatedSpelerlijst.filter((item) => {
+      return item.PlayerName.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    });
 
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.spelerlijst = this.unmutatedSpelerlijst.filter((item) => {
-        return (item.PlayerName.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
-    else this.spelerlijst = this.unmutatedSpelerlijst
+  }
+
+  onSearchInput() {
+    SpinnerDialog.show();
   }
 }

@@ -6,6 +6,7 @@ import {SpinnerDialog} from "ionic-native";
 import {Subscription} from "rxjs/Subscription";
 import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
 import {PredictionPage} from "../prediction/prediction";
+import {FormControl} from "@angular/forms";
 
 @IonicPage()
 @Component({
@@ -13,7 +14,10 @@ import {PredictionPage} from "../prediction/prediction";
   templateUrl: 'deelnemers.html',
 })
 export class DeelnemersPage {
+  searchTerm: string = '';
+  searchControl: FormControl;
 
+  unmutatedDeelnemers: Deelnemer[];
   deelnemers: Deelnemer[];
   deelnemersSub: Subscription;
 
@@ -22,11 +26,12 @@ export class DeelnemersPage {
               public viewCtrl: ViewController,
               private deelnemerProvider: DeelnemerProvider,
               public popoverCtrl: PopoverController) {
+    this.searchControl = new FormControl();
   }
 
   ionViewWillEnter() {
-    this.deelnemers = [];
-    if (!this.deelnemers) SpinnerDialog.show(null, null, null, {
+    this.unmutatedDeelnemers = [];
+    if (!this.unmutatedDeelnemers) SpinnerDialog.show(null, null, null, {
       overlayOpacity: 50,
       textColorRed: 151,
       textColorGreen: 191,
@@ -37,7 +42,13 @@ export class DeelnemersPage {
 
     this.deelnemersSub = this.deelnemerProvider.getDeelnemers().subscribe(
       response => {
+        this.unmutatedDeelnemers = response;
         this.deelnemers = response;
+        this.setFilteredItems();
+        this.searchControl.valueChanges.debounceTime(500).subscribe(search => {
+          this.setFilteredItems();
+        });
+
         SpinnerDialog.hide();
       });
   }
@@ -46,10 +57,6 @@ export class DeelnemersPage {
     this.navCtrl.push(PredictionPage, {participant: deelnemer})
   }
 
-  presentPopover(event) {
-    let popover = this.popoverCtrl.create(DropdownmenuPage);
-    popover.present();
-  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DeelnemersPage');
@@ -59,4 +66,17 @@ export class DeelnemersPage {
     this.deelnemersSub.unsubscribe();
   }
 
+  setFilteredItems() {
+    this.deelnemers = this.filterItems(this.searchTerm);
+  }
+
+  filterItems(searchTerm) {
+    return this.unmutatedDeelnemers.filter((item) => {
+      return item.Participant.Name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    });
+  }
+
+  onSearchInput() {
+    SpinnerDialog.show();
+  }
 }

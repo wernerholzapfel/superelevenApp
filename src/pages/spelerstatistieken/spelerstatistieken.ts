@@ -84,7 +84,8 @@ export class SpelerstatistiekenPage {
 
   filterItems(searchTerm) {
     return this.unmutatedSpelerlijst.filter((item) => {
-      return item.PlayerName.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+      return (item.PlayerName.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+        item.Team.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
     });
 
   }

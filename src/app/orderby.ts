@@ -8,6 +8,9 @@ export class OrderByPipe implements PipeTransform {
 
   private static _orderBy (a: any, b: any): number {
 
+    if (a === undefined) a = 99998;
+    if (b === undefined) b = 99999;
+
     if (a instanceof Date && b instanceof Date) {
       return a < b ? -1 : a > b ? 1 : 0;
     }

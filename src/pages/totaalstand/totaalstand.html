@@ -1,12 +1,9 @@
 <ion-header>
-  <ion-navbar class="mynavbar" ion-text color="white">
-    <img height="74px" [src]="'assets/icon/logo_white.png'">
-    <ion-buttons end>
-      <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
-        <ion-icon name="menu" ></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
+  <supereleven-navbar></supereleven-navbar>
+  <ion-item text-wrap color="primary">
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  </ion-item>
+
 </ion-header>
 
 
@@ -28,7 +25,7 @@
             <ion-col class="punten">Punten</ion-col>
           </ion-row>
         </ion-item>
-        <ion-item text-wrap *ngFor="let line of totaalstand?.deelnemers" (click)="goToDetails(line)">
+        <button ion-item text-wrap *ngFor="let line of totaalstand?.deelnemers" (click)="goToDetails(line)">
           <ion-row >
             <ion-col class="positie">
               {{line.Positie}}
@@ -39,8 +36,8 @@
             <ion-col class="naam">{{line.Name}}</ion-col>
             <ion-col class="punten"> {{line.TotalScore}}</ion-col>
           </ion-row>
-          <ion-icon color="secondary" item-right name="ios-arrow-dropright-outline"></ion-icon>
-        </ion-item>
+          <!--<ion-icon color="secondary" item-right name="ios-arrow-dropright-outline"></ion-icon>-->
+        </button>
   </ion-card>
 </ion-content>
 

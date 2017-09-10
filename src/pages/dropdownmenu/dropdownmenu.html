@@ -1,43 +1,41 @@
 <ion-list no-lines="">
-  <ion-item (click)="openHome()">
+  <button ion-item (click)="openHome()">
     <ion-icon color="secondary" name="home" item-left></ion-icon>
-    <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
+    <!--<ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>-->
     Home
-  </ion-item>
+  </button>
 
-  <ion-item (click)="openTotaalstand()">
+  <button ion-item (click)="openTotaalstand()">
     <ion-icon color="secondary" name="trophy" item-left></ion-icon>
-    <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
+    <!--<ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>-->
     Totaalstand
-  </ion-item>
+  </button >
 
-  <ion-item (click)="openTeamstand()">
+  <button ion-item (click)="openTeamstand()">
     <ion-icon color="secondary" name="stats" item-left></ion-icon>
-    <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
+    <!--<ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>-->
     Teamstand
-  </ion-item>
+  </button>
 
-  <ion-item *ngIf='false' (click)="openWedstrijdenstand()">
+  <button ion-item *ngIf='false' (click)="openWedstrijdenstand()">
     <ion-icon color="secondary" name="podium" item-left></ion-icon>
-    <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
+    <!--<ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>-->
     Wedstrijdenstand
-  </ion-item>
-
-  <ion-item *ngIf='false' (click)="openVragenstand()">
+  </button>
+  <button ion-item *ngIf='false' (click)="openVragenstand()">
     <ion-icon color="secondary" name="stats" item-left></ion-icon>
-    <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
+    <!--<ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>-->
     Vragenstand
-  </ion-item>
-
-  <ion-item (click)="openDeelnemers()">
+  </button>
+  <button ion-item (click)="openDeelnemers()">
     <ion-icon color="secondary" name="people" item-left></ion-icon>
-    <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
+    <!--<ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>-->
     Deelnemers
-  </ion-item>
+  </button>
 
-  <ion-item (click)="openSpelerstatistieken()">
+  <button ion-item (click)="openSpelerstatistieken()">
     <ion-icon color="secondary" name="pie" item-left></ion-icon>
-    <ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>
+    <!--<ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>-->
     Gekozen spelers
-  </ion-item>
+  </button>
 </ion-list>

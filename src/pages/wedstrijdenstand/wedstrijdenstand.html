@@ -1,12 +1,10 @@
 <ion-header>
-  <ion-navbar class="mynavbar" ion-text color="white">
-    <img height="74px" [src]="'assets/icon/logo_white.png'">
-    <ion-buttons end>
-      <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
-        <ion-icon name="menu"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
+  <supereleven-navbar></supereleven-navbar>
+
+  <ion-item text-wrap color="primary">
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  </ion-item>
+
 </ion-header>
 
 
@@ -28,8 +26,7 @@
         <ion-col class="punten">Punten</ion-col>
       </ion-row>
     </ion-item>
-    <ion-item color="white" text-wrap *ngFor="let line of wedstrijdenstand; let positie = index" (click)="goToDetails(line)">
-      <ion-icon color="secondary" item-right name="ios-arrow-dropright-outline"></ion-icon>
+    <button ion-item color="white" text-wrap *ngFor="let line of wedstrijdenstand; let positie = index" (click)="goToDetails(line)">
       <ion-row>
         <ion-col class="positie" *ngIf="line?.TotalMatchesScore !== wedstrijdenstand[positie-1]?.TotalMatchesScore">
           {{positie + 1}}
@@ -40,7 +37,7 @@
         <ion-col>{{line.Participant.Name}}</ion-col>
         <ion-col class="punten"> {{line.TotalMatchesScore}}</ion-col>
       </ion-row>
-    </ion-item>
+    </button>
   </ion-card>
 </ion-content>
 

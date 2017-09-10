@@ -31,6 +31,7 @@ import { SpelerstatistiekenProvider } from '../providers/spelerstatistieken/spel
 import {SpelerstatistiekenPage} from "../pages/spelerstatistieken/spelerstatistieken";
 import {DeelnemersPerSpelerPage} from "../pages/deelnemers-per-speler/deelnemers-per-speler";
 import { DeelnemersPerSpelerProvider } from '../providers/deelnemers-per-speler/deelnemers-per-speler';
+import {SuperelevenNavbarPage} from "../pages/supereleven-navbar/supereleven-navbar";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -66,7 +67,8 @@ const cloudSettings: CloudSettings = {
     DeelnemersPage,
     PredictionPage,
     SpelerstatistiekenPage,
-    DeelnemersPerSpelerPage
+    DeelnemersPerSpelerPage,
+    SuperelevenNavbarPage
   ],
   imports: [
     HttpModule,
@@ -101,7 +103,8 @@ const cloudSettings: CloudSettings = {
     DeelnemersPage,
     PredictionPage,
     SpelerstatistiekenPage,
-    DeelnemersPerSpelerPage
+    DeelnemersPerSpelerPage,
+    SuperelevenNavbarPage
   ],
   providers: [
     TotaalstandProvider,

@@ -3,6 +3,8 @@ import {IonicPage, NavController, NavParams, PopoverController, ViewController} 
 import {PredictionProvider} from "../../providers/predictionProvider";
 import {SpinnerDialog} from "ionic-native";
 import {Subscription} from "rxjs/Subscription";
+import {OrderByPipe} from "../../app/orderby";
+
 
 @IonicPage()
 @Component({

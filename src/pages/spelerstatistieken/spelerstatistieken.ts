@@ -80,6 +80,7 @@ export class SpelerstatistiekenPage {
 
   setFilteredItems() {
     this.spelerlijst = this.filterItems(this.searchTerm);
+    SpinnerDialog.hide();
   }
 
   filterItems(searchTerm) {

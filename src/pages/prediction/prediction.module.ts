@@ -4,7 +4,7 @@ import {PredictionPage} from './prediction';
 
 @NgModule({
   declarations: [
-    PredictionPage,
+    PredictionPage
   ],
   imports: [
     IonicPageModule.forChild(PredictionPage),

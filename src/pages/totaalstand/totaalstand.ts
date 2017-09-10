@@ -94,6 +94,7 @@ export class TotaalstandPage {
 
   setFilteredItems() {
     this.totaalstand = this.filterItems(this.searchTerm);
+    SpinnerDialog.hide();
   }
 
   filterItems(searchTerm) {

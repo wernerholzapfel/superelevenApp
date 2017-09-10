@@ -68,6 +68,7 @@ export class DeelnemersPage {
 
   setFilteredItems() {
     this.deelnemers = this.filterItems(this.searchTerm);
+    SpinnerDialog.hide();
   }
 
   filterItems(searchTerm) {

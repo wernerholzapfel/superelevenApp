@@ -1,4 +1,4 @@
-import {NgModule} from "@angular/core";
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from "@angular/core";
 import {IonicApp, IonicModule} from "ionic-angular";
 import {CloudSettings, CloudModule} from "@ionic/cloud-angular";
 import {MyApp} from "./app.component";
@@ -32,6 +32,12 @@ import {SpelerstatistiekenPage} from "../pages/spelerstatistieken/spelerstatisti
 import {DeelnemersPerSpelerPage} from "../pages/deelnemers-per-speler/deelnemers-per-speler";
 import { DeelnemersPerSpelerProvider } from '../providers/deelnemers-per-speler/deelnemers-per-speler';
 import {SuperelevenNavbarPage} from "../pages/supereleven-navbar/supereleven-navbar";
+import {DeelnemersPageModule} from "../pages/deelnemers/deelnemers.module";
+import {PredictionPageModule} from "../pages/prediction/prediction.module";
+import {SpelerstatistiekenPageModule} from "../pages/spelerstatistieken/spelerstatistieken.module";
+import {DeelnemersPerSpelerPageModule} from "../pages/deelnemers-per-speler/deelnemers-per-speler.module";
+import {SuperelevenNavbarPageModule} from "../pages/supereleven-navbar/supereleven-navbar.module";
+
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -63,12 +69,7 @@ const cloudSettings: CloudSettings = {
     VragenstandPage,
     VragenstandDetailsPage,
     OrderByPipe,
-    TakePipe,
-    DeelnemersPage,
-    PredictionPage,
-    SpelerstatistiekenPage,
-    DeelnemersPerSpelerPage,
-    SuperelevenNavbarPage
+    TakePipe
   ],
   imports: [
     HttpModule,
@@ -112,7 +113,11 @@ const cloudSettings: CloudSettings = {
     LaatsteupdateProvider,
     Homepageprovider,
     WedstrijdenstandProvider,
-    VragenstandProvider, DeelnemerProvider, PredictionProvider, SpelerstatistiekenProvider, DeelnemersPerSpelerProvider]
+    VragenstandProvider,
+    DeelnemerProvider,
+    PredictionProvider,
+    SpelerstatistiekenProvider,
+    DeelnemersPerSpelerProvider]
 })
 export class AppModule {
 }

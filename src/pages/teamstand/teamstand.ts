@@ -131,6 +131,7 @@ export class TeamstandPage {
 
   setFilteredItems() {
     this.teamstand = this.filterItems(this.searchTerm);
+    SpinnerDialog.hide();
   }
 
   filterItems(searchTerm) {

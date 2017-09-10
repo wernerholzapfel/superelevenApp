@@ -33,7 +33,6 @@ export class VragenstandPage {
     this.vragenstandSub = this.vragenstandProvider.getVragenstand().subscribe(response => {
       this.vragenstand = response;
       SpinnerDialog.hide();
-
     });
 
   }

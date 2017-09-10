@@ -40,7 +40,6 @@ export class WedstrijdenstandPage {
     this.wedstrijdenstandSub = this.wedstrijdenstandProvider.getWedstrijdenstand().subscribe(response => {
       this.wedstrijdenstand = response;
       SpinnerDialog.hide();
-
     });
 
   }

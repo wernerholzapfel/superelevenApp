@@ -6,6 +6,7 @@ import {SpelerstatistiekenProvider} from "../../providers/spelerstatistieken/spe
 import {DeelnemersPerSpelerPage} from "../deelnemers-per-speler/deelnemers-per-speler";
 import {SpinnerDialog} from "ionic-native";
 import {SpelersScoreProvider} from "../../providers/spelers-score/spelers-score";
+import {TeamstandProvider} from "../../providers/teamstandprovider";
 
 @IonicPage()
 @Component({
@@ -16,13 +17,20 @@ export class SpelersScorePage {
 
   searchTerm: string = '';
   searchControl: FormControl;
+
   unmutatedSpelerlijst: any[];
   spelerlijst: any[];
   spelerlijstSub: Subscription;
 
+  teamstandSub: Subscription;
+  speelrondeList: any[];
+  activeSpeelronde: number;
+
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
+              private teamstandProvider: TeamstandProvider,
               private spelersScoreProvider: SpelersScoreProvider,
               ) {
     this.searchControl = new FormControl();
@@ -42,23 +50,28 @@ export class SpelersScorePage {
 
     this.viewCtrl.showBackButton(false);
 
-    this.spelerlijstSub = this.spelersScoreProvider.getSpelerslijst().subscribe(
-      response => {
-        this.spelerlijst = response;
-        this.unmutatedSpelerlijst = response;
-        this.setFilteredItems();
-        this.searchControl.valueChanges.debounceTime(500).subscribe(search => {
+    this.teamstandSub = this.teamstandProvider.getLatestRound().subscribe(speelRondes => {
+      this.speelrondeList = speelRondes;
+      if (!this.activeSpeelronde) {
+        this.activeSpeelronde = this.speelrondeList.length;
+      }
+      this.spelerlijstSub = this.spelersScoreProvider.getSpelerslijstPerRound(this.activeSpeelronde).subscribe(
+        response => {
+          this.spelerlijst = response;
+          this.unmutatedSpelerlijst = response;
           this.setFilteredItems();
+          this.searchControl.valueChanges.debounceTime(500).subscribe(search => {
+            this.setFilteredItems();
 
-        });
-        SpinnerDialog.hide();
+          });
+          SpinnerDialog.hide();
       });
-
-    console.log('ionViewDidLoad DeelnemersPage');
+    });
   }
 
   ionViewWillLeave() {
     this.spelerlijstSub.unsubscribe();
+    this.teamstandSub.unsubscribe();
   }
 
   setFilteredItems() {
@@ -76,6 +89,29 @@ export class SpelersScorePage {
   onSearchInput() {
     SpinnerDialog.show();
   }
+
+  getSpelerslijst(event) {
+    SpinnerDialog.show(null, null, null, {
+      overlayOpacity: 50,
+      textColorRed: 151,
+      textColorGreen: 191,
+      textColorBlue: 18
+    });
+
+    if (event === 'Alle'){
+      this.spelersScoreProvider.getSpelerslijst().subscribe(response => {
+        console.log("get gesommeerde spelerslijst");
+        this.unmutatedSpelerlijst = response;
+        SpinnerDialog.hide();
+      });
+    }
+    else {
+    this.spelersScoreProvider.getSpelerslijstPerRound(this.activeSpeelronde).subscribe(response => {
+      console.log("get spelerslijst call");
+      this.unmutatedSpelerlijst = response;
+      SpinnerDialog.hide();
+    });
+  }}
 }
 
 

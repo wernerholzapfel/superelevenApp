@@ -15,4 +15,9 @@ export class SpelersScoreProvider {
     return this.http.get(`${this.superElevenApi}/spelerstotaalpunten`)
       .map(res => <any[]> res.json())
   }
+
+  getSpelerslijstPerRound(roundId: number): Observable<any[]> {
+    return this.http.get(`${this.superElevenApi}/spelerstotaalpunten/` + roundId)
+      .map(res => <any[]> res.json())
+  }
 }

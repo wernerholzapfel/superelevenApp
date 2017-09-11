@@ -1,5 +1,14 @@
 <ion-header>
   <supereleven-navbar></supereleven-navbar>
+  <ion-item text-wrap color="primary">
+    <ion-label color="white">Speelronde</ion-label>
+    <ion-select [(ngModel)]="activeSpeelronde"  (ngModelChange)="getSpelerslijst($event)">
+      <ion-option>Alle</ion-option>
+      <ion-option *ngFor="let speelronde of speelrondeList" [value]="speelronde.RoundId">{{speelronde.RoundId}}
+      </ion-option>
+
+    </ion-select>
+  </ion-item>
     <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
 </ion-header>
 

@@ -1,3 +1,17 @@
 page-spelers-score {
+  ion-row.header.row{
+    padding-right: 30.75px;
+  }
 
+  ion-col.club.col {
+    max-width: 40px;
+  }
+
+  ion-col.naam.col {
+    width: 100%;
+  }
+
+  ion-col.count.col {
+    max-width: 40px;
+  }
 }

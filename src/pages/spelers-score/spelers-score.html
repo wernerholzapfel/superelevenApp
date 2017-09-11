@@ -1,13 +1,8 @@
 <ion-header>
-
   <supereleven-navbar></supereleven-navbar>
-
-  <ion-item text-wrap color="primary">
-    <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"
-    ></ion-searchbar>
-  </ion-item>
-
+    <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
 </ion-header>
+
 <ion-content>
   <ion-spinner *ngIf="searching"></ion-spinner>
   <ion-card>
@@ -19,7 +14,7 @@
       </ion-row>
     </ion-item>
     <div *ngFor="let line of spelerlijst | orderBy : ['-TotalScore']">
-      <button ion-item text-wrap *ngIf="line.TotalScore > 0" (click)="line.showDetails = !line.showDetails">
+      <button ion-item detail-none text-wrap *ngIf="line.TotalScore > 0" (click)="line.showDetails = !line.showDetails">
         <ion-icon *ngIf="!line.showDetails" color="secondary" item-right name="ios-add-circle-outline"></ion-icon>
         <ion-icon *ngIf="line.showDetails" color="secondary" item-right name="ios-remove-circle-outline"></ion-icon>
         <ion-row>

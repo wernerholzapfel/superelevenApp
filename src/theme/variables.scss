@@ -27,7 +27,7 @@ $colors: (
   up: #97bf12,
   down: #eb4c42,
 );
-
+$searchbar-ios-background-color: color($colors, primary, base);
 $popover-ios-border-radius: 0;
 
 .fixed-content {

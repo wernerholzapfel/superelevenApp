@@ -1,10 +1,7 @@
 <ion-header>
   <supereleven-navbar></supereleven-navbar>
-  <ion-item text-wrap color="primary">
-    <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()" placeholder="zoek op naam"></ion-searchbar>
-  </ion-item>
+  <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()" placeholder="zoek op naam"></ion-searchbar>
 </ion-header>
-
 
 <ion-content>
   <!--<ion-refresher (ionRefresh)="doRefresh($event)">-->

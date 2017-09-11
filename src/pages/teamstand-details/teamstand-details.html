@@ -17,7 +17,7 @@
         <ion-col class="punten">Totaal</ion-col>
       </ion-row>
     </ion-item>
-    <ion-item text-wrap *ngFor="let line of teamstandregel.TeamScores | orderBy : ['Id']" (click)="line.showDetails = !line.showDetails">
+    <button ion-item detail-none text-wrap *ngFor="let line of teamstandregel.TeamScores | orderBy : ['Id']" (click)="line.showDetails = !line.showDetails">
       <ion-icon *ngIf="!line.showDetails" color="secondary" item-right name="ios-add-circle-outline"></ion-icon>
       <ion-icon *ngIf="line.showDetails" color="secondary" item-right name="ios-remove-circle-outline"></ion-icon>
       <ion-row>
@@ -79,6 +79,6 @@
         <ion-col>Rood</ion-col>
         <ion-col class="punten"> {{line.RedCard}}</ion-col>
       </ion-row>
-    </ion-item>
+    </button>
   </ion-card>
 </ion-content>

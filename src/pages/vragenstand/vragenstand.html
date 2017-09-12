@@ -6,11 +6,11 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content #content>
 
   <ion-card *ngIf="vragenstand">
     <ion-item color="secondary">
-      <ion-row class="header">
+      <ion-row ion-affix [content]="content" class="header">
         <ion-col class="positie">Pos.</ion-col>
         <ion-col >Naam</ion-col>
         <ion-col class="punten">Punten</ion-col>

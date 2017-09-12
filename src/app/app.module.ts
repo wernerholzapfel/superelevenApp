@@ -34,6 +34,7 @@ import { DeelnemersPerSpelerProvider } from '../providers/deelnemers-per-speler/
 import {SuperelevenNavbarPage} from "../pages/supereleven-navbar/supereleven-navbar";
 import { SpelersScoreProvider } from '../providers/spelers-score/spelers-score';
 import {SpelersScorePage} from "../pages/spelers-score/spelers-score";
+import {IonAffixModule} from "ion-affix";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -87,7 +88,8 @@ const cloudSettings: CloudSettings = {
       pageTransition: 'ios',
       popoverEnter: 'popover-md-pop-in',
       popoverLeave: 'popover-md-pop-out'
-    })
+    }),
+    IonAffixModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

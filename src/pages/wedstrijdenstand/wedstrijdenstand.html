@@ -6,7 +6,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content #content>
   <!--<ion-refresher (ionRefresh)="doRefresh($event)">-->
     <!--<ion-refresher-content-->
       <!--pullingText="Laatste update {{laatsteupdate?.updatedAt | date:'dd/MM HH:mm'}}"-->
@@ -17,7 +17,7 @@
   <!--</ion-refresher>-->
 
   <ion-card *ngIf="wedstrijdenstand">
-    <ion-item color="secondary">
+    <ion-item ion-affix [content]="content" color="secondary">
       <ion-row class="header">
         <ion-col class="positie">Pos.</ion-col>
         <ion-col>Naam</ion-col>

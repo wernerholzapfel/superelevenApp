@@ -5,9 +5,9 @@
   </ion-item>
 </ion-header>
 
-<ion-content>
+<ion-content #content>
   <ion-card>
-    <ion-item no-border color="primary">
+    <ion-item ion-affix [content]="content" no-border color="primary">
       <ion-row>
         <ion-col width-80 class="item-text-wrap">Wedstrijd</ion-col>
         <ion-col width-20>Punten</ion-col>

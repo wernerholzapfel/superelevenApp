@@ -13,9 +13,9 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content #content>
   <ion-card>
-    <ion-item color="secondary">
+    <ion-item ion-affix [content]="content" color="secondary">
       <ion-row class="header">
         <ion-col class="club">Club</ion-col>
         <ion-col class="naam">Naam

@@ -2,10 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 import {HomePage} from "../pages/home/home";
-import {
-  Push,
-  PushToken
-} from '@ionic/cloud-angular';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,19 +14,8 @@ export class MyApp {
   rootPage: any = HomePage;
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform,  public menu: MenuController,
-  public push: Push) {
+  constructor(public platform: Platform,  public menu: MenuController) {
     this.initializeApp();
-    this.push.register().then((t: PushToken) => {
-      return this.push.saveToken(t);
-    }).then((t: PushToken) => {
-      console.log('Token saved:', t.token);
-    });
-
-    this.push.rx.notification()
-      .subscribe((msg) => {
-        alert(msg.title + ': ' + msg.text);
-      });
 
   //   // set our app's pages
   //   this.pages = [
@@ -44,6 +29,14 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
+      var notificationOpenedCallback = function(jsonData) {
+        console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+      };
+
+      window["plugins"].OneSignal
+        .startInit("eb25a650-dde9-4137-9b48-e4e1323c93a7", "AAAAPHn_vFg:APA91bErCBmvhhJvkOeUstTD1DsqtGpfm6vQ7rk7m-Tib1njLfa7fEVJj60LlN5PZL28c6ySe6xsJXLlpFMzihwmJFFVM1mw8QzmZSi0tQJnGlaucTdqC2v-2XUropTC0JAx3CWaD_uW")
+        .handleNotificationOpened(notificationOpenedCallback)
+        .endInit();
     });
   }
 

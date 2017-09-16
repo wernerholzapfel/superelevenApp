@@ -13,7 +13,7 @@ import {FormControl} from "@angular/forms";
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-spelerstatistieken',
   templateUrl: 'spelerstatistieken.html',

@@ -8,7 +8,7 @@ import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
 import {PredictionPage} from "../prediction/prediction";
 import {FormControl} from "@angular/forms";
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-deelnemers',
   templateUrl: 'deelnemers.html',

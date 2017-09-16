@@ -1,6 +1,6 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from "@angular/core";
+import {NgModule} from "@angular/core";
 import {IonicApp, IonicModule} from "ionic-angular";
-import {CloudSettings, CloudModule} from "@ionic/cloud-angular";
+import {CloudModule, CloudSettings} from "@ionic/cloud-angular";
 import {MyApp} from "./app.component";
 import {TeamstandPage} from "../pages/teamstand/teamstand";
 import {TotaalstandPage} from "../pages/totaalstand/totaalstand";
@@ -21,18 +21,19 @@ import {WedstrijdenstandDetailsPage} from "../pages/wedstrijdenstand-details/wed
 import {VragenstandPage} from "../pages/vragenstand/vragenstand";
 import {VragenstandProvider} from "../providers/vragenstandprovider";
 import {VragenstandDetailsPage} from "../pages/vragenstand-details/vragenstand-details";
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpModule} from '@angular/http';
 import {DeelnemersPage} from "../pages/deelnemers/deelnemers";
-import { DeelnemerProvider } from '../providers/deelnemersprovider';
+import {DeelnemerProvider} from '../providers/deelnemersprovider';
 import {PredictionPage} from "../pages/prediction/prediction";
-import { PredictionProvider } from '../providers/predictionProvider';
-import { SpelerstatistiekenProvider } from '../providers/spelerstatistieken/spelerstatistieken';
+import {PredictionProvider} from '../providers/predictionProvider';
+import {SpelerstatistiekenProvider} from '../providers/spelerstatistieken/spelerstatistieken';
 import {SpelerstatistiekenPage} from "../pages/spelerstatistieken/spelerstatistieken";
 import {DeelnemersPerSpelerPage} from "../pages/deelnemers-per-speler/deelnemers-per-speler";
-import { DeelnemersPerSpelerProvider } from '../providers/deelnemers-per-speler/deelnemers-per-speler';
+import {DeelnemersPerSpelerProvider} from '../providers/deelnemers-per-speler/deelnemers-per-speler';
 import {SuperelevenNavbarPage} from "../pages/supereleven-navbar/supereleven-navbar";
-import { SpelersScoreProvider } from '../providers/spelers-score/spelers-score';
+import {SuperelevenNavbarPageModule} from "../pages/supereleven-navbar/supereleven-navbar.module";
+import {SpelersScoreProvider} from '../providers/spelers-score/spelers-score';
 import {SpelersScorePage} from "../pages/spelers-score/spelers-score";
 import {IonAffixModule} from "ion-affix";
 
@@ -40,6 +41,7 @@ const cloudSettings: CloudSettings = {
   'core': {
     'app_id': '800f2066'
   }, 'push': {
+    'sender_id': 'AAAAPHn_vFg:APA91bErCBmvhhJvkOeUstTD1DsqtGpfm6vQ7rk7m-Tib1njLfa7fEVJj60LlN5PZL28c6ySe6xsJXLlpFMzihwmJFFVM1mw8QzmZSi0tQJnGlaucTdqC2v-2XUropTC0JAx3CWaD_uW',
     'pluginConfig': {
       'ios': {
         'badge': true,
@@ -71,12 +73,13 @@ const cloudSettings: CloudSettings = {
     PredictionPage,
     SpelerstatistiekenPage,
     DeelnemersPerSpelerPage,
-    SuperelevenNavbarPage,
+    //SuperelevenNavbarPage,
     SpelersScorePage
   ],
   imports: [
     HttpModule,
     BrowserModule,
+    SuperelevenNavbarPageModule,
     CloudModule.forRoot(cloudSettings),
     IonicModule.forRoot(MyApp, {
       backButtonText: '',

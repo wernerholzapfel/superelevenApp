@@ -5,7 +5,7 @@ import {Subscription} from "rxjs/Subscription";
 import {DeelnemersPerSpelerProvider} from "../../providers/deelnemers-per-speler/deelnemers-per-speler";
 
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-deelnemers-per-speler',
   templateUrl: 'deelnemers-per-speler.html',

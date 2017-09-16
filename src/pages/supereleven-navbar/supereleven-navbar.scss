@@ -1,4 +1,7 @@
 supereleven-navbar {
+  .detailpage {
+    padding-left: 0 !important;
+  }
   .toolbar-md-white .toolbar-background-md,
   .toolbar-ios-white .toolbar-background-ios {
     background: #fff;
@@ -13,9 +16,11 @@ supereleven-navbar {
     //position: absolute;
     top: 0;
     left: 0;
+    margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
     display: block;
     padding-left: 21px;
+    height: 50px;
   }
 }

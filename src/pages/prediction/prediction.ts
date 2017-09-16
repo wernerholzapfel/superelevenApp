@@ -4,9 +4,10 @@ import {PredictionProvider} from "../../providers/predictionProvider";
 import {SpinnerDialog} from "ionic-native";
 import {Subscription} from "rxjs/Subscription";
 import {OrderByPipe} from "../../app/orderby";
+import {SuperelevenNavbarPage} from "../supereleven-navbar/supereleven-navbar";
 
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-prediction',
   templateUrl: 'prediction.html',

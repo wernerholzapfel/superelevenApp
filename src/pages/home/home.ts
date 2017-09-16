@@ -9,7 +9,7 @@ import {Subscription} from "rxjs";
 import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
 import {Headlines} from "../../models/headlines"
 import { SpinnerDialog} from 'ionic-native';
-
+import {SuperelevenNavbarPage} from "../supereleven-navbar/supereleven-navbar";
 
 @Component({
   selector: 'page-home',

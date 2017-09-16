@@ -28,8 +28,12 @@ $colors: (
   down: #eb4c42,
 );
 $searchbar-ios-background-color: color($colors, primary, base);
+$searchbar-md-background-color: color($colors, primary, base);
+$item-ios-detail-push-color: color($colors,secondary,base);
 $popover-ios-border-radius: 0;
-
+$item-md-detail-push-show: true;
+$item-wp-detail-push-show: true;
+//$item-ios-detail-push-svg: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 20'><path d='M2,20l-2-2l8-8L0,2l2-2l10,10L2,20z' fill='#{$item-ios-detail-push-color}'/></svg>"
 .fixed-content {
   background-color: #e1e7ea !important;
 

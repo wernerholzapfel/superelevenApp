@@ -8,7 +8,7 @@ import {SpinnerDialog} from "ionic-native";
 import {SpelersScoreProvider} from "../../providers/spelers-score/spelers-score";
 import {TeamstandProvider} from "../../providers/teamstandprovider";
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-spelers-score',
   templateUrl: 'spelers-score.html',
@@ -102,6 +102,7 @@ export class SpelersScorePage {
       this.spelersScoreProvider.getSpelerslijst().subscribe(response => {
         console.log("get gesommeerde spelerslijst");
         this.unmutatedSpelerlijst = response;
+        this.spelerlijst = response;
         SpinnerDialog.hide();
       });
     }
@@ -109,6 +110,7 @@ export class SpelersScorePage {
     this.spelersScoreProvider.getSpelerslijstPerRound(this.activeSpeelronde).subscribe(response => {
       console.log("get spelerslijst call");
       this.unmutatedSpelerlijst = response;
+      this.spelerlijst = response;
       SpinnerDialog.hide();
     });
   }}

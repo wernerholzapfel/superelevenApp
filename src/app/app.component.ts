@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 import {HomePage} from "../pages/home/home";
+import Auth0Cordova from '@auth0/cordova';
 
 @Component({
   templateUrl: 'app.html'
@@ -29,7 +30,15 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
-      var notificationOpenedCallback = function(jsonData) {
+
+
+      //auth0
+      (<any>window).handleOpenURL = (url) => {
+        Auth0Cordova.onRedirectUri(url);
+      };
+
+      // onesignal
+      let notificationOpenedCallback = function(jsonData) {
         console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
       };
 

@@ -73,6 +73,7 @@
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="FadeSplashScreenDuration" value="300" />
+    <preference name="AndroidLaunchMode" value="singleTask" />
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
@@ -83,4 +84,12 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreenDelay" value="3000" />
+    <plugin name="cordova-plugin-safariviewcontroller" spec="~1.4.7" />
+    <plugin name="cordova-plugin-customurlscheme" spec="~4.3.0">
+        <variable name="URL_SCHEME" value="com.wernerholzapfel.supereleven" />
+        <variable name="ANDROID_SCHEME" value="com.wernerholzapfel.supereleven" />
+        <variable name="ANDROID_HOST" value="werner.eu.auth0.com" />
+        <variable name="ANDROID_PATHPREFIX" value="/cordova/com.wernerholzapfel.supereleven/callback" />
+    </plugin>
+    <allow-navigation href="http://192.168.99.1:8100" />
 </widget>

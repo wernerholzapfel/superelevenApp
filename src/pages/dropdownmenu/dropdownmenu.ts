@@ -8,6 +8,7 @@ import {VragenstandPage} from "../vragenstand/vragenstand";
 import {DeelnemersPage} from "../deelnemers/deelnemers";
 import {SpelerstatistiekenPage} from "../spelerstatistieken/spelerstatistieken";
 import {SpelersScorePage} from "../spelers-score/spelers-score";
+import {AuthService} from "../../services/auth.services";
 
 /*
  Generated class for the Dropdownmenu page.
@@ -22,7 +23,8 @@ import {SpelersScorePage} from "../spelers-score/spelers-score";
 export class DropdownmenuPage {
 
   constructor(public navCtrl: NavController,
-              public viewCtrl: ViewController) {
+              public viewCtrl: ViewController,
+              public auth: AuthService) {
   }
 
   ionViewDidLoad() {
@@ -67,5 +69,9 @@ export class DropdownmenuPage {
   openSpelerscore(){
     this.viewCtrl.dismiss();
     this.navCtrl.push(SpelersScorePage)
+  }
+  logout(){
+    this.auth.logout();
+    this.viewCtrl.dismiss();
   }
 }

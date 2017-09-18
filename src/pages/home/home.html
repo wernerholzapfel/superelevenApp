@@ -3,6 +3,15 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-card color="primary" *ngIf="auth.isAuthenticated() && userscore">
+    <ion-card-content ion-text>
+      <h3>
+        {{userscore}}
+      </h3>
+    </ion-card-content>
+  </ion-card>
+
   <ion-card color="secondary" *ngIf="laatsteupdate?.updatedAt">
     <ion-card-content ion-text>
       <h2>
@@ -43,4 +52,9 @@
   </ion-card>
 
 </ion-content>
-
+<ion-footer>
+  <button ion-item detail-none *ngIf="!auth.isAuthenticated()" color="primary" (click)="auth.login()">
+    <ion-icon item-left name="log-in"></ion-icon>
+    Log In
+  </button>
+</ion-footer>

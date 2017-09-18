@@ -1,6 +1,5 @@
 import {NgModule} from "@angular/core";
 import {IonicApp, IonicModule} from "ionic-angular";
-import {CloudModule, CloudSettings} from "@ionic/cloud-angular";
 import {MyApp} from "./app.component";
 import {TeamstandPage} from "../pages/teamstand/teamstand";
 import {TotaalstandPage} from "../pages/totaalstand/totaalstand";
@@ -22,7 +21,7 @@ import {VragenstandPage} from "../pages/vragenstand/vragenstand";
 import {VragenstandProvider} from "../providers/vragenstandprovider";
 import {VragenstandDetailsPage} from "../pages/vragenstand-details/vragenstand-details";
 import {BrowserModule} from '@angular/platform-browser';
-import {HttpModule} from '@angular/http';
+import {Http, HttpModule} from '@angular/http';
 import {DeelnemersPage} from "../pages/deelnemers/deelnemers";
 import {DeelnemerProvider} from '../providers/deelnemersprovider';
 import {PredictionPage} from "../pages/prediction/prediction";
@@ -36,22 +35,21 @@ import {SuperelevenNavbarPageModule} from "../pages/supereleven-navbar/superelev
 import {SpelersScoreProvider} from '../providers/spelers-score/spelers-score';
 import {SpelersScorePage} from "../pages/spelers-score/spelers-score";
 import {IonAffixModule} from "ion-affix";
+import {AuthService} from "../services/auth.services";
+import {AuthConfig, AuthHttp} from 'angular2-jwt';
+import {Storage} from '@ionic/storage';
 
-const cloudSettings: CloudSettings = {
-  'core': {
-    'app_id': '800f2066'
-  }, 'push': {
-    'sender_id': 'AAAAPHn_vFg:APA91bErCBmvhhJvkOeUstTD1DsqtGpfm6vQ7rk7m-Tib1njLfa7fEVJj60LlN5PZL28c6ySe6xsJXLlpFMzihwmJFFVM1mw8QzmZSi0tQJnGlaucTdqC2v-2XUropTC0JAx3CWaD_uW',
-    'pluginConfig': {
-      'ios': {
-        'badge': true,
-        'sound': true,
-        'clearBadge': true,
-        'alert': true
-      }
-    }
-  }
-};
+// let storage = new Storage({});
+//
+// export function getAuthHttp(http) {
+//   return new AuthHttp(new AuthConfig({
+//     headerPrefix: 'bearer',
+//     noJwtError: true,
+//     globalHeaders: [{'Accept': 'application/json'}],
+//     tokenGetter: (() => storage.get('id_token').then((token: string) => token)),
+//   }), http);
+// }
+
 
 @NgModule({
   declarations: [
@@ -80,7 +78,6 @@ const cloudSettings: CloudSettings = {
     HttpModule,
     BrowserModule,
     SuperelevenNavbarPageModule,
-    CloudModule.forRoot(cloudSettings),
     IonicModule.forRoot(MyApp, {
       backButtonText: '',
       backButtonIcon: 'md-arrow-back',
@@ -126,7 +123,14 @@ const cloudSettings: CloudSettings = {
     PredictionProvider,
     SpelerstatistiekenProvider,
     DeelnemersPerSpelerProvider,
-    SpelersScoreProvider]
+    SpelersScoreProvider,
+    AuthService
+    // {
+    //   provide: AuthHttp,
+    //   useFactory: getAuthHttp,
+    //   deps: [Http]
+    // }
+  ]
 })
 export class AppModule {
 }

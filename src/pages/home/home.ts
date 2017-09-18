@@ -6,10 +6,9 @@ import {LaatsteupdateProvider} from "../../providers/laatsteupdateprovider";
 import {Laatsteupdate} from "../../models/laatsteupdate";
 import {Nummereenteamstandlaatsteronde} from "../../models/Nummereenteamstandlaatsteronde";
 import {Subscription} from "rxjs";
-import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
 import {Headlines} from "../../models/headlines"
 import { SpinnerDialog} from 'ionic-native';
-import {SuperelevenNavbarPage} from "../supereleven-navbar/supereleven-navbar";
+import {AuthService} from "../../services/auth.services"
 
 @Component({
   selector: 'page-home',
@@ -22,14 +21,17 @@ export class HomePage {
   nummereentotaalstandSub: Subscription;
   nummereenteamstandlaatsterondeSub: Subscription;
   headline : Headlines;
+  userscore : string;
   LaatsteupdateSub: Subscription;
   headlinesSub: Subscription;
+  userscoreSub: Subscription;dropdownad
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
               private homepageProvider: Homepageprovider,
               private laatsteupdateProvider: LaatsteupdateProvider,
               public popoverCtrl: PopoverController,
+              public auth: AuthService,
               private platform: Platform) {
 
   }
@@ -71,11 +73,9 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
+    this.userscoreSub = this.homepageProvider.getuserscore().subscribe(response => {
+      this.userscore = response;
+    });
     console.log('Hello HomePage Page');
-  }
-
-  presentPopover(event) {
-    let popover = this.popoverCtrl.create(DropdownmenuPage);
-    popover.present();
   }
 }

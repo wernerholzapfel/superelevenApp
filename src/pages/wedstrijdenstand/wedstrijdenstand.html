@@ -1,7 +1,7 @@
 <ion-header>
   <supereleven-navbar></supereleven-navbar>
 
-    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()" placeholder="zoek op naam"></ion-searchbar>
 
 </ion-header>
 
@@ -26,11 +26,8 @@
     </ion-item>
     <button ion-item color="white" text-wrap *ngFor="let line of wedstrijdenstand; let positie = index" (click)="goToDetails(line)">
       <ion-row>
-        <ion-col class="positie" *ngIf="line?.TotalMatchesScore !== wedstrijdenstand[positie-1]?.TotalMatchesScore">
-          {{positie + 1}}
-        </ion-col>
-        <ion-col class="positie" *ngIf="line?.TotalMatchesScore === wedstrijdenstand[positie-1]?.TotalMatchesScore">
-
+        <ion-col class="positie">
+          {{line.positie}}
         </ion-col>
         <ion-col>{{line.Participant.Name}}</ion-col>
         <ion-col class="punten"> {{line.TotalMatchesScore}}</ion-col>

@@ -53,7 +53,6 @@ export class TotaalstandPage {
         this.setFilteredItems();
       });
       SpinnerDialog.hide();
-
     });
 
     this.laatsteupdateSub = this.laatsteupdateProvider.load().subscribe(response => {

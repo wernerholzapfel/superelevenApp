@@ -1,6 +1,8 @@
 
 export interface Teamstand {
-  "Participant": participant
+  "Participant": participant,
+  "TotalTeamScore" : string,
+  "positie": number
 }
 
 export interface participant {

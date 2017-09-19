@@ -5,6 +5,7 @@ import {SpinnerDialog} from "ionic-native";
 import {Subscription} from "rxjs";
 import {WedstrijdenstandDetailsPage} from "../wedstrijdenstand-details/wedstrijdenstand-details";
 import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
+import {FormControl} from "@angular/forms";
 
 /*
  Generated class for the Wedstrijdenstand page.
@@ -17,13 +18,17 @@ import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
   templateUrl: 'wedstrijdenstand.html'
 })
 export class WedstrijdenstandPage {
+  searchTerm: string = '';
+  searchControl: FormControl;
+
+  unmutatedwedstrijdenstand: any[];
   wedstrijdenstand: any[];
   wedstrijdenstandSub: Subscription;
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
-              private wedstrijdenstandProvider: WedstrijdenstandProvider,
-              public popoverCtrl: PopoverController) {
+              private wedstrijdenstandProvider: WedstrijdenstandProvider) {
+    this.searchControl = new FormControl();
   }
 
 
@@ -39,10 +44,30 @@ export class WedstrijdenstandPage {
 
     this.wedstrijdenstandSub = this.wedstrijdenstandProvider.getWedstrijdenstand().subscribe(response => {
       this.wedstrijdenstand = response;
+      this.unmutatedwedstrijdenstand = response;
+      this.unmutatedwedstrijdenstand.forEach(function (element, index,array) {
+          if (index === 0) {
+            element.positie = index + 1;
+          }
+          else {
+            if (array[index - 1].TotalMatchesScore != element.TotalMatchesScore) {
+              element.positie = index + 1;
+            }
+            else {
+              element.positie = array[index-1].positie
+            }
+          }
+        }
+      );
+      this.setFilteredItems();
+      this.searchControl.valueChanges.debounceTime(500).subscribe(search => {
+        this.setFilteredItems();
+      });
       SpinnerDialog.hide();
     });
 
   }
+
   ionViewWillLeave() {
     this.wedstrijdenstandSub.unsubscribe();
   }
@@ -50,11 +75,23 @@ export class WedstrijdenstandPage {
   ionViewDidLoad() {
     console.log('Hello WedstrijdenstandPage Page');
   }
+
   goToDetails(wedstrijdenregel: any) {
     this.navCtrl.push(WedstrijdenstandDetailsPage, {wedstrijdenregel})
   }
-  presentPopover(event) {
-    let popover = this.popoverCtrl.create(DropdownmenuPage);
-    popover.present();
+
+  setFilteredItems() {
+    this.wedstrijdenstand = this.filterItems(this.searchTerm);
+    SpinnerDialog.hide();
+  }
+
+  filterItems(searchTerm) {
+    return this.unmutatedwedstrijdenstand.filter((item) => {
+      return item.Participant.Name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    });
+  }
+
+  onSearchInput() {
+    SpinnerDialog.show();
   }
 }

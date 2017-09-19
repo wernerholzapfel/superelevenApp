@@ -55,6 +55,20 @@ export class TeamstandPage {
       this.teamstandSub2 = this.teamstandProvider.getTeamstand(this.activeSpeelronde).subscribe(response => {
         console.log("teamstand geladen");
         this.unmutatedTeamstand = response;
+        this.unmutatedTeamstand.forEach(function (element, index, array) {
+          if (index === 0) {
+            element.positie = index + 1;
+          }
+          else {
+            if (array[index - 1].TotalTeamScore != element.TotalTeamScore) {
+              element.positie = index + 1;
+            }
+            else {
+              element.positie = array[index-1].positie
+            }
+          }
+        });
+
         this.teamstand = response;
 
         this.setFilteredItems();

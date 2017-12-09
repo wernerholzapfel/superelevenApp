@@ -1,5 +1,12 @@
 <ion-header>
-<supereleven-navbar></supereleven-navbar>
+  <ion-navbar class="mynavbar superelevennavbar" ion-text color="white">
+    <img [src]="'assets/icon/logo_white.png'">
+    <ion-buttons end>
+      <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
   <ion-item text-wrap color="primary">
     <ion-label color="white">Speelronde</ion-label>
     <ion-select [(ngModel)]="activeSpeelronde"  (ngModelChange)="getStand($event)">
@@ -21,7 +28,11 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-card *ngIf="teamstand">
+  <div *ngIf="isLoading" class="spinner">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <ion-card>
     <ion-item ion-affix [content]="content" color="secondary">
       <ion-row class="header">
         <ion-col class="positie">Pos.</ion-col>
@@ -29,7 +40,7 @@
         <ion-col class="punten">Punten</ion-col>
       </ion-row>
     </ion-item>
-    <button ion-item color="white" text-wrap *ngFor="let line of teamstand; let positie = index" (click)="goToDetails(line)">
+    <button [hidden]="isLoading" ion-item color="white" text-wrap *ngFor="let line of teamstand; let positie = index" (click)="goToDetails(line)">
       <ion-row>
         <ion-col class="positie">
           {{line.positie}}

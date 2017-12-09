@@ -1,8 +1,20 @@
 <ion-header>
-  <supereleven-navbar></supereleven-navbar>
+  <ion-navbar class="mynavbar superelevennavbar" ion-text color="white">
+    <img [src]="'assets/icon/logo_white.png'">
+    <ion-buttons end>
+      <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
-
 <ion-content>
+
+  <div *ngIf="isLoading" class="spinner">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+<div *ngIf="!isLoading">
+
   <ion-card color="secondary" *ngIf="laatsteupdate?.updatedAt">
     <ion-card-content ion-text>
       <h2>
@@ -41,6 +53,6 @@
       {{headline?.content}}
     </ion-card-content>
   </ion-card>
-
+</div>
 </ion-content>
 

@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
-import {FormControl} from "@angular/forms";
-import {Subscription} from "rxjs/Subscription";
-import {SpelerstatistiekenProvider} from "../../providers/spelerstatistieken/spelerstatistieken";
-import {DeelnemersPerSpelerPage} from "../deelnemers-per-speler/deelnemers-per-speler";
-import {SpinnerDialog} from "ionic-native";
-import {SpelersScoreProvider} from "../../providers/spelers-score/spelers-score";
-import {TeamstandProvider} from "../../providers/teamstandprovider";
+import {Component} from '@angular/core';
+import {NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
+import {FormControl} from '@angular/forms';
+import 'rxjs/add/operator/debounceTime';
+import {Subscription} from 'rxjs/Subscription';
+import {SpelersScoreProvider} from '../../providers/spelers-score/spelers-score';
+import {TeamstandProvider} from '../../providers/teamstandprovider';
+import {DropdownmenuPage} from '../dropdownmenu/dropdownmenu';
 
 // @IonicPage()
 @Component({
@@ -25,28 +24,22 @@ export class SpelersScorePage {
   teamstandSub: Subscription;
   speelrondeList: any[];
   activeSpeelronde: number;
-
+  isLoading: boolean;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
               private teamstandProvider: TeamstandProvider,
-              private spelersScoreProvider: SpelersScoreProvider,
-              ) {
+              public popoverCtrl: PopoverController,
+              private spelersScoreProvider: SpelersScoreProvider,) {
     this.searchControl = new FormControl();
   }
 
   ionViewWillEnter() {
-  }
+    this.isLoading = true;
 
-  ionViewDidLoad() {
     this.spelerlijst = [];
-    if (!this.spelerlijst) SpinnerDialog.show(null, null, null, {
-      overlayOpacity: 50,
-      textColorRed: 151,
-      textColorGreen: 191,
-      textColorBlue: 18
-    });
+    if (!this.spelerlijst) this.isLoading = true;
 
     this.viewCtrl.showBackButton(false);
 
@@ -64,8 +57,8 @@ export class SpelersScorePage {
             this.setFilteredItems();
 
           });
-          SpinnerDialog.hide();
-      });
+          this.isLoading = false;
+        });
     });
   }
 
@@ -76,7 +69,7 @@ export class SpelersScorePage {
 
   setFilteredItems() {
     this.spelerlijst = this.filterItems(this.searchTerm);
-    SpinnerDialog.hide();
+    this.isLoading = false;
   }
 
   filterItems(searchTerm) {
@@ -87,33 +80,34 @@ export class SpelersScorePage {
   }
 
   onSearchInput() {
-    SpinnerDialog.show();
+    this.isLoading = true;
   }
 
   getSpelerslijst(event) {
-    SpinnerDialog.show(null, null, null, {
-      overlayOpacity: 50,
-      textColorRed: 151,
-      textColorGreen: 191,
-      textColorBlue: 18
-    });
+  this.isLoading = true;
 
-    if (event === 'Alle'){
+    if (event === 'Alle') {
       this.spelersScoreProvider.getSpelerslijst().subscribe(response => {
-        console.log("get gesommeerde spelerslijst");
+        console.log('get gesommeerde spelerslijst');
         this.unmutatedSpelerlijst = response;
         this.spelerlijst = response;
-        SpinnerDialog.hide();
+        this.isLoading = false;
       });
     }
     else {
-    this.spelersScoreProvider.getSpelerslijstPerRound(this.activeSpeelronde).subscribe(response => {
-      console.log("get spelerslijst call");
-      this.unmutatedSpelerlijst = response;
-      this.spelerlijst = response;
-      SpinnerDialog.hide();
-    });
-  }}
+      this.spelersScoreProvider.getSpelerslijstPerRound(this.activeSpeelronde).subscribe(response => {
+        console.log('get spelerslijst call');
+        this.unmutatedSpelerlijst = response;
+        this.spelerlijst = response;
+        this.isLoading = false;
+      });
+    }
+  }
+
+  presentPopover(event) {
+    let popover = this.popoverCtrl.create(DropdownmenuPage);
+    popover.present();
+  }
 }
 
 

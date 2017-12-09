@@ -1,8 +1,13 @@
 <ion-header>
-  <supereleven-navbar></supereleven-navbar>
-
+  <ion-navbar class="mynavbar superelevennavbar" ion-text color="white">
+    <img [src]="'assets/icon/logo_white.png'">
+    <ion-buttons end>
+      <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
   <ion-row>
-
   <ion-item text-wrap color="primary">
     {{totaalstandregel.Name}} staat {{totaalstandregel.Positie}}e met {{totaalstandregel.TotalScore}} punten <br>
     <h5>Team: {{totaalstandregel.TotalTeamScore}} -

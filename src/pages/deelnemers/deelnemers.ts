@@ -2,11 +2,11 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
 import {Deelnemer} from "../../models/deelnemers";
 import {DeelnemerProvider} from "../../providers/deelnemersprovider";
-import {SpinnerDialog} from "ionic-native";
+import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import {Subscription} from "rxjs/Subscription";
 import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
 import {PredictionPage} from "../prediction/prediction";
-import {FormControl} from "@angular/forms";
+import {FormControl} from "@angular/forms";import 'rxjs/add/operator/debounceTime';
 
 // @IonicPage()
 @Component({
@@ -20,23 +20,19 @@ export class DeelnemersPage {
   unmutatedDeelnemers: Deelnemer[];
   deelnemers: Deelnemer[];
   deelnemersSub: Subscription;
-
+  isLoading: boolean;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
               private deelnemerProvider: DeelnemerProvider,
-              public popoverCtrl: PopoverController) {
+              public popoverCtrl: PopoverController
+  ) {
     this.searchControl = new FormControl();
   }
 
   ionViewWillEnter() {
     this.unmutatedDeelnemers = [];
-    if (!this.unmutatedDeelnemers) SpinnerDialog.show(null, null, null, {
-      overlayOpacity: 50,
-      textColorRed: 151,
-      textColorGreen: 191,
-      textColorBlue: 18
-    });
+    if (!this.unmutatedDeelnemers) this.isLoading = true;
 
     this.viewCtrl.showBackButton(false);
 
@@ -49,7 +45,7 @@ export class DeelnemersPage {
           this.setFilteredItems();
         });
 
-        SpinnerDialog.hide();
+        this.isLoading = false;
       });
   }
 
@@ -68,7 +64,7 @@ export class DeelnemersPage {
 
   setFilteredItems() {
     this.deelnemers = this.filterItems(this.searchTerm);
-    SpinnerDialog.hide();
+    this.isLoading = false;
   }
 
   filterItems(searchTerm) {
@@ -78,6 +74,10 @@ export class DeelnemersPage {
   }
 
   onSearchInput() {
-    SpinnerDialog.show();
+    this.isLoading = true;
+  }
+  presentPopover(event) {
+    let popover = this.popoverCtrl.create(DropdownmenuPage);
+    popover.present();
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {NavController, NavParams, PopoverController} from 'ionic-angular';
 import {OrderByPipe} from "../../app/orderby";
+import {DropdownmenuPage} from '../dropdownmenu/dropdownmenu';
 
 
 @Component({
@@ -9,7 +10,9 @@ import {OrderByPipe} from "../../app/orderby";
 })
 export class TeamstandDetailsPage {
   teamstandregel: any;
-  constructor(public navCtrl: NavController, private navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+              public popoverCtrl: PopoverController,
+              private navParams: NavParams) {
     this.teamstandregel = navParams.get('teamstandregel');
   }
 
@@ -27,7 +30,10 @@ export class TeamstandDetailsPage {
   ionViewDidLoad() {
     console.log('Hello TeamstandDetailsPage Page');
   }
-
+  presentPopover(event) {
+    let popover = this.popoverCtrl.create(DropdownmenuPage);
+    popover.present();
+  }
 }
 
 

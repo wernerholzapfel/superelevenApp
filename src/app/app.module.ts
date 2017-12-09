@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
 import {IonicApp, IonicModule} from "ionic-angular";
-import {CloudModule, CloudSettings} from "@ionic/cloud-angular";
+// import {CloudModule, CloudSettings} from "@ionic/cloud-angular";
 import {MyApp} from "./app.component";
 import {TeamstandPage} from "../pages/teamstand/teamstand";
 import {TotaalstandPage} from "../pages/totaalstand/totaalstand";
@@ -36,22 +36,24 @@ import {SuperelevenNavbarPageModule} from "../pages/supereleven-navbar/superelev
 import {SpelersScoreProvider} from '../providers/spelers-score/spelers-score';
 import {SpelersScorePage} from "../pages/spelers-score/spelers-score";
 import {IonAffixModule} from "ion-affix";
+import {StatusBar} from "@ionic-native/status-bar";
+import {SpinnerDialog} from "@ionic-native/spinner-dialog";
 
-const cloudSettings: CloudSettings = {
-  'core': {
-    'app_id': '800f2066'
-  }, 'push': {
-    'sender_id': 'AAAAPHn_vFg:APA91bErCBmvhhJvkOeUstTD1DsqtGpfm6vQ7rk7m-Tib1njLfa7fEVJj60LlN5PZL28c6ySe6xsJXLlpFMzihwmJFFVM1mw8QzmZSi0tQJnGlaucTdqC2v-2XUropTC0JAx3CWaD_uW',
-    'pluginConfig': {
-      'ios': {
-        'badge': true,
-        'sound': true,
-        'clearBadge': true,
-        'alert': true
-      }
-    }
-  }
-};
+// const cloudSettings: CloudSettings = {
+//   'core': {
+//     'app_id': '800f2066'
+//   }, 'push': {
+//     'sender_id': 'AAAAPHn_vFg:APA91bErCBmvhhJvkOeUstTD1DsqtGpfm6vQ7rk7m-Tib1njLfa7fEVJj60LlN5PZL28c6ySe6xsJXLlpFMzihwmJFFVM1mw8QzmZSi0tQJnGlaucTdqC2v-2XUropTC0JAx3CWaD_uW',
+//     'pluginConfig': {
+//       'ios': {
+//         'badge': true,
+//         'sound': true,
+//         'clearBadge': true,
+//         'alert': true
+//       }
+//     }
+//   }
+// };
 
 @NgModule({
   declarations: [
@@ -80,7 +82,7 @@ const cloudSettings: CloudSettings = {
     HttpModule,
     BrowserModule,
     SuperelevenNavbarPageModule,
-    CloudModule.forRoot(cloudSettings),
+    // CloudModule.forRoot(cloudSettings),
     IonicModule.forRoot(MyApp, {
       backButtonText: '',
       backButtonIcon: 'md-arrow-back',
@@ -126,7 +128,9 @@ const cloudSettings: CloudSettings = {
     PredictionProvider,
     SpelerstatistiekenProvider,
     DeelnemersPerSpelerProvider,
-    SpelersScoreProvider]
+    SpelersScoreProvider,
+    StatusBar,
+    SpinnerDialog]
 })
 export class AppModule {
 }

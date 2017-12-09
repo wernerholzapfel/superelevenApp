@@ -1,14 +1,15 @@
-import {Component} from "@angular/core";
-import {NavController, ViewController, PopoverController} from "ionic-angular";
-import {deelnemers, Totaalstand} from "../../models/totaalstand";
-import {TotaalstandProvider} from "../../providers/totaalstandProvider";
-import {TotaalstandDetailsPage} from "../totaalstand-details/totaalstand-details";
-import {Laatsteupdate} from "../../models/laatsteupdate";
-import {LaatsteupdateProvider} from "../../providers/laatsteupdateprovider";
-import {Subscription} from "rxjs";
-import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
-import { SpinnerDialog } from 'ionic-native';
-import {FormControl} from "@angular/forms";
+import {Component} from '@angular/core';
+import {NavController, PopoverController, ViewController} from 'ionic-angular';
+import {deelnemers} from '../../models/totaalstand';
+import {TotaalstandProvider} from '../../providers/totaalstandProvider';
+import {TotaalstandDetailsPage} from '../totaalstand-details/totaalstand-details';
+import {Laatsteupdate} from '../../models/laatsteupdate';
+import {LaatsteupdateProvider} from '../../providers/laatsteupdateprovider';
+import {Subscription} from 'rxjs';
+import {DropdownmenuPage} from '../dropdownmenu/dropdownmenu';
+import {SpinnerDialog} from '@ionic-native/spinner-dialog';
+import {FormControl} from '@angular/forms';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'page-totaalstand',
@@ -24,27 +25,24 @@ export class TotaalstandPage {
   laatsteupdate: Laatsteupdate;
   totaalstandSub: Subscription;
   laatsteupdateSub: Subscription;
+  isLoading: boolean;
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
               private totaalstandProvider: TotaalstandProvider,
               private laatsteupdateProvider: LaatsteupdateProvider,
-              public popoverCtrl: PopoverController) {
+              public popoverCtrl: PopoverController,
+              ) {
     this.searchControl = new FormControl();
   }
 
   ionViewWillEnter() {
-    if(!this.unmutatedTotaalstand)SpinnerDialog.show(null,null,null,{
-      overlayOpacity: 50,
-      textColorRed: 151,
-      textColorGreen: 191,
-      textColorBlue: 18
-    });
+    if (!this.unmutatedTotaalstand) this.isLoading = true;
 
     this.viewCtrl.showBackButton(false);
 
     this.totaalstandSub = this.totaalstandProvider.load().subscribe(response => {
-      console.log("totaalstand geladen");
+      console.log('totaalstand geladen');
       this.unmutatedTotaalstand = response.deelnemers;
       this.totaalstand = response.deelnemers;
 
@@ -52,11 +50,11 @@ export class TotaalstandPage {
       this.searchControl.valueChanges.debounceTime(500).subscribe(search => {
         this.setFilteredItems();
       });
-      SpinnerDialog.hide();
+      this.isLoading = false;
     });
 
     this.laatsteupdateSub = this.laatsteupdateProvider.load().subscribe(response => {
-      console.log("laatste update geladen");
+      console.log('laatste update geladen');
       this.laatsteupdate = response;
     });
   };
@@ -78,7 +76,7 @@ export class TotaalstandPage {
   }
 
   goToDetails(totaalstandregel: any) {
-    console.log("go to details fired");
+    console.log('go to details fired');
     this.navCtrl.push(TotaalstandDetailsPage, {totaalstandregel})
   }
 
@@ -93,7 +91,7 @@ export class TotaalstandPage {
 
   setFilteredItems() {
     this.totaalstand = this.filterItems(this.searchTerm);
-    SpinnerDialog.hide();
+    this.isLoading = false;
   }
 
   filterItems(searchTerm) {
@@ -103,6 +101,11 @@ export class TotaalstandPage {
   }
 
   onSearchInput() {
-    SpinnerDialog.show();
+    this.isLoading = true;
+  }
+
+  presentPopover(event) {
+    let popover = this.popoverCtrl.create(DropdownmenuPage);
+    popover.present();
   }
 }

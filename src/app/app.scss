@@ -13,6 +13,10 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+body {
+  // needed for Iphone X
+  padding-top: env(safe-area-inset-top);
+}
 
 .clubicon {
   height: 30px;
@@ -23,33 +27,36 @@ ion-buttons.bar-buttons.bar-buttons-ios {
   padding-right: 10px;
 }
 
-.popover-ios .popover-content{
-  top: 84px !important;
+.popover-ios .popover-content {
+  top: 78px !important;
+  // needed for Iphone X
+  top: calc(58px + env(safe-area-inset-top)) !important;
   left: 0 !important;
   width: 100% !important;
 }
+
 .popover-md .popover-content {
-  top: 84px !important;
+  top: 78px !important;
+  // needed for Iphone X
+  top: calc(58px + env(safe-area-inset-top)) !important;
   left: 0 !important;
   width: 100% !important;
-}
-.mynavbar{
-  height: 85px !important;
 }
 
 .popover-arrow {
   display: none !important;
 }
 
-.item-ios{
+.item-ios {
   padding-left: 8px;
 }
 
 .item-ios.item-block .item-inner {
   padding-right: 0;
 }
+
 .label-ios {
-   margin: 0 0 0 0;
+  margin: 0 0 0 0;
 }
 
 .card-ios,
@@ -58,10 +65,44 @@ ion-buttons.bar-buttons.bar-buttons-ios {
   width: 100%;
   border-radius: 0;
 }
-.item-ios.item-block .item-inner
-{
+
+.item-ios.item-block .item-inner {
   border-bottom: 0;
 }
+
 .item-md.item-block .item-inner {
   border-bottom: 0;
+}
+
+ion-navbar {
+
+  .detailpage {
+    padding-left: 0 !important;
+  }
+  .toolbar-md-white .toolbar-background-md,
+  .toolbar-ios-white .toolbar-background-ios {
+    background: #fff;
+  }
+  img {
+    //position: absolute;
+    top: 0;
+    left: 0;
+    //margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    padding-left: 21px;
+    height: 50px;
+  }
+}
+
+div.spinner {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  height: 85px;
+  text-align: center;
+}
+.spinner svg {
+  height: 85px !important;
 }

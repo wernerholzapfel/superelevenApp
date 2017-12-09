@@ -1,12 +1,20 @@
 <ion-header>
-
-  <supereleven-navbar></supereleven-navbar>
-
+  <ion-navbar class="mynavbar superelevennavbar" ion-text color="white">
+    <img [src]="'assets/icon/logo_white.png'">
+    <ion-buttons end>
+      <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
     <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
 
 </ion-header>
 <ion-content #content>
-    <ion-spinner *ngIf="searching"></ion-spinner>
+  <div *ngIf="isLoading" class="spinner">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
   <ion-card>
     <ion-item ion-affix [content]="content" color="secondary">
       <ion-row class="header">
@@ -15,7 +23,7 @@
         <ion-col class="count">Aantal</ion-col>
       </ion-row>
     </ion-item>
-    <div *ngFor="let line of spelerlijst | orderBy : ['-Count']">
+    <div [hidden]="isLoading" *ngFor="let line of spelerlijst | orderBy : ['-Count']">
       <button ion-item text-wrap (click)="goToDetails(line)" *ngIf="line.PlayerName">
         <ion-row>
           <ion-col class="club">

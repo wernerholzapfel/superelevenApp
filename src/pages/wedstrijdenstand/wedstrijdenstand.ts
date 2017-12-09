@@ -1,11 +1,12 @@
-import {Component} from "@angular/core";
-import {NavController, ViewController, PopoverController} from "ionic-angular";
-import {WedstrijdenstandProvider} from "../../providers/wedstrijdenstandprovider";
-import {SpinnerDialog} from "ionic-native";
-import {Subscription} from "rxjs";
-import {WedstrijdenstandDetailsPage} from "../wedstrijdenstand-details/wedstrijdenstand-details";
-import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
-import {FormControl} from "@angular/forms";
+import {Component} from '@angular/core';
+import {NavController, PopoverController, ViewController} from 'ionic-angular';
+import {WedstrijdenstandProvider} from '../../providers/wedstrijdenstandprovider';
+import {SpinnerDialog} from '@ionic-native/spinner-dialog';
+import {Subscription} from 'rxjs';
+import {WedstrijdenstandDetailsPage} from '../wedstrijdenstand-details/wedstrijdenstand-details';
+import {DropdownmenuPage} from '../dropdownmenu/dropdownmenu';
+import {FormControl} from '@angular/forms';
+import 'rxjs/add/operator/debounceTime';
 
 /*
  Generated class for the Wedstrijdenstand page.
@@ -24,28 +25,26 @@ export class WedstrijdenstandPage {
   unmutatedwedstrijdenstand: any[];
   wedstrijdenstand: any[];
   wedstrijdenstandSub: Subscription;
+  isLoading: boolean;
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
-              private wedstrijdenstandProvider: WedstrijdenstandProvider) {
+              public popoverCtrl: PopoverController,
+              private wedstrijdenstandProvider: WedstrijdenstandProvider,
+              ) {
     this.searchControl = new FormControl();
   }
 
 
   ionViewWillEnter() {
-    if (!this.wedstrijdenstand) SpinnerDialog.show(null, null, null, {
-      overlayOpacity: 50,
-      textColorRed: 151,
-      textColorGreen: 191,
-      textColorBlue: 18
-    });
+    if (!this.wedstrijdenstand) this.isLoading = true;
 
     this.viewCtrl.showBackButton(false);
 
     this.wedstrijdenstandSub = this.wedstrijdenstandProvider.getWedstrijdenstand().subscribe(response => {
       this.wedstrijdenstand = response;
       this.unmutatedwedstrijdenstand = response;
-      this.unmutatedwedstrijdenstand.forEach(function (element, index,array) {
+      this.unmutatedwedstrijdenstand.forEach(function (element, index, array) {
           if (index === 0) {
             element.positie = index + 1;
           }
@@ -54,7 +53,7 @@ export class WedstrijdenstandPage {
               element.positie = index + 1;
             }
             else {
-              element.positie = array[index-1].positie
+              element.positie = array[index - 1].positie
             }
           }
         }
@@ -63,7 +62,7 @@ export class WedstrijdenstandPage {
       this.searchControl.valueChanges.debounceTime(500).subscribe(search => {
         this.setFilteredItems();
       });
-      SpinnerDialog.hide();
+      this.isLoading = false;
     });
 
   }
@@ -82,7 +81,7 @@ export class WedstrijdenstandPage {
 
   setFilteredItems() {
     this.wedstrijdenstand = this.filterItems(this.searchTerm);
-    SpinnerDialog.hide();
+    this.isLoading = false;
   }
 
   filterItems(searchTerm) {
@@ -92,6 +91,11 @@ export class WedstrijdenstandPage {
   }
 
   onSearchInput() {
-    SpinnerDialog.show();
+    this.isLoading = true;
+  }
+
+  presentPopover(event) {
+    let popover = this.popoverCtrl.create(DropdownmenuPage);
+    popover.present();
   }
 }

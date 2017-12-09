@@ -36,9 +36,10 @@ $item-wp-detail-push-show: true;
 //$item-ios-detail-push-svg: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 20'><path d='M2,20l-2-2l8-8L0,2l2-2l10,10L2,20z' fill='#{$item-ios-detail-push-color}'/></svg>"
 .fixed-content {
   background-color: #e1e7ea !important;
-
 }
-
+ion-content.has-refresher > .scroll-content {
+  background-color: initial !important;
+}
 //$tab-button-md-active-color: color($colors, secondary);
 //$tab-button-md-inactive-color: light;
 //$content-ios-outer-background: #f4f4f4;

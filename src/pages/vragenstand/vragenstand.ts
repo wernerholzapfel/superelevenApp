@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {NavController, PopoverController, ViewController} from "ionic-angular";
-import {SpinnerDialog} from "ionic-native";
+import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import {Subscription} from "rxjs";
 import {VragenstandProvider} from "../../providers/vragenstandprovider";
 import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
@@ -13,26 +13,23 @@ import {VragenstandDetailsPage} from "../vragenstand-details/vragenstand-details
 export class VragenstandPage {
   vragenstand: any[];
   vragenstandSub: Subscription;
+  isLoading: boolean;
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
               private vragenstandProvider: VragenstandProvider,
-              public popoverCtrl: PopoverController) {
+              public popoverCtrl: PopoverController,
+              ) {
   }
 
   ionViewWillEnter() {
-    if (!this.vragenstand) SpinnerDialog.show(null, null, null, {
-      overlayOpacity: 50,
-      textColorRed: 151,
-      textColorGreen: 191,
-      textColorBlue: 18
-    });
+    if (!this.vragenstand) this.isLoading = true;
 
     this.viewCtrl.showBackButton(false);
 
     this.vragenstandSub = this.vragenstandProvider.getVragenstand().subscribe(response => {
       this.vragenstand = response;
-      SpinnerDialog.hide();
+      this.isLoading = false;
     });
 
   }

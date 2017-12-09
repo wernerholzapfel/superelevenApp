@@ -1,6 +1,12 @@
 <ion-header>
-
-  <supereleven-navbar></supereleven-navbar>
+  <ion-navbar class="mynavbar superelevennavbar" ion-text color="white">
+    <img [src]="'assets/icon/logo_white.png'">
+    <ion-buttons end>
+      <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
 
   <ion-item text-wrap color="secondary">
     Voorspellingen van {{voorspelling?.Participant.Name}}
@@ -8,87 +14,90 @@
 
 </ion-header>
 
-<ion-content #content >
-
-  <ion-card>
-    <ion-item ion-affix [content]="content" color="primary">
-      <ion-row class="header">
-        <ion-col class="club">Club</ion-col>
-        <ion-col class="item-text-wrap">Naam</ion-col>
-      </ion-row>
-    </ion-item>
-    <ion-item text-wrap *ngFor="let line of voorspelling?.Team | orderBy : ['Id']">
-      <ion-row>
-        <ion-col class="club">
-          <img class="clubicon" [src]="'assets/clubicons/'+ line.Team + '.png'">
-        </ion-col>
-        <ion-col>{{line.PlayerName}}
-          <span ion-text color="light">({{line.Position}})</span>
-          <ion-icon *ngIf="line.Captain" color="secondary" name="md-star"></ion-icon>
-        </ion-col>
-      </ion-row>
-    </ion-item>
-  </ion-card>
-
-  <ion-card>
-    <ion-item ion-affix [content]="content" color="primary">
-      <ion-row class="header">
-        <ion-col class="club" class="club">Club</ion-col>
-        <ion-col class="item-text-wrap"></ion-col>
-      </ion-row>
-    </ion-item>
-    <ion-item text-wrap *ngFor="let line of voorspelling?.Table | orderBy : ['Position']">
-      <ion-row>
-        <ion-col class="clubstandlogo">
-          {{line.Position}}
-        </ion-col>
-        <img class="clubicon" [src]="'assets/clubicons/'+ line.SelectedTeam + '.png'">
-        <ion-col>{{line.SelectedTeam}}
-        </ion-col>
-      </ion-row>
-    </ion-item>
-  </ion-card>
-
-  <ion-card>
-    <ion-item ion-affix [content]="content" no-border color="primary">
-      <ion-row>
-        <ion-col width-80 class="item-text-wrap">Vraag</ion-col>
-      </ion-row>
-    </ion-item>
-    <div *ngFor="let line of voorspelling?.Questions">
-      <ion-item text-wrap>
-        <ion-row>
-          <ion-col>
-            {{line.Question}}
-          </ion-col>
+<ion-content #content>
+  <div *ngIf="isLoading" class="spinner">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+  <div *ngIf="!isLoading">
+    <ion-card>
+      <ion-item ion-affix [content]="content" color="primary">
+        <ion-row class="header">
+          <ion-col class="club">Club</ion-col>
+          <ion-col class="item-text-wrap">Naam</ion-col>
         </ion-row>
-        <ion-row ion-text color="light">
-          <ion-col>{{line.Answer}}
+      </ion-item>
+      <ion-item text-wrap *ngFor="let line of voorspelling?.Team | orderBy : ['Id']">
+        <ion-row>
+          <ion-col class="club">
+            <img class="clubicon" [src]="'assets/clubicons/'+ line.Team + '.png'">
+          </ion-col>
+          <ion-col>{{line.PlayerName}}
+            <span ion-text color="light">({{line.Position}})</span>
+            <ion-icon *ngIf="line.Captain" color="secondary" name="md-star"></ion-icon>
           </ion-col>
         </ion-row>
       </ion-item>
-    </div>
-  </ion-card>
+    </ion-card>
 
-  <ion-card>
-    <ion-item ion-affix [content]="content" no-border color="primary">
-      <ion-row>
-        <ion-col class="item-text-wrap">Wedstrijd</ion-col>
-      </ion-row>
-    </ion-item>
-    <ion-item text-wrap *ngFor="let line of voorspelling?.Matches| orderBy : ['Date']">
-      <ion-row>
-        <ion-col>
-          {{line.Match}}
-        </ion-col>
-      </ion-row>
-      <ion-row ion-text color="light" >
-        <ion-col width-80>{{line.Date | date: 'dd-MM-yyyy HH:mm'}}
-        </ion-col>
-        <ion-col width-20>{{line.Home}}-{{line.Away}}
-        </ion-col>
-      </ion-row>
-    </ion-item>
-  </ion-card>
+    <ion-card>
+      <ion-item ion-affix [content]="content" color="primary">
+        <ion-row class="header">
+          <ion-col class="club" class="club">Club</ion-col>
+          <ion-col class="item-text-wrap"></ion-col>
+        </ion-row>
+      </ion-item>
+      <ion-item text-wrap *ngFor="let line of voorspelling?.Table | orderBy : ['Position']">
+        <ion-row>
+          <ion-col class="clubstandlogo">
+            {{line.Position}}
+          </ion-col>
+          <img class="clubicon" [src]="'assets/clubicons/'+ line.SelectedTeam + '.png'">
+          <ion-col>{{line.SelectedTeam}}
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-card>
 
+    <ion-card>
+      <ion-item ion-affix [content]="content" no-border color="primary">
+        <ion-row>
+          <ion-col width-80 class="item-text-wrap">Vraag</ion-col>
+        </ion-row>
+      </ion-item>
+      <div *ngFor="let line of voorspelling?.Questions">
+        <ion-item text-wrap>
+          <ion-row>
+            <ion-col>
+              {{line.Question}}
+            </ion-col>
+          </ion-row>
+          <ion-row ion-text color="light">
+            <ion-col>{{line.Answer}}
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </div>
+    </ion-card>
+
+    <ion-card>
+      <ion-item ion-affix [content]="content" no-border color="primary">
+        <ion-row>
+          <ion-col class="item-text-wrap">Wedstrijd</ion-col>
+        </ion-row>
+      </ion-item>
+      <ion-item text-wrap *ngFor="let line of voorspelling?.Matches| orderBy : ['Date']">
+        <ion-row>
+          <ion-col>
+            {{line.Match}}
+          </ion-col>
+        </ion-row>
+        <ion-row ion-text color="light">
+          <ion-col width-80>{{line.Date | date: 'dd-MM-yyyy HH:mm'}}
+          </ion-col>
+          <ion-col width-20>{{line.Home}}-{{line.Away}}
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-card>
+  </div>
 </ion-content>

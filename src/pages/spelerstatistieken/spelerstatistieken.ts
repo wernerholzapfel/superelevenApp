@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
-import {SpinnerDialog} from "ionic-native";
+import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import {SpelerstatistiekenProvider} from "../../providers/spelerstatistieken/spelerstatistieken";
 import {Subscription} from "rxjs/Subscription";
 import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
 import {DeelnemersPerSpelerPage} from "../deelnemers-per-speler/deelnemers-per-speler";
-import {FormControl} from "@angular/forms";
+import {FormControl} from "@angular/forms";import 'rxjs/add/operator/debounceTime';
 
 /**
  * Generated class for the SpelerstatistiekenPage page.
@@ -25,18 +25,17 @@ export class SpelerstatistiekenPage {
   unmutatedSpelerlijst: any[];
   spelerlijst: any[];
   spelerlijstSub: Subscription;
+  isLoading: boolean;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
               private spelerstatistiekenProvider: SpelerstatistiekenProvider,
-              public popoverCtrl: PopoverController,) {
+              public popoverCtrl: PopoverController,
+              ) {
     this.searchControl = new FormControl();
   }
 
-  ionViewWillEnter() {
-
-  }
 
   goToDetails(deelnemersPerSpeler: any) {
 
@@ -48,14 +47,10 @@ export class SpelerstatistiekenPage {
     popover.present();
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
+    this.isLoading = true;
     this.spelerlijst = [];
-    if (!this.spelerlijst) SpinnerDialog.show(null, null, null, {
-      overlayOpacity: 50,
-      textColorRed: 151,
-      textColorGreen: 191,
-      textColorBlue: 18
-    });
+    if (!this.spelerlijst) this.isLoading = true;
 
     this.viewCtrl.showBackButton(false);
 
@@ -68,7 +63,7 @@ export class SpelerstatistiekenPage {
           this.setFilteredItems();
 
         });
-        SpinnerDialog.hide();
+        this.isLoading = false;
       });
 
     console.log('ionViewDidLoad DeelnemersPage');
@@ -80,7 +75,7 @@ export class SpelerstatistiekenPage {
 
   setFilteredItems() {
     this.spelerlijst = this.filterItems(this.searchTerm);
-    SpinnerDialog.hide();
+    this.isLoading = false;
   }
 
   filterItems(searchTerm) {
@@ -92,6 +87,7 @@ export class SpelerstatistiekenPage {
   }
 
   onSearchInput() {
-    SpinnerDialog.show();
+    this.isLoading = true;
   }
+
 }

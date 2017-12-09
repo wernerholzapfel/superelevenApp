@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, NavParams, PopoverController} from 'ionic-angular';
+import {DropdownmenuPage} from '../dropdownmenu/dropdownmenu';
 
 @Component({
   selector: 'page-wedstrijdenstand-details',
   templateUrl: 'wedstrijdenstand-details.html'
 })
 export class WedstrijdenstandDetailsPage {
-  wedstrijdenstandRegel : any;
+  wedstrijdenstandRegel: any;
+
   constructor(public navCtrl: NavController,
-  private navParams : NavParams) {
+              private navParams: NavParams,
+              public popoverCtrl: PopoverController) {
     this.wedstrijdenstandRegel = navParams.get('wedstrijdenregel')
   }
 
@@ -16,4 +19,8 @@ export class WedstrijdenstandDetailsPage {
     console.log('Hello WedstrijdenstandDetailsPage Page');
   }
 
+  presentPopover(event) {
+    let popover = this.popoverCtrl.create(DropdownmenuPage);
+    popover.present();
+  }
 }

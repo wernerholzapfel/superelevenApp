@@ -8,7 +8,7 @@ import {Nummereenteamstandlaatsteronde} from "../../models/Nummereenteamstandlaa
 import {Subscription} from "rxjs";
 import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
 import {Headlines} from "../../models/headlines"
-import { SpinnerDialog} from 'ionic-native';
+import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import {SuperelevenNavbarPage} from "../supereleven-navbar/supereleven-navbar";
 
 @Component({
@@ -24,25 +24,26 @@ export class HomePage {
   headline : Headlines;
   LaatsteupdateSub: Subscription;
   headlinesSub: Subscription;
-
+  isLoading: boolean;
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
               private homepageProvider: Homepageprovider,
               private laatsteupdateProvider: LaatsteupdateProvider,
               public popoverCtrl: PopoverController,
-              private platform: Platform) {
+              private platform: Platform,
+              ) {
 
   }
 
 
   ionViewWillEnter() {
-    if(!this.nummereentotaalstand) SpinnerDialog.show();
+    if(!this.nummereentotaalstand) this.isLoading = true;
     this.viewCtrl.showBackButton(false);
 
     this.nummereentotaalstandSub = this.homepageProvider.getnummereentotaalstand().subscribe(response => {
       // console.log(response);
       this.nummereentotaalstand = response;
-      SpinnerDialog.hide();
+      this.isLoading = false;
     });
 
     this.nummereenteamstandlaatsterondeSub = this.homepageProvider.getnummereenweekstand().subscribe(response => {

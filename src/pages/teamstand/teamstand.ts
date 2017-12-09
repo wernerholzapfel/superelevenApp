@@ -1,14 +1,14 @@
-import {Component} from "@angular/core";
-import {NavController, PopoverController, ViewController} from "ionic-angular";
-import {Teamstand} from "../../models/teamstand";
-import {TeamstandProvider} from "../../providers/teamstandprovider";
-import {TeamstandDetailsPage} from "../teamstand-details/teamstand-details";
-import {LaatsteupdateProvider} from "../../providers/laatsteupdateprovider";
-import {Laatsteupdate} from "../../models/laatsteupdate";
-import {Subscription} from "rxjs";
-import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
-import {SpinnerDialog} from "ionic-native";
-import {FormControl} from "@angular/forms";
+import {Component} from '@angular/core';
+import {NavController, PopoverController, ViewController} from 'ionic-angular';
+import {Teamstand} from '../../models/teamstand';
+import {TeamstandProvider} from '../../providers/teamstandprovider';
+import {TeamstandDetailsPage} from '../teamstand-details/teamstand-details';
+import {LaatsteupdateProvider} from '../../providers/laatsteupdateprovider';
+import {Laatsteupdate} from '../../models/laatsteupdate';
+import {Subscription} from 'rxjs';
+import {DropdownmenuPage} from '../dropdownmenu/dropdownmenu';
+import {FormControl} from '@angular/forms';
+import 'rxjs/add/operator/debounceTime';
 
 //search implementation https://www.joshmorony.com/high-performance-list-filtering-in-ionic-2/
 @Component({
@@ -28,6 +28,7 @@ export class TeamstandPage {
   laatstestandSub: Subscription;
   speelrondeList: any[];
   activeSpeelronde: number;
+  isLoading: boolean;
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
@@ -38,13 +39,9 @@ export class TeamstandPage {
   }
 
   ionViewWillEnter() {
+    this.isLoading = true;
     this.unmutatedTeamstand = [];
-    if (!this.unmutatedTeamstand) SpinnerDialog.show(null, null, null, {
-      overlayOpacity: 50,
-      textColorRed: 151,
-      textColorGreen: 191,
-      textColorBlue: 18
-    });
+    if (!this.unmutatedTeamstand) this.isLoading = true;
 
     this.viewCtrl.showBackButton(false);
     this.teamstandSub = this.teamstandProvider.getLatestRound().subscribe(speelRondes => {
@@ -53,7 +50,7 @@ export class TeamstandPage {
         this.activeSpeelronde = this.speelrondeList.length;
       }
       this.teamstandSub2 = this.teamstandProvider.getTeamstand(this.activeSpeelronde).subscribe(response => {
-        console.log("teamstand geladen");
+        console.log('teamstand geladen');
         this.unmutatedTeamstand = response;
         this.unmutatedTeamstand.forEach(function (element, index, array) {
           if (index === 0) {
@@ -64,7 +61,7 @@ export class TeamstandPage {
               element.positie = index + 1;
             }
             else {
-              element.positie = array[index-1].positie
+              element.positie = array[index - 1].positie
             }
           }
         });
@@ -76,12 +73,12 @@ export class TeamstandPage {
           this.setFilteredItems();
         });
 
-        SpinnerDialog.hide();
+        this.isLoading = false;
       });
     });
 
     this.laatstestandSub = this.laatsteupdateProvider.load().subscribe(response => {
-      console.log("laatste stand geladen");
+      console.log('laatste stand geladen');
       this.laatsteupdate = response;
     });
   }
@@ -98,15 +95,15 @@ export class TeamstandPage {
     this.teamstandProvider.getLatestRound().subscribe(speelRondes => {
       this.speelrondeList = speelRondes;
       this.activeSpeelronde = this.speelrondeList.length;
-      console.log("dit is de activespeelronde " + this.activeSpeelronde);
+      console.log('dit is de activespeelronde ' + this.activeSpeelronde);
       this.teamstandProvider.getTeamstand(this.activeSpeelronde).subscribe(response => {
-        console.log("teamstand gerefreshed");
+        console.log('teamstand gerefreshed');
         this.teamstand = response;
       });
     });
 
     this.laatsteupdateProvider.load().subscribe(response => {
-      console.log("laatste update gerefreshed");
+      console.log('laatste update gerefreshed');
       this.laatsteupdate = response;
     });
     setTimeout(() => {
@@ -117,16 +114,25 @@ export class TeamstandPage {
   }
 
   getStand(event) {
-    SpinnerDialog.show(null, null, null, {
-      overlayOpacity: 50,
-      textColorRed: 151,
-      textColorGreen: 191,
-      textColorBlue: 18
-    });
+    this.isLoading = true;
     this.teamstandProvider.getTeamstand(this.activeSpeelronde).subscribe(response => {
-      console.log("get teamstand call");
+      console.log('get teamstand call');
       this.teamstand = response;
-      SpinnerDialog.hide();
+      this.teamstand.forEach(function (element, index, array) {
+        if (index === 0) {
+          element.positie = index + 1;
+        }
+        else {
+          if (array[index - 1].TotalTeamScore != element.TotalTeamScore) {
+            element.positie = index + 1;
+          }
+          else {
+            element.positie = array[index - 1].positie
+          }
+        }
+      });
+
+      this.isLoading = false;
     });
   }
 
@@ -145,7 +151,7 @@ export class TeamstandPage {
 
   setFilteredItems() {
     this.teamstand = this.filterItems(this.searchTerm);
-    SpinnerDialog.hide();
+    this.isLoading = false;
   }
 
   filterItems(searchTerm) {
@@ -155,7 +161,8 @@ export class TeamstandPage {
   }
 
   onSearchInput() {
-    SpinnerDialog.show();
+    this.isLoading = true;
   }
+
 }
 

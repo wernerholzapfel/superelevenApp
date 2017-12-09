@@ -1,5 +1,12 @@
 <ion-header>
-  <supereleven-navbar></supereleven-navbar>
+  <ion-navbar class="mynavbar superelevennavbar" ion-text color="white">
+    <img [src]="'assets/icon/logo_white.png'">
+    <ion-buttons end>
+      <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
   <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()" placeholder="zoek op naam"></ion-searchbar>
 </ion-header>
 
@@ -12,8 +19,11 @@
       <!--refreshingText="Gegevens aan het ophalen">-->
     <!--</ion-refresher-content>-->
   <!--</ion-refresher>-->
+  <div *ngIf="isLoading" class="spinner">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
 
-  <ion-card *ngIf="deelnemers">
+  <ion-card>
     <ion-item ion-affix [content]="content" color="secondary">
       <ion-row class="header">
         <ion-col class="positie">#</ion-col>
@@ -21,7 +31,7 @@
         <ion-col>Plaats</ion-col>
       </ion-row>
     </ion-item>
-    <button ion-item color="white" text-wrap *ngFor="let line of deelnemers; let positie = index" (click)="goToDetails(line)">
+    <button [hidden]="isLoading" ion-item color="white" text-wrap *ngFor="let line of deelnemers; let positie = index" (click)="goToDetails(line)">
       <ion-row>
         <ion-col class="positie">
           {{positie + 1}}

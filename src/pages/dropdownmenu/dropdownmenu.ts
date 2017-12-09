@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController, ViewController} from "ionic-angular";
+import {App, NavController, ViewController} from 'ionic-angular';
 import {HomePage} from "../home/home";
 import {TeamstandPage} from "../teamstand/teamstand";
 import {TotaalstandPage} from "../totaalstand/totaalstand";
@@ -21,7 +21,7 @@ import {SpelersScorePage} from "../spelers-score/spelers-score";
 })
 export class DropdownmenuPage {
 
-  constructor(public navCtrl: NavController,
+  constructor( public appCtrl: App,
               public viewCtrl: ViewController) {
   }
 
@@ -31,41 +31,40 @@ export class DropdownmenuPage {
 
   openHome() {
     this.viewCtrl.dismiss();
-    this.navCtrl.push(HomePage);
-
+    this.appCtrl.getRootNav().push(HomePage);
   }
 
   openTeamstand() {
     this.viewCtrl.dismiss();
-    this.navCtrl.push(TeamstandPage);
-  }
+    this.appCtrl.getRootNav().push(TeamstandPage);
+    }
 
   openWedstrijdenstand() {
     this.viewCtrl.dismiss();
-    this.navCtrl.push(WedstrijdenstandPage);
+    this.appCtrl.getRootNav().push(WedstrijdenstandPage);
   }
 
   openTotaalstand() {
     this.viewCtrl.dismiss();
-    this.navCtrl.push(TotaalstandPage);
+    this.appCtrl.getRootNav().push(TotaalstandPage);
   }
   openVragenstand(){
     this.viewCtrl.dismiss();
-    this.navCtrl.push(VragenstandPage)
+    this.appCtrl.getRootNav().push(VragenstandPage);
   }
 
   openDeelnemers(){
     this.viewCtrl.dismiss();
-    this.navCtrl.push(DeelnemersPage)
+    this.appCtrl.getRootNav().push(DeelnemersPage);
   }
 
   openSpelerstatistieken(){
     this.viewCtrl.dismiss();
-    this.navCtrl.push(SpelerstatistiekenPage)
+    this.appCtrl.getRootNav().push(SpelerstatistiekenPage);
   }
 
   openSpelerscore(){
     this.viewCtrl.dismiss();
-    this.navCtrl.push(SpelersScorePage)
+    this.appCtrl.getRootNav().push(SpelersScorePage);
   }
 }

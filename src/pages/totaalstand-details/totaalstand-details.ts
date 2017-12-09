@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {NavController, NavParams, PopoverController} from 'ionic-angular';
 import {OrderByPipe} from "../../app/orderby";
+import {DropdownmenuPage} from '../dropdownmenu/dropdownmenu';
 
 @Component({
   selector: 'page-totaalstand-details',
@@ -8,7 +9,8 @@ import {OrderByPipe} from "../../app/orderby";
 })
 export class TotaalstandDetailsPage {
   totaalstandregel: any;
-  constructor(public navCtrl: NavController, private navParams: NavParams) {
+  constructor(public navCtrl: NavController, private navParams: NavParams, public popoverCtrl: PopoverController,
+  ) {
     this.totaalstandregel = navParams.get('totaalstandregel');
   }
 
@@ -23,5 +25,8 @@ export class TotaalstandDetailsPage {
   ionViewDidLoad() {
     console.log('Hello TotaalstandDetailsPage Page');
   }
-
+  presentPopover(event) {
+    let popover = this.popoverCtrl.create(DropdownmenuPage);
+    popover.present();
+  }
 }

@@ -5,34 +5,34 @@
     Home
   </button>
 
-  <button ion-item (click)="openTotaalstand()">
+  <button ion-item *ngIf='!isinschrijvingopen' (click)="openTotaalstand()">
     <ion-icon color="secondary" name="trophy" item-left></ion-icon>
     <!--<ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>-->
     Totaalstand
   </button >
 
-  <button ion-item (click)="openTeamstand()">
+  <button ion-item *ngIf='!isinschrijvingopen' (click)="openTeamstand()">
     <ion-icon color="secondary" name="stats" item-left></ion-icon>
     <!--<ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>-->
     Teamstand
   </button>
 
-  <button ion-item (click)="openWedstrijdenstand()">
+  <button ion-item *ngIf='!isinschrijvingopen' (click)="openWedstrijdenstand()">
     <ion-icon color="secondary" name="podium" item-left></ion-icon>
     Wedstrijdenstand
   </button>
 
-  <button ion-item *ngIf='false' (click)="openVragenstand()">
+  <button ion-item *ngIf='!isinschrijvingopen' (click)="openVragenstand()">
     <ion-icon color="secondary" name="stats" item-left></ion-icon>
     <!--<ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>-->
     Vragenstand
   </button>
-  <button ion-item (click)="openSpelerscore()">
+  <button ion-item *ngIf='!isinschrijvingopen' (click)="openSpelerscore()">
     <ion-icon color="secondary" name="shirt" item-left></ion-icon>
     <!--<ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>-->
     Punten per voetballer
   </button>
-  <button ion-item (click)="openSpelerstatistieken()">
+  <button ion-item *ngIf='!isinschrijvingopen' (click)="openSpelerstatistieken()">
     <ion-icon color="secondary" name="pie" item-left></ion-icon>
     <!--<ion-icon color="secondary" item-right name="ios-arrow-forward-outline"></ion-icon>-->
     Gekozen voetballers

@@ -1,15 +1,13 @@
-import {Component} from "@angular/core";
-import {NavController, PopoverController, ViewController, Platform} from "ionic-angular";
-import {Nummereentotaalstand} from "../../models/nummereentotaalstand";
-import {Homepageprovider} from "../../providers/homepageprovider";
-import {LaatsteupdateProvider} from "../../providers/laatsteupdateprovider";
-import {Laatsteupdate} from "../../models/laatsteupdate";
-import {Nummereenteamstandlaatsteronde} from "../../models/Nummereenteamstandlaatsteronde";
-import {Subscription} from "rxjs";
-import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
-import {Headlines} from "../../models/headlines"
-import { SpinnerDialog } from '@ionic-native/spinner-dialog';
-import {SuperelevenNavbarPage} from "../supereleven-navbar/supereleven-navbar";
+import {Component} from '@angular/core';
+import {NavController, Platform, PopoverController, ViewController} from 'ionic-angular';
+import {Nummereentotaalstand} from '../../models/nummereentotaalstand';
+import {Homepageprovider} from '../../providers/homepageprovider';
+import {LaatsteupdateProvider} from '../../providers/laatsteupdateprovider';
+import {Laatsteupdate} from '../../models/laatsteupdate';
+import {Nummereenteamstandlaatsteronde} from '../../models/Nummereenteamstandlaatsteronde';
+import {Subscription} from 'rxjs';
+import {DropdownmenuPage} from '../dropdownmenu/dropdownmenu';
+import {Headlines} from '../../models/headlines'
 
 @Component({
   selector: 'page-home',
@@ -21,40 +19,49 @@ export class HomePage {
   nummereenteamstandlaatsteronde: Nummereenteamstandlaatsteronde;
   nummereentotaalstandSub: Subscription;
   nummereenteamstandlaatsterondeSub: Subscription;
-  headline : Headlines;
+  headline: Headlines;
   LaatsteupdateSub: Subscription;
   headlinesSub: Subscription;
+  isinschrijvingopen = true;
+  isinschrijvingopenSub: Subscription;
+
   isLoading: boolean;
+
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
               private homepageProvider: Homepageprovider,
               private laatsteupdateProvider: LaatsteupdateProvider,
               public popoverCtrl: PopoverController,
               private platform: Platform,
-              ) {
+  ) {
 
   }
 
 
   ionViewWillEnter() {
-    if(!this.nummereentotaalstand) this.isLoading = true;
+    this.isinschrijvingopenSub = this.homepageProvider.isinschrijvingopen().subscribe(response => {
+      if (!response) {
+        this.nummereentotaalstandSub = this.homepageProvider.getnummereentotaalstand().subscribe(response => {
+          // console.log(response);
+          this.nummereentotaalstand = response;
+          this.isLoading = false;
+        });
+
+        this.nummereenteamstandlaatsterondeSub = this.homepageProvider.getnummereenweekstand().subscribe(response => {
+          // console.log(response);
+          this.nummereenteamstandlaatsteronde = response
+        });
+
+        this.LaatsteupdateSub = this.laatsteupdateProvider.load().subscribe(response => {
+          // console.log(response);
+          this.laatsteupdate = response;
+        });
+      } else {
+        this.isLoading = false;
+      }
+    });
+
     this.viewCtrl.showBackButton(false);
-
-    this.nummereentotaalstandSub = this.homepageProvider.getnummereentotaalstand().subscribe(response => {
-      // console.log(response);
-      this.nummereentotaalstand = response;
-      this.isLoading = false;
-    });
-
-    this.nummereenteamstandlaatsterondeSub = this.homepageProvider.getnummereenweekstand().subscribe(response => {
-      // console.log(response);
-      this.nummereenteamstandlaatsteronde = response
-    });
-
-    this.LaatsteupdateSub = this.laatsteupdateProvider.load().subscribe(response => {
-      // console.log(response);
-      this.laatsteupdate = response;
-    });
 
     this.headlinesSub = this.homepageProvider.getheadlines().subscribe(response => {
       // console.log(response);
@@ -68,7 +75,8 @@ export class HomePage {
     this.nummereentotaalstandSub.unsubscribe();
     this.nummereenteamstandlaatsterondeSub.unsubscribe();
     this.LaatsteupdateSub.unsubscribe();
-    this.headlinesSub.unsubscribe()
+    this.headlinesSub.unsubscribe();
+    this.isinschrijvingopenSub.unsubscribe();
   }
 
   ionViewDidLoad() {

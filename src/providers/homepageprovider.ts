@@ -35,5 +35,10 @@ export class Homepageprovider {
     return this.http.get(`${this.superElevenApi}/headlines`)
       .map(res => <Headlines[]>res.json());
   }
+
+  isinschrijvingopen(): Observable<boolean> {
+    return this.http.get(`${this.superElevenApi}/isinschrijvingopen`)
+      .map(res => <boolean>res.json());
+  }
 }
 

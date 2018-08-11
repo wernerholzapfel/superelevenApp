@@ -1,13 +1,15 @@
-import {Component} from "@angular/core";
-import {App, NavController, ViewController} from 'ionic-angular';
-import {HomePage} from "../home/home";
-import {TeamstandPage} from "../teamstand/teamstand";
-import {TotaalstandPage} from "../totaalstand/totaalstand";
-import {WedstrijdenstandPage} from "../wedstrijdenstand/wedstrijdenstand";
-import {VragenstandPage} from "../vragenstand/vragenstand";
-import {DeelnemersPage} from "../deelnemers/deelnemers";
-import {SpelerstatistiekenPage} from "../spelerstatistieken/spelerstatistieken";
-import {SpelersScorePage} from "../spelers-score/spelers-score";
+import {Component} from '@angular/core';
+import {App, ViewController} from 'ionic-angular';
+import {HomePage} from '../home/home';
+import {TeamstandPage} from '../teamstand/teamstand';
+import {TotaalstandPage} from '../totaalstand/totaalstand';
+import {WedstrijdenstandPage} from '../wedstrijdenstand/wedstrijdenstand';
+import {VragenstandPage} from '../vragenstand/vragenstand';
+import {DeelnemersPage} from '../deelnemers/deelnemers';
+import {SpelerstatistiekenPage} from '../spelerstatistieken/spelerstatistieken';
+import {SpelersScorePage} from '../spelers-score/spelers-score';
+import {Homepageprovider} from '../../providers/homepageprovider';
+import {Subscription} from 'rxjs/Subscription';
 
 /*
  Generated class for the Dropdownmenu page.
@@ -21,11 +23,20 @@ import {SpelersScorePage} from "../spelers-score/spelers-score";
 })
 export class DropdownmenuPage {
 
-  constructor( public appCtrl: App,
-              public viewCtrl: ViewController) {
+  isinschrijvingopen = true;
+  isinschrijvingopenSub: Subscription;
+
+  constructor(public appCtrl: App,
+              public viewCtrl: ViewController,
+              public homepageProvider: Homepageprovider) {
   }
 
+  ionViewWillEnter() {
+    this.isinschrijvingopenSub = this.homepageProvider.isinschrijvingopen().subscribe(response =>
+      this.isinschrijvingopen = response);
+  }
   ionViewDidLoad() {
+
     console.log('Hello DropdownmenuPage Page');
   }
 
@@ -37,7 +48,7 @@ export class DropdownmenuPage {
   openTeamstand() {
     this.viewCtrl.dismiss();
     this.appCtrl.getRootNav().push(TeamstandPage);
-    }
+  }
 
   openWedstrijdenstand() {
     this.viewCtrl.dismiss();
@@ -48,23 +59,27 @@ export class DropdownmenuPage {
     this.viewCtrl.dismiss();
     this.appCtrl.getRootNav().push(TotaalstandPage);
   }
-  openVragenstand(){
+
+  openVragenstand() {
     this.viewCtrl.dismiss();
     this.appCtrl.getRootNav().push(VragenstandPage);
   }
 
-  openDeelnemers(){
+  openDeelnemers() {
     this.viewCtrl.dismiss();
     this.appCtrl.getRootNav().push(DeelnemersPage);
   }
 
-  openSpelerstatistieken(){
+  openSpelerstatistieken() {
     this.viewCtrl.dismiss();
     this.appCtrl.getRootNav().push(SpelerstatistiekenPage);
   }
 
-  openSpelerscore(){
+  openSpelerscore() {
     this.viewCtrl.dismiss();
     this.appCtrl.getRootNav().push(SpelersScorePage);
+  }
+  ionViewWillLeave() {
+    this.isinschrijvingopenSub.unsubscribe();
   }
 }

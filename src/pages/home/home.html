@@ -15,6 +15,11 @@
   </div>
 <div *ngIf="!isLoading">
 
+  <ion-card color="secondary" *ngIf="isinschrijvingopen">
+    <ion-card-content>
+      Om in te schrijven ga naar https://www.supereleven.nl
+    </ion-card-content>
+  </ion-card>
   <ion-card color="secondary" *ngIf="laatsteupdate?.updatedAt">
     <ion-card-content ion-text>
       <h2>
@@ -24,7 +29,6 @@
       </h1>
     </ion-card-content>
   </ion-card>
-
 
   <ion-card color="secondary" *ngIf="nummereentotaalstand?.TotalScore">
     <ion-card-content ion-text>

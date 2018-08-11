@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
 import {Deelnemer} from "../../models/deelnemers";
 import {DeelnemerProvider} from "../../providers/deelnemersprovider";
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
@@ -7,6 +7,7 @@ import {Subscription} from "rxjs/Subscription";
 import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
 import {PredictionPage} from "../prediction/prediction";
 import {FormControl} from "@angular/forms";import 'rxjs/add/operator/debounceTime';
+import {Homepageprovider} from '../../providers/homepageprovider';
 
 // @IonicPage()
 @Component({
@@ -20,17 +21,24 @@ export class DeelnemersPage {
   unmutatedDeelnemers: Deelnemer[];
   deelnemers: Deelnemer[];
   deelnemersSub: Subscription;
+  isinschrijvingopenSub: Subscription;
+  isinschrijvingopen: boolean;
   isLoading: boolean;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
               private deelnemerProvider: DeelnemerProvider,
+              private homepageProvider: Homepageprovider,
+              private alertCtrl: AlertController,
               public popoverCtrl: PopoverController
   ) {
     this.searchControl = new FormControl();
   }
 
   ionViewWillEnter() {
+
+    this.isinschrijvingopenSub = this.homepageProvider.isinschrijvingopen().subscribe(response =>
+      this.isinschrijvingopen = response);
     this.unmutatedDeelnemers = [];
     if (!this.unmutatedDeelnemers) this.isLoading = true;
 
@@ -50,7 +58,16 @@ export class DeelnemersPage {
   }
 
   goToDetails(deelnemer: Deelnemer) {
-    this.navCtrl.push(PredictionPage, {participant: deelnemer})
+    if (!this.isinschrijvingopen) {
+      this.navCtrl.push(PredictionPage, {participant: deelnemer})
+    } else {
+      let alert = this.alertCtrl.create({
+        title: 'Deelnemer',
+        subTitle: 'Tijdens de inschrijfperiode kunnen de deelnemers niet bekeken worden',
+        buttons: ['Ok']
+      });
+      alert.present();
+    }
   }
 
 
@@ -60,6 +77,7 @@ export class DeelnemersPage {
 
   ionViewWillLeave() {
     this.deelnemersSub.unsubscribe();
+    this.isinschrijvingopenSub.unsubscribe();
   }
 
   setFilteredItems() {

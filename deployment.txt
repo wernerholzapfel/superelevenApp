@@ -20,3 +20,7 @@ check; general signing team: werner holzapfel
 build phases link with binaries. remove pods if any
 choose generic ios device.
 and create image in product -> archive?"
+
+//molloten
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore supereleven-key.jks molloot.apk molloot

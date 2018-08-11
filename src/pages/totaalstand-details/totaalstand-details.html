@@ -8,13 +8,14 @@
     </ion-buttons>
   </ion-navbar>
   <ion-row>
-  <ion-item text-wrap color="primary">
-    {{totaalstandregel.Name}} staat {{totaalstandregel.Positie}}e met {{totaalstandregel.TotalScore}} punten <br>
-    <h5>Team: {{totaalstandregel.TotalTeamScore}} -
-      Wedstrijden: {{totaalstandregel.TotalMatchesScore}} -
-      Vragen: {{totaalstandregel.TotalQuestionsScore}}
-    </h5>
-  </ion-item>  </ion-row>
+    <ion-item text-wrap color="primary">
+      {{totaalstandregel.Name}} staat {{totaalstandregel.Positie}}e met {{totaalstandregel.TotalScore}} punten <br>
+      <h5>Team: {{totaalstandregel.TotalTeamScore}} -
+        Wedstrijden: {{totaalstandregel.TotalMatchesScore}} -
+        Vragen: {{totaalstandregel.TotalQuestionsScore}}
+      </h5>
+    </ion-item>
+  </ion-row>
 
 </ion-header>
 
@@ -28,7 +29,9 @@
         <ion-col class="punten">Totaal</ion-col>
       </ion-row>
     </ion-item>
-    <button ion-item detail-none text-wrap *ngFor="let line of totaalstandregel.TeamScores | orderBy : ['-RoundId','Id'] | take : 11" (click)="toggleDetails(line)">
+    <button ion-item detail-none text-wrap
+            *ngFor="let line of totaalstandregel.TeamScores | orderBy : ['-RoundId','Id'] | take : 11"
+            (click)="toggleDetails(line)">
       <ion-icon *ngIf="!line.showDetails" color="secondary" item-right name="ios-add-circle-outline"></ion-icon>
       <ion-icon *ngIf="line.showDetails" color="secondary" item-right name="ios-remove-circle-outline"></ion-icon>
       <ion-row>
@@ -90,7 +93,9 @@
         <ion-col class="punten"> {{line.RedCard}}</ion-col>
       </ion-row>
     </button>
-     <button ion-item detail-none text-wrap *ngFor="let line of totaalstandregel.TeamScores | orderBy : ['RoundId','Id'] | take : totaalstandregel.TeamScores.length - 11" (click)="toggleDetails(line)">
+    <button ion-item detail-none text-wrap
+            *ngFor="let line of totaalstandregel.TeamScores | orderBy : ['RoundId','Id'] | take : totaalstandregel.TeamScores.length - 11"
+            (click)="toggleDetails(line)">
       <ion-icon *ngIf="!line.showDetails" color="light" item-right name="ios-add-circle-outline"></ion-icon>
       <ion-icon *ngIf="line.showDetails" color="light" item-right name="ios-remove-circle-outline"></ion-icon>
       <ion-row>
@@ -125,6 +130,11 @@
         <ion-col>De nul</ion-col>
         <ion-col class="punten"> {{line.CleanSheetScore}}</ion-col>
       </ion-row>
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.PenaltyStoppedScore != 0">
+        <ion-col class="club"></ion-col>
+        <ion-col>Penalty gestopt</ion-col>
+        <ion-col class="punten"> {{line.PenaltyStoppedScore}}</ion-col>
+      </ion-row>
       <ion-row ion-text color="light" *ngIf="line.showDetails && line.Assist != 0">
         <ion-col class="club"></ion-col>
         <ion-col>Assist</ion-col>
@@ -135,6 +145,11 @@
         <ion-col>Doelpunten</ion-col>
         <ion-col class="punten"> {{line.Goals}}</ion-col>
       </ion-row>
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.PenaltyMissed != 0">
+        <ion-col class="club"></ion-col>
+        <ion-col>Penalty gemist</ion-col>
+        <ion-col class="punten"> {{line.PenaltyMissed}}</ion-col>
+      </ion-row>
       <ion-row ion-text color="light" *ngIf="line.showDetails && line.OwnGoals != 0">
         <ion-col class="club"></ion-col>
         <ion-col>Eigen goal</ion-col>
@@ -144,6 +159,11 @@
         <ion-col class="club"></ion-col>
         <ion-col>Geel</ion-col>
         <ion-col class="punten"> {{line.YellowCard}}</ion-col>
+      </ion-row>
+      <ion-row ion-text color="light" *ngIf="line.showDetails && line.SecondYellowCard != 0">
+        <ion-col class="club"></ion-col>
+        <ion-col>2x Geel</ion-col>
+        <ion-col class="punten"> {{line.SecondYellowCard}}</ion-col>
       </ion-row>
       <ion-row ion-text color="light" *ngIf="line.showDetails && line.RedCard != 0">
         <ion-col class="club"></ion-col>

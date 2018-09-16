@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
-import { SpinnerDialog } from '@ionic-native/spinner-dialog';
-import {SpelerstatistiekenProvider} from "../../providers/spelerstatistieken/spelerstatistieken";
-import {Subscription} from "rxjs/Subscription";
-import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
-import {DeelnemersPerSpelerPage} from "../deelnemers-per-speler/deelnemers-per-speler";
-import {FormControl} from "@angular/forms";import 'rxjs/add/operator/debounceTime';
+import {NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
+import {SpelerstatistiekenProvider} from '../../providers/spelerstatistieken/spelerstatistieken';
+import {Subscription} from 'rxjs/Subscription';
+import {DropdownmenuPage} from '../dropdownmenu/dropdownmenu';
+import {DeelnemersPerSpelerPage} from '../deelnemers-per-speler/deelnemers-per-speler';
+import {FormControl} from '@angular/forms';
+import {switchMap, debounceTime} from 'rxjs/operators';
 
 /**
  * Generated class for the SpelerstatistiekenPage page.
@@ -24,7 +24,7 @@ export class SpelerstatistiekenPage {
   searchControl: FormControl;
   unmutatedSpelerlijst: any[];
   spelerlijst: any[];
-  spelerlijstSub: Subscription;
+  searchSpelerslijstSub: Subscription;
   isLoading: boolean;
 
   constructor(public navCtrl: NavController,
@@ -32,7 +32,7 @@ export class SpelerstatistiekenPage {
               public viewCtrl: ViewController,
               private spelerstatistiekenProvider: SpelerstatistiekenProvider,
               public popoverCtrl: PopoverController,
-              ) {
+  ) {
     this.searchControl = new FormControl();
   }
 
@@ -54,23 +54,24 @@ export class SpelerstatistiekenPage {
 
     this.viewCtrl.showBackButton(false);
 
-    this.spelerlijstSub = this.spelerstatistiekenProvider.getSpelerslijst().subscribe(
-      response => {
+    this.searchSpelerslijstSub = this.spelerstatistiekenProvider.getSpelerslijst()
+      .pipe(switchMap(response => {
         this.spelerlijst = response;
         this.unmutatedSpelerlijst = response;
         this.setFilteredItems();
-        this.searchControl.valueChanges.debounceTime(500).subscribe(search => {
-          this.setFilteredItems();
+        return this.searchControl.valueChanges.pipe(debounceTime(500))
+      }))
+      .subscribe(search => {
+        this.setFilteredItems();
 
-        });
-        this.isLoading = false;
       });
+    this.isLoading = false;
 
     console.log('ionViewDidLoad DeelnemersPage');
   }
 
   ionViewWillLeave() {
-    this.spelerlijstSub.unsubscribe();
+    this.searchSpelerslijstSub.unsubscribe();
   }
 
   setFilteredItems() {

@@ -1,19 +1,12 @@
 import {Component} from '@angular/core';
 import {NavController, PopoverController, ViewController} from 'ionic-angular';
 import {WedstrijdenstandProvider} from '../../providers/wedstrijdenstandprovider';
-import {SpinnerDialog} from '@ionic-native/spinner-dialog';
 import {Subscription} from 'rxjs';
 import {WedstrijdenstandDetailsPage} from '../wedstrijdenstand-details/wedstrijdenstand-details';
 import {DropdownmenuPage} from '../dropdownmenu/dropdownmenu';
 import {FormControl} from '@angular/forms';
-import 'rxjs/add/operator/debounceTime';
+import {switchMap, debounceTime} from 'rxjs/operators';
 
-/*
- Generated class for the Wedstrijdenstand page.
-
- See http://ionicframework.com/docs/v2/components/#navigation for more info on
- Ionic pages and navigation.
- */
 @Component({
   selector: 'page-wedstrijdenstand',
   templateUrl: 'wedstrijdenstand.html'
@@ -31,7 +24,7 @@ export class WedstrijdenstandPage {
               public viewCtrl: ViewController,
               public popoverCtrl: PopoverController,
               private wedstrijdenstandProvider: WedstrijdenstandProvider,
-              ) {
+  ) {
     this.searchControl = new FormControl();
   }
 
@@ -41,7 +34,7 @@ export class WedstrijdenstandPage {
 
     this.viewCtrl.showBackButton(false);
 
-    this.wedstrijdenstandSub = this.wedstrijdenstandProvider.getWedstrijdenstand().subscribe(response => {
+    this.wedstrijdenstandSub = this.wedstrijdenstandProvider.getWedstrijdenstand().pipe(switchMap(response => {
       this.wedstrijdenstand = response;
       this.unmutatedwedstrijdenstand = response;
       this.unmutatedwedstrijdenstand.forEach(function (element, index, array) {
@@ -59,12 +52,12 @@ export class WedstrijdenstandPage {
         }
       );
       this.setFilteredItems();
-      this.searchControl.valueChanges.debounceTime(500).subscribe(search => {
+      return this.searchControl.valueChanges.pipe(debounceTime(500))
+    }))
+      .subscribe(search => {
         this.setFilteredItems();
       });
-      this.isLoading = false;
-    });
-
+    this.isLoading = false;
   }
 
   ionViewWillLeave() {

@@ -1,7 +1,9 @@
 <ion-header>
   <ion-navbar class="mynavbar superelevennavbar" ion-text color="white">
-    <img [src]="'assets/icon/logo_white.png'">
-    <ion-buttons end>
+      <ion-title>
+        <img class="center" [src]="'assets/icon/logo_white.png'">
+      </ion-title>
+    <ion-buttons right>
       <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
         <ion-icon name="menu"></ion-icon>
       </button>
@@ -15,11 +17,6 @@
   </div>
 <div *ngIf="!isLoading">
 
-  <ion-card color="secondary" *ngIf="isinschrijvingopen">
-    <ion-card-content>
-      Om in te schrijven ga naar https://www.supereleven.nl
-    </ion-card-content>
-  </ion-card>
   <ion-card color="secondary" *ngIf="laatsteupdate?.updatedAt">
     <ion-card-content ion-text>
       <h2>

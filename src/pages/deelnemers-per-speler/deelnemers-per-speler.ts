@@ -14,7 +14,7 @@ export class DeelnemersPerSpelerPage {
   deelnemersPerSpeler: any;
   deelnemersPerSpelerSub: Subscription;
   naamGekozenSpeler: string;
-  isLoading: boolean
+  isLoading: boolean;
   constructor(public navCtrl: NavController, private deelnemersPerSpelerProvider: DeelnemersPerSpelerProvider,
               public navParams: NavParams,
               ) {
@@ -26,7 +26,6 @@ export class DeelnemersPerSpelerPage {
 
 
   ionViewWillEnter() {
-    // this.voorspelling = [];
     if (!this.deelnemersPerSpeler) this.isLoading = true;
 
     this.deelnemersPerSpelerSub = this.deelnemersPerSpelerProvider.getDeelnemerPerSpeler(this.navParams.data.PlayerId).subscribe(

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar class="mynavbar superelevennavbar" ion-text color="white">
-    <img [src]="'assets/icon/logo_white.png'">
+    <ion-title>         <img class="center" [src]="'assets/icon/logo_white.png'">       </ion-title>
     <ion-buttons end>
       <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
         <ion-icon name="menu"></ion-icon>
@@ -36,7 +36,7 @@
       <ion-icon *ngIf="line.showDetails" color="secondary" item-right name="ios-remove-circle-outline"></ion-icon>
       <ion-row>
         <ion-col class="club">
-          <img class="clubicon" [src]="'assets/clubicons/'+ line.Team + '.png'">
+          <img class="clubicon" src="assets/clubicons/{{ line.Team | lowercase }}.png">
         </ion-col>
         <ion-col class="naam">{{line.Name}}
           <span ion-text color="light">({{line.Position}})</span>
@@ -100,7 +100,7 @@
       <ion-icon *ngIf="line.showDetails" color="light" item-right name="ios-remove-circle-outline"></ion-icon>
       <ion-row>
         <ion-col class="club">
-          <img class="clubicon wisselspelersIcon" [src]="'assets/clubicons/'+ line.Team + '.png'">
+          <img class="clubicon wisselspelersIcon" src="assets/clubicons/{{line.Team | lowercase }}.png">
         </ion-col>
         <ion-col class="naam"><span ion-text color="light">{{line.Name}}</span>
           <span ion-text color="light">({{line.Position}})</span>

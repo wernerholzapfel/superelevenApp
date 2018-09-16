@@ -1,8 +1,8 @@
 {
   "name": "SuperEleven",
-  "app_id": "800f2066",
   "integrations": {
     "cordova": {}
   },
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "pro_id": "800f2066"
 }

@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
 import {FormControl} from '@angular/forms';
-import 'rxjs/add/operator/debounceTime';
 import {Subscription} from 'rxjs/Subscription';
 import {SpelersScoreProvider} from '../../providers/spelers-score/spelers-score';
 import {TeamstandProvider} from '../../providers/teamstandprovider';
 import {DropdownmenuPage} from '../dropdownmenu/dropdownmenu';
+import {switchMap, debounceTime} from 'rxjs/operators';
 
 // @IonicPage()
 @Component({
@@ -21,7 +21,6 @@ export class SpelersScorePage {
   spelerlijst: any[];
   spelerlijstSub: Subscription;
 
-  teamstandSub: Subscription;
   speelrondeList: any[];
   activeSpeelronde: number;
   isLoading: boolean;
@@ -43,71 +42,76 @@ export class SpelersScorePage {
 
     this.viewCtrl.showBackButton(false);
 
-    this.teamstandSub = this.teamstandProvider.getLatestRound().subscribe(speelRondes => {
-      this.speelrondeList = speelRondes;
-      if (!this.activeSpeelronde) {
-        this.activeSpeelronde = this.speelrondeList.length;
-      }
-      this.spelerlijstSub = this.spelersScoreProvider.getSpelerslijstPerRound(this.activeSpeelronde).subscribe(
-        response => {
-          this.spelerlijst = response;
-          this.unmutatedSpelerlijst = response;
+    this.spelerlijstSub = this.teamstandProvider.getLatestRound()
+      .pipe(switchMap(speelRondes => {
+        this.speelrondeList = speelRondes;
+        if (!this.activeSpeelronde) {
+          this.activeSpeelronde = this.speelrondeList.length;
+        }
+        return this.spelersScoreProvider.getSpelerslijstPerRound(this.activeSpeelronde)
+      })
+    ).pipe(switchMap(response => {
+        this.spelerlijst = response;
+        this.unmutatedSpelerlijst = response;
+        this.setFilteredItems();
+        return this.searchControl.valueChanges.pipe(debounceTime(500))}))
+      .subscribe(search => {
           this.setFilteredItems();
-          this.searchControl.valueChanges.debounceTime(500).subscribe(search => {
-            this.setFilteredItems();
-
-          });
-          this.isLoading = false;
         });
-    });
+        this.isLoading = false;
   }
 
-  ionViewWillLeave() {
-    this.spelerlijstSub.unsubscribe();
-    this.teamstandSub.unsubscribe();
-  }
+ionViewWillLeave()
+{
+  this.spelerlijstSub.unsubscribe();
+}
 
-  setFilteredItems() {
-    this.spelerlijst = this.filterItems(this.searchTerm);
-    this.isLoading = false;
-  }
+setFilteredItems()
+{
+  this.spelerlijst = this.filterItems(this.searchTerm);
+  this.isLoading = false;
+}
 
-  filterItems(searchTerm) {
-    return this.unmutatedSpelerlijst.filter((item) => {
-      return (item.Name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-        item.Team.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
-    });
-  }
+filterItems(searchTerm)
+{
+  return this.unmutatedSpelerlijst.filter((item) => {
+    return (item.Name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+      item.Team.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+  });
+}
 
-  onSearchInput() {
-    this.isLoading = true;
-  }
+onSearchInput()
+{
+  this.isLoading = true;
+}
 
-  getSpelerslijst(event) {
+getSpelerslijst(event)
+{
   this.isLoading = true;
 
-    if (event === 'Alle') {
-      this.spelersScoreProvider.getSpelerslijst().subscribe(response => {
-        console.log('get gesommeerde spelerslijst');
-        this.unmutatedSpelerlijst = response;
-        this.spelerlijst = response;
-        this.isLoading = false;
-      });
-    }
-    else {
-      this.spelersScoreProvider.getSpelerslijstPerRound(this.activeSpeelronde).subscribe(response => {
-        console.log('get spelerslijst call');
-        this.unmutatedSpelerlijst = response;
-        this.spelerlijst = response;
-        this.isLoading = false;
-      });
-    }
+  if (event === 'Alle') {
+    this.spelersScoreProvider.getSpelerslijst().subscribe(response => {
+      console.log('get gesommeerde spelerslijst');
+      this.unmutatedSpelerlijst = response;
+      this.spelerlijst = response;
+      this.isLoading = false;
+    });
   }
+  else {
+    this.spelersScoreProvider.getSpelerslijstPerRound(this.activeSpeelronde).subscribe(response => {
+      console.log('get spelerslijst call');
+      this.unmutatedSpelerlijst = response;
+      this.spelerlijst = response;
+      this.isLoading = false;
+    });
+  }
+}
 
-  presentPopover(event) {
-    let popover = this.popoverCtrl.create(DropdownmenuPage);
-    popover.present();
-  }
+presentPopover(event)
+{
+  let popover = this.popoverCtrl.create(DropdownmenuPage);
+  popover.present();
+}
 }
 
 

@@ -1,13 +1,13 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
-import {Deelnemer} from "../../models/deelnemers";
-import {DeelnemerProvider} from "../../providers/deelnemersprovider";
-import { SpinnerDialog } from '@ionic-native/spinner-dialog';
-import {Subscription} from "rxjs/Subscription";
-import {DropdownmenuPage} from "../dropdownmenu/dropdownmenu";
-import {PredictionPage} from "../prediction/prediction";
-import {FormControl} from "@angular/forms";import 'rxjs/add/operator/debounceTime';
+import {AlertController, NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
+import {Deelnemer} from '../../models/deelnemers';
+import {DeelnemerProvider} from '../../providers/deelnemersprovider';
+import {Subscription} from 'rxjs/Subscription';
+import {DropdownmenuPage} from '../dropdownmenu/dropdownmenu';
+import {PredictionPage} from '../prediction/prediction';
+import {FormControl} from '@angular/forms';
 import {Homepageprovider} from '../../providers/homepageprovider';
+import {switchMap, debounceTime} from 'rxjs/operators';
 
 // @IonicPage()
 @Component({
@@ -20,10 +20,11 @@ export class DeelnemersPage {
 
   unmutatedDeelnemers: Deelnemer[];
   deelnemers: Deelnemer[];
-  deelnemersSub: Subscription;
+  searchDeelnemerSub: Subscription;
   isinschrijvingopenSub: Subscription;
   isinschrijvingopen: boolean;
   isLoading: boolean;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
@@ -37,24 +38,26 @@ export class DeelnemersPage {
 
   ionViewWillEnter() {
 
-    this.isinschrijvingopenSub = this.homepageProvider.isinschrijvingopen().subscribe(response =>
-      this.isinschrijvingopen = response);
+    this.isinschrijvingopenSub = this.homepageProvider.isinschrijvingopen()
+      .subscribe(response => {
+        this.isinschrijvingopen = response
+      });
+
     this.unmutatedDeelnemers = [];
     if (!this.unmutatedDeelnemers) this.isLoading = true;
 
     this.viewCtrl.showBackButton(false);
 
-    this.deelnemersSub = this.deelnemerProvider.getDeelnemers().subscribe(
-      response => {
+    this.searchDeelnemerSub = this.deelnemerProvider.getDeelnemers().pipe(
+      switchMap(response => {
         this.unmutatedDeelnemers = response;
         this.deelnemers = response;
         this.setFilteredItems();
-        this.searchControl.valueChanges.debounceTime(500).subscribe(search => {
-          this.setFilteredItems();
-        });
-
-        this.isLoading = false;
-      });
+        return this.searchControl.valueChanges.pipe(debounceTime(500))
+      })).subscribe(search => {
+      this.setFilteredItems();
+    });
+    this.isLoading = false;
   }
 
   goToDetails(deelnemer: Deelnemer) {
@@ -76,7 +79,7 @@ export class DeelnemersPage {
   }
 
   ionViewWillLeave() {
-    this.deelnemersSub.unsubscribe();
+    this.searchDeelnemerSub.unsubscribe();
     this.isinschrijvingopenSub.unsubscribe();
   }
 
@@ -94,6 +97,7 @@ export class DeelnemersPage {
   onSearchInput() {
     this.isLoading = true;
   }
+
   presentPopover(event) {
     let popover = this.popoverCtrl.create(DropdownmenuPage);
     popover.present();

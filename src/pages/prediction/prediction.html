@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar class="mynavbar superelevennavbar" ion-text color="white">
-    <img [src]="'assets/icon/logo_white.png'">
+    <ion-title>         <img class="center" [src]="'assets/icon/logo_white.png'">       </ion-title>
     <ion-buttons end>
       <button color="secondary" ion-button icon-only (click)="presentPopover($event)">
         <ion-icon name="menu"></ion-icon>
@@ -29,7 +29,7 @@
       <ion-item text-wrap *ngFor="let line of voorspelling?.Team | orderBy : ['Id']">
         <ion-row>
           <ion-col class="club">
-            <img class="clubicon" [src]="'assets/clubicons/'+ line.Team + '.png'">
+            <img class="clubicon" src="assets/clubicons/{{ line.Team | lowercase }}.png">
           </ion-col>
           <ion-col>{{line.PlayerName}}
             <span ion-text color="light">({{line.Position}})</span>
@@ -51,7 +51,7 @@
           <ion-col class="clubstandlogo">
             {{line.Position}}
           </ion-col>
-          <img class="clubicon" [src]="'assets/clubicons/'+ line.SelectedTeam + '.png'">
+          <img class="clubicon" src="assets/clubicons/{{line.SelectedTeam | lowercase }}.png">
           <ion-col>{{line.SelectedTeam}}
           </ion-col>
         </ion-row>

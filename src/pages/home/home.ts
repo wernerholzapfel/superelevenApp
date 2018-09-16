@@ -5,9 +5,13 @@ import {Homepageprovider} from '../../providers/homepageprovider';
 import {LaatsteupdateProvider} from '../../providers/laatsteupdateprovider';
 import {Laatsteupdate} from '../../models/laatsteupdate';
 import {Nummereenteamstandlaatsteronde} from '../../models/Nummereenteamstandlaatsteronde';
-import {Subscription} from 'rxjs';
 import {DropdownmenuPage} from '../dropdownmenu/dropdownmenu';
 import {Headlines} from '../../models/headlines'
+import {switchMap, take} from 'rxjs/operators'
+import {Observable} from 'rxjs/Rx';
+import {combineLatest} from 'rxjs/Rx/observable/combineLatest'
+import {EmptyObservable} from 'rxjs/observable/EmptyObservable'
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-home',
@@ -17,14 +21,9 @@ export class HomePage {
   nummereentotaalstand: Nummereentotaalstand;
   laatsteupdate: Laatsteupdate;
   nummereenteamstandlaatsteronde: Nummereenteamstandlaatsteronde;
-  nummereentotaalstandSub: Subscription;
-  nummereenteamstandlaatsterondeSub: Subscription;
   headline: Headlines;
-  LaatsteupdateSub: Subscription;
-  headlinesSub: Subscription;
-  isinschrijvingopen = true;
-  isinschrijvingopenSub: Subscription;
-
+  isinschrijvingopen: boolean;
+  initSubscription: Subscription;
   isLoading: boolean;
 
   constructor(public navCtrl: NavController,
@@ -34,49 +33,42 @@ export class HomePage {
               public popoverCtrl: PopoverController,
               private platform: Platform,
   ) {
-
   }
 
-
   ionViewWillEnter() {
-    this.isinschrijvingopenSub = this.homepageProvider.isinschrijvingopen().subscribe(response => {
-      if (!response) {
-        this.nummereentotaalstandSub = this.homepageProvider.getnummereentotaalstand().subscribe(response => {
-          // console.log(response);
-          this.nummereentotaalstand = response;
-          this.isLoading = false;
-        });
-
-        this.nummereenteamstandlaatsterondeSub = this.homepageProvider.getnummereenweekstand().subscribe(response => {
-          // console.log(response);
-          this.nummereenteamstandlaatsteronde = response
-        });
-
-        this.LaatsteupdateSub = this.laatsteupdateProvider.load().subscribe(response => {
-          // console.log(response);
-          this.laatsteupdate = response;
-        });
-      } else {
-        this.isLoading = false;
-      }
-    });
+    this.initSubscription = this.homepageProvider.isinschrijvingopen().pipe(
+      switchMap(isInschrijvingOpen => {
+        this.isinschrijvingopen = isInschrijvingOpen;
+          if (!isInschrijvingOpen) {
+            return Observable.combineLatest(
+              this.homepageProvider.getnummereentotaalstand(),
+              this.homepageProvider.getnummereenweekstand(),
+              this.laatsteupdateProvider.load()
+            )
+          } else {
+            return Observable.combineLatest(
+              EmptyObservable,
+              EmptyObservable,
+              EmptyObservable
+            )
+          }
+        }
+      )).subscribe(
+      ([nummereentotaalstand, nummereenweekstand, laatsteupdate]) => {
+        this.nummereentotaalstand = nummereentotaalstand;
+        this.nummereenteamstandlaatsteronde = nummereenweekstand;
+        this.laatsteupdate = laatsteupdate;
+      });
 
     this.viewCtrl.showBackButton(false);
 
-    this.headlinesSub = this.homepageProvider.getheadlines().subscribe(response => {
-      // console.log(response);
+    this.homepageProvider.getheadlines().pipe(take(1)).subscribe(response => {
       this.headline = response[0]
     });
-
-
   }
 
   ionViewWillLeave() {
-    this.nummereentotaalstandSub.unsubscribe();
-    this.nummereenteamstandlaatsterondeSub.unsubscribe();
-    this.LaatsteupdateSub.unsubscribe();
-    this.headlinesSub.unsubscribe();
-    this.isinschrijvingopenSub.unsubscribe();
+    this.initSubscription.unsubscribe();
   }
 
   ionViewDidLoad() {

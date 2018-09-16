@@ -7,9 +7,8 @@ import {Laatsteupdate} from '../../models/laatsteupdate';
 import {LaatsteupdateProvider} from '../../providers/laatsteupdateprovider';
 import {Subscription} from 'rxjs';
 import {DropdownmenuPage} from '../dropdownmenu/dropdownmenu';
-import {SpinnerDialog} from '@ionic-native/spinner-dialog';
 import {FormControl} from '@angular/forms';
-import 'rxjs/add/operator/debounceTime';
+import {switchMap, take, debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'page-totaalstand',
@@ -32,7 +31,7 @@ export class TotaalstandPage {
               private totaalstandProvider: TotaalstandProvider,
               private laatsteupdateProvider: LaatsteupdateProvider,
               public popoverCtrl: PopoverController,
-              ) {
+  ) {
     this.searchControl = new FormControl();
   }
 
@@ -41,17 +40,18 @@ export class TotaalstandPage {
 
     this.viewCtrl.showBackButton(false);
 
-    this.totaalstandSub = this.totaalstandProvider.load().subscribe(response => {
+    this.totaalstandSub = this.totaalstandProvider.load().pipe(switchMap(response => {
       console.log('totaalstand geladen');
       this.unmutatedTotaalstand = response.deelnemers;
       this.totaalstand = response.deelnemers;
 
       this.setFilteredItems();
-      this.searchControl.valueChanges.debounceTime(500).subscribe(search => {
+      return this.searchControl.valueChanges.pipe(debounceTime(500))
+    }))
+      .subscribe(search => {
         this.setFilteredItems();
       });
-      this.isLoading = false;
-    });
+    this.isLoading = false;
 
     this.laatsteupdateSub = this.laatsteupdateProvider.load().subscribe(response => {
       console.log('laatste update geladen');
@@ -61,10 +61,14 @@ export class TotaalstandPage {
 
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
-    this.totaalstandProvider.load().subscribe(response => {
+    this.totaalstandProvider.load()
+      .pipe(take(1))
+      .subscribe(response => {
       this.unmutatedTotaalstand = response.deelnemers;
     });
-    this.laatsteupdateProvider.load().subscribe(response => {
+    this.laatsteupdateProvider.load()
+      .pipe(take(1))
+      .subscribe(response => {
       console.log(response);
       this.laatsteupdate = response;
     });

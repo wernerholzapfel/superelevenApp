@@ -8,7 +8,7 @@ import {Laatsteupdate} from '../../models/laatsteupdate';
 import {Subscription} from 'rxjs';
 import {DropdownmenuPage} from '../dropdownmenu/dropdownmenu';
 import {FormControl} from '@angular/forms';
-import 'rxjs/add/operator/debounceTime';
+import {switchMap, debounceTime} from 'rxjs/operators';
 
 //search implementation https://www.joshmorony.com/high-performance-list-filtering-in-ionic-2/
 @Component({
@@ -23,8 +23,7 @@ export class TeamstandPage {
   teamstand: Teamstand[];
 
   laatsteupdate: Laatsteupdate;
-  teamstandSub: Subscription;
-  teamstandSub2: Subscription;
+  filterTeamstandSub: Subscription;
   laatstestandSub: Subscription;
   speelrondeList: any[];
   activeSpeelronde: number;
@@ -44,14 +43,17 @@ export class TeamstandPage {
     if (!this.unmutatedTeamstand) this.isLoading = true;
 
     this.viewCtrl.showBackButton(false);
-    this.teamstandSub = this.teamstandProvider.getLatestRound().subscribe(speelRondes => {
-      this.speelrondeList = speelRondes;
-      if (!this.activeSpeelronde) {
-        this.activeSpeelronde = this.speelrondeList.length;
-      }
-      this.teamstandSub2 = this.teamstandProvider.getTeamstand(this.activeSpeelronde).subscribe(response => {
+    this.filterTeamstandSub = this.teamstandProvider.getLatestRound()
+      .pipe(switchMap(speelRondes => {
+        this.speelrondeList = speelRondes;
+        if (!this.activeSpeelronde) {
+          this.activeSpeelronde = this.speelrondeList.length;
+        }
+        return this.teamstandProvider.getTeamstand(this.activeSpeelronde)
+      }))
+      .pipe(switchMap(teamStandResponse => {
         console.log('teamstand geladen');
-        this.unmutatedTeamstand = response;
+        this.unmutatedTeamstand = teamStandResponse;
         this.unmutatedTeamstand.forEach(function (element, index, array) {
           if (index === 0) {
             element.positie = index + 1;
@@ -66,16 +68,16 @@ export class TeamstandPage {
           }
         });
 
-        this.teamstand = response;
+        this.teamstand = teamStandResponse;
 
         this.setFilteredItems();
-        this.searchControl.valueChanges.debounceTime(500).subscribe(search => {
-          this.setFilteredItems();
-        });
-
-        this.isLoading = false;
+        return this.searchControl.valueChanges.pipe(debounceTime(500))
+      }))
+      .subscribe(search => {
+        this.setFilteredItems();
       });
-    });
+
+    this.isLoading = false;
 
     this.laatstestandSub = this.laatsteupdateProvider.load().subscribe(response => {
       console.log('laatste stand geladen');
@@ -84,23 +86,24 @@ export class TeamstandPage {
   }
 
   ionViewWillLeave() {
-    this.teamstandSub.unsubscribe();
-    this.teamstandSub2.unsubscribe();
+    this.filterTeamstandSub.unsubscribe();
     this.laatstestandSub.unsubscribe();
   }
 
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
 
-    this.teamstandProvider.getLatestRound().subscribe(speelRondes => {
-      this.speelrondeList = speelRondes;
-      this.activeSpeelronde = this.speelrondeList.length;
-      console.log('dit is de activespeelronde ' + this.activeSpeelronde);
-      this.teamstandProvider.getTeamstand(this.activeSpeelronde).subscribe(response => {
+    this.filterTeamstandSub = this.teamstandProvider.getLatestRound()
+      .pipe(switchMap(speelRondes => {
+        this.speelrondeList = speelRondes;
+        this.activeSpeelronde = this.speelrondeList.length;
+        console.log('dit is de activespeelronde ' + this.activeSpeelronde);
+        return this.teamstandProvider.getTeamstand(this.activeSpeelronde)
+      }))
+      .subscribe(response => {
         console.log('teamstand gerefreshed');
         this.teamstand = response;
       });
-    });
 
     this.laatsteupdateProvider.load().subscribe(response => {
       console.log('laatste update gerefreshed');
